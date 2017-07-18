@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-title>
+      Project A
+    </ion-title>
+  </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="home">
+        Home
+      </ion-segment-button>
+      <ion-segment-button value="activities">
+        Activities
+      </ion-segment-button>
+      <ion-segment-button value="risks">
+        Risks
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div [ngSwitch]="tab">
+    <ion-list *ngSwitchCase="'home'">
+      
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'activities'">
+      <ion-item>
+        <h2>Activity 1</h2>
+      </ion-item>
+      <ion-item>
+        <h2>Activity 2</h2>
+      </ion-item>
+      <ion-item>
+        <h2>Activity 3</h2>
+      </ion-item>
+      <ion-item>
+        <h2>Activity 4</h2>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'risks'">
+      <ion-item>
+        <h2>Risk A</h2>
+      </ion-item>
+      <ion-item>
+        <h2>Risk B</h2>
+      </ion-item>
+      <ion-item>
+        <h2>Risk C</h2>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
