@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onNewRisk()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Risk
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h2>Risk A</h2>
+        <div class="subtitle">Category</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-justify>
+        <p>Duis aute irure dolor in reprehenderit in. Excepteur sint occaecat cupidatat non proident, 
+          sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-justify>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
+          commodo consequat. Duis aute irure dolor in reprehenderit in.</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <button 
+          ion-button 
+          color="primary" 
+          outline 
+          icon-start 
+          block
+          (click)="onEditRisk()">
+          <ion-icon name='create'></ion-icon>
+          Edit
+        </button>
+      </ion-col>
+      <ion-col>
+        <button 
+          ion-button 
+          color="danger" 
+          outline 
+          icon-start 
+          block
+          (click)="onRemoveRisk()">
+          <ion-icon name='trash'></ion-icon>
+          Remove
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

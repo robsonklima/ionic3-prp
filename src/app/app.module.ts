@@ -9,6 +9,9 @@ import { ProjectPage } from '../pages/project/project';
 import { ProjectsPage } from '../pages/projects/projects';
 import { TabsPage } from '../pages/tabs/tabs';
 import { RiskReviewsPage } from '../pages/risk-reviews/risk-reviews';
+import { ActivitiesPage } from '../pages/activities/activities';
+import { ActivityPage } from '../pages/activity/activity';
+import { RiskPage } from '../pages/risk/risk';
 
 @NgModule({
   declarations: [
@@ -16,6 +19,9 @@ import { RiskReviewsPage } from '../pages/risk-reviews/risk-reviews';
     TabsPage,
     ProjectsPage,
     ProjectPage,
+    ActivitiesPage,
+    ActivityPage,
+    RiskPage,
     RiskReviewsPage
   ],
   imports: [
@@ -28,6 +34,9 @@ import { RiskReviewsPage } from '../pages/risk-reviews/risk-reviews';
     TabsPage,
     ProjectsPage,
     ProjectPage,
+    ActivitiesPage,
+    ActivityPage,
+    RiskPage,
     RiskReviewsPage
   ],
   providers: [

@@ -1,5 +1,10 @@
 <ion-header>
   <ion-navbar no-border-bottom>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onNewProject()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>
       Project A
     </ion-title>
@@ -23,34 +28,97 @@
 <ion-content padding>
   <div [ngSwitch]="tab">
     <ion-list *ngSwitchCase="'home'">
-      
+      <ion-grid>
+        <ion-row>
+          <ion-col text-center>
+            <h2>Project A</h2>
+            <div class="subtitle">Category</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col text-justify>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
+              ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+              laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in. 
+              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
+              anim id est laborum.</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <button 
+              ion-button 
+              color="primary" 
+              outline 
+              icon-start 
+              block
+              (click)="onEditProject()">
+              <ion-icon name='create'></ion-icon>
+              Edit
+            </button>
+          </ion-col>
+          <ion-col>
+            <button 
+              ion-button 
+              color="danger" 
+              outline 
+              icon-start 
+              block
+              (click)="onRemoveProject()">
+              <ion-icon name='trash'></ion-icon>
+              Remove
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-list>
 
     <ion-list *ngSwitchCase="'activities'">
-      <ion-item>
+      <button 
+        ion-item 
+        (click)="onLoadActivity()">
         <h2>Activity 1</h2>
-      </ion-item>
-      <ion-item>
+        <p>I've had a pretty messed up day. If we just...</p>
+      </button>
+      <button 
+        ion-item 
+        (click)="onLoadActivity()">
         <h2>Activity 2</h2>
-      </ion-item>
-      <ion-item>
+        <p>I've had a pretty messed up day. If we just...</p>
+      </button>
+      <button 
+        ion-item 
+        (click)="onLoadActivity()">
         <h2>Activity 3</h2>
-      </ion-item>
-      <ion-item>
+        <p>I've had a pretty messed up day. If we just...</p>
+      </button>
+      <button 
+        ion-item 
+        (click)="onLoadActivity()">
         <h2>Activity 4</h2>
-      </ion-item>
+        <p>I've had a pretty messed up day. If we just...</p>
+      </button>
     </ion-list>
 
     <ion-list *ngSwitchCase="'risks'">
-      <ion-item>
+      <button 
+        ion-item 
+        (click)="onLoadRisk()">
         <h2>Risk A</h2>
-      </ion-item>
-      <ion-item>
+        <p>I've had a pretty messed up day. If we just...</p>
+      </button>
+      <button 
+        ion-item 
+        (click)="onLoadRisk()">
         <h2>Risk B</h2>
-      </ion-item>
-      <ion-item>
+        <p>I've had a pretty messed up day. If we just...</p>
+      </button>
+      <button 
+        ion-item 
+        (click)="onLoadRisk()">
         <h2>Risk C</h2>
-      </ion-item>
+        <p>I've had a pretty messed up day. If we just...</p>
+      </button>
     </ion-list>
   </div>
 </ion-content>

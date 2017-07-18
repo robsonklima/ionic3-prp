@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onNewActivity()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>
+      Activity 1
+    </ion-title>
+  </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="home">
+        Home
+      </ion-segment-button>
+      <ion-segment-button value="risks">
+        Risks
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div [ngSwitch]="tab">
+    <ion-list *ngSwitchCase="'home'">
+      <ion-list *ngSwitchCase="'home'">
+        <ion-grid>
+          <ion-row>
+            <ion-col text-center>
+              <h2>Activity 1</h2>
+              <div class="subtitle">Category</div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col text-justify>
+              <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco 
+                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in. 
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
+                anim id est laborum.</p>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <button 
+                ion-button 
+                color="primary" 
+                outline 
+                icon-start 
+                block
+                (click)="onEditActivity()">
+                <ion-icon name='create'></ion-icon>
+                Edit
+              </button>
+            </ion-col>
+            <ion-col>
+              <button 
+                ion-button 
+                color="danger" 
+                outline 
+                icon-start 
+                block
+                (click)="onRemoveActivity()">
+                <ion-icon name='trash'></ion-icon>
+                Remove
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-list>
+    </ion-list>
+    
+    <ion-list *ngSwitchCase="'risks'">
+      <button 
+        ion-item 
+        (click)="onLoadRisk()">
+        <h2>Risk A</h2>
+        <p>I've had a pretty messed up day. If we just...</p>
+      </button>
+      <button 
+        ion-item 
+        (click)="onLoadRisk()">
+        <h2>Risk B</h2>
+        <p>I've had a pretty messed up day. If we just...</p>
+      </button>
+      <button 
+        ion-item 
+        (click)="onLoadRisk()">
+        <h2>Risk C</h2>
+        <p>I've had a pretty messed up day. If we just...</p>
+      </button>
+    </ion-list>
+  </div>
+</ion-content>
