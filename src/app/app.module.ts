@@ -1,3 +1,4 @@
+import { ProjectService } from './../services/project';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -12,6 +13,7 @@ import { RiskReviewsPage } from '../pages/risk-reviews/risk-reviews';
 import { ActivitiesPage } from '../pages/activities/activities';
 import { ActivityPage } from '../pages/activity/activity';
 import { RiskPage } from '../pages/risk/risk';
+import { HttpModule } from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { RiskPage } from '../pages/risk/risk';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -42,7 +45,8 @@ import { RiskPage } from '../pages/risk/risk';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ProjectService
   ]
 })
 export class AppModule {}

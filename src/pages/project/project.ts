@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 
+import { Project } from './../../models/project';
 import { ActivityPage } from '../activity/activity';
 import { RiskPage } from '../risk/risk';
 
@@ -8,11 +9,13 @@ import { RiskPage } from '../risk/risk';
   selector: 'page-project',
   templateUrl: 'project.html'
 })
-export class ProjectPage {
+export class ProjectPage implements OnInit {
   tab: string = "home";
+  project: Project;
 
   constructor(
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private navParams: NavParams
   ) {}
 
   onLoadActivity() {
@@ -33,5 +36,13 @@ export class ProjectPage {
 
   onNewProject() {
     
+  }
+
+  ngOnInit() {
+    this.loadProject();
+  }
+
+  private loadProject() {
+    this.project = this.navParams.get('project');
   }
 }
