@@ -16,5 +16,4 @@ export class ActivitiesPage {
   onLoadProject() {
     this.navCtrl.push(ActivityPage);
   }
-
 }

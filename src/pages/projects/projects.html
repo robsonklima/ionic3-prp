@@ -3,6 +3,11 @@
     <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onNewProject()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>Projects</ion-title>
   </ion-navbar>
 </ion-header>
@@ -15,6 +20,12 @@
       *ngFor="let project of projects; let i = index">
       <h2>{{ project.projectName }}</h2>
       <p>{{ project.projectScope }}</p>
+      <ion-badge color="light">
+        {{ project.projectAddedDate | date: 'dd/MM' }}
+      </ion-badge>
+      <ion-badge color="light">
+        {{ project.projectAmountActivities }} activities
+      </ion-badge>
     </button>
   </ion-list>
 </ion-content>

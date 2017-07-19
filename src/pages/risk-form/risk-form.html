@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-title>
+      {{ mode }} Risk
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="riskForm" (ngSubmit)="onSubmit()">
+        <ion-list>
+            <ion-item>
+                <ion-label floating>Title</ion-label>
+                <ion-input 
+                type="text"
+                formControlName="riskTitle"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Cause</ion-label>
+                <ion-textarea 
+                formControlName="riskCause"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Effect</ion-label>
+                <ion-textarea 
+                formControlName="riskEffect"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-label>Risk Type</ion-label>
+                <ion-select 
+                formControlName="riskTypeId">
+                <ion-option 
+                    *ngFor="let riskType of riskTypes"
+                    [value]="riskType.riskTypeId">
+                    {{ riskType.riskTypeName }}
+                </ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Risk Category</ion-label>
+                <ion-select 
+                formControlName="riskCategoryId">
+                <ion-option 
+                    *ngFor="let riskCategory of riskCategories"
+                    [value]="riskCategory.riskCategoryId">
+                    {{ riskCategory.riskCategoryName }}
+                </ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-list>
+        <button 
+            ion-button 
+            type="submit" 
+            block
+            [disabled]="!riskForm.valid">{{ mode }} Risk</button>
+    </form>
+</ion-content>

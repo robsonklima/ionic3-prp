@@ -1,12 +1,15 @@
 <ion-header>
   <ion-navbar no-border-bottom>
     <ion-buttons end>
-      <button ion-button icon-only (click)="onNewProject()">
-        <ion-icon name="add"></ion-icon>
+      <button ion-button icon-only (click)="onEditProject(project)">
+        <ion-icon name="create"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="onRemoveProject(project)">
+        <ion-icon name="trash"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>
-      Project
+      {{ project.projectName }}
     </ion-title>
   </ion-navbar>
 
@@ -32,7 +35,6 @@
         <ion-row>
           <ion-col text-center>
             <h2>{{ project.projectName }}</h2>
-            <div class="subtitle">Category</div>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -41,80 +43,39 @@
             <p></p>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col>
-            <button 
-              ion-button 
-              color="primary" 
-              outline 
-              icon-start 
-              block
-              (click)="onEditProject(project)">
-              <ion-icon name='create'></ion-icon>
-              Edit
-            </button>
-          </ion-col>
-          <ion-col>
-            <button 
-              ion-button 
-              color="danger" 
-              outline 
-              icon-start 
-              block
-              (click)="onRemoveProject(project)">
-              <ion-icon name='trash'></ion-icon>
-              Remove
-            </button>
-          </ion-col>
-        </ion-row>
       </ion-grid>
     </ion-list>
 
     <ion-list *ngSwitchCase="'activities'">
+      <ion-item *ngIf="activities.length == 0">
+        <p>No actitivies.</p>
+      </ion-item>
+
       <button 
         ion-item 
-        (click)="onLoadActivity()">
-        <h2>Activity 1</h2>
-        <p>I've had a pretty messed up day. If we just...</p>
-      </button>
-      <button 
-        ion-item 
-        (click)="onLoadActivity()">
-        <h2>Activity 2</h2>
-        <p>I've had a pretty messed up day. If we just...</p>
-      </button>
-      <button 
-        ion-item 
-        (click)="onLoadActivity()">
-        <h2>Activity 3</h2>
-        <p>I've had a pretty messed up day. If we just...</p>
-      </button>
-      <button 
-        ion-item 
-        (click)="onLoadActivity()">
-        <h2>Activity 4</h2>
-        <p>I've had a pretty messed up day. If we just...</p>
+        *ngFor="let activity of activities; let i = index"
+        (click)="onLoadActivity(activity)">
+        <h2>{{ activity.activityTitle }}</h2>
+        <p>{{ activity.activityDetails }}</p>
       </button>
     </ion-list>
 
     <ion-list *ngSwitchCase="'risks'">
+      <ion-item *ngIf="risks.length == 0">
+        <p>No risks.</p>
+      </ion-item>
+
       <button 
         ion-item 
-        (click)="onLoadRisk()">
-        <h2>Risk A</h2>
-        <p>I've had a pretty messed up day. If we just...</p>
-      </button>
-      <button 
-        ion-item 
-        (click)="onLoadRisk()">
-        <h2>Risk B</h2>
-        <p>I've had a pretty messed up day. If we just...</p>
-      </button>
-      <button 
-        ion-item 
-        (click)="onLoadRisk()">
-        <h2>Risk C</h2>
-        <p>I've had a pretty messed up day. If we just...</p>
+        *ngFor="let risk of risks; let i = index"
+        (click)="onLoadRisk(risk)">
+        <h2>{{ risk.riskTitle }}</h2>
+        <ion-badge 
+          [ngClass]="{ 
+            'threat': risk.riskTypeName == 'Threat', 
+            'opportunity': risk.riskTypeName == 'Opportunity' }">{{ risk.riskTypeName }}</ion-badge>
+        <ion-badge 
+          color="light">{{ risk.riskCategoryName }}</ion-badge>
       </button>
     </ion-list>
   </div>

@@ -1,19 +1,26 @@
-import { ProjectService } from './../services/project';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { HttpModule } from "@angular/http";
 
 import { MyApp } from './app.component';
+
 import { ProjectPage } from '../pages/project/project';
 import { ProjectsPage } from '../pages/projects/projects';
+import { ProjectFormPage } from '../pages/project-form/project-form';
 import { TabsPage } from '../pages/tabs/tabs';
 import { RiskReviewsPage } from '../pages/risk-reviews/risk-reviews';
 import { ActivitiesPage } from '../pages/activities/activities';
 import { ActivityPage } from '../pages/activity/activity';
 import { RiskPage } from '../pages/risk/risk';
-import { HttpModule } from "@angular/http";
+import { ActivityService } from '../services/activity';
+import { ProjectService } from './../services/project';
+import { RiskService } from '../services/risk';
+import { RiskFormPage } from '../pages/risk-form/risk-form';
+import { RiskTypeService } from '../services/risk-type';
+import { RiskCategoryService } from '../services/risk-category';
 
 @NgModule({
   declarations: [
@@ -21,9 +28,11 @@ import { HttpModule } from "@angular/http";
     TabsPage,
     ProjectsPage,
     ProjectPage,
+    ProjectFormPage,
     ActivitiesPage,
     ActivityPage,
     RiskPage,
+    RiskFormPage,
     RiskReviewsPage
   ],
   imports: [
@@ -37,16 +46,22 @@ import { HttpModule } from "@angular/http";
     TabsPage,
     ProjectsPage,
     ProjectPage,
+    ProjectFormPage,
     ActivitiesPage,
     ActivityPage,
     RiskPage,
+    RiskFormPage,
     RiskReviewsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProjectService
+    ProjectService,
+    ActivityService,
+    RiskService,
+    RiskTypeService,
+    RiskCategoryService
   ]
 })
 export class AppModule {}

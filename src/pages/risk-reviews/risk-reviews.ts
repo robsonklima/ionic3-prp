@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
 
 @Component({
   selector: 'page-risk-reviews',
@@ -7,9 +6,7 @@ import { NavController } from 'ionic-angular';
 })
 export class RiskReviewsPage {
 
-  constructor(
-    private navCtrl: NavController
-  ) {}
+  constructor() {}
   
   onLoadRiskReview() {
     

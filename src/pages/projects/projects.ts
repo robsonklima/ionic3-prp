@@ -1,9 +1,12 @@
-import { ProjectService } from './../../services/project';
-import { Project } from './../../models/project';
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
+import { Project } from './../../models/project';
+import { Activity } from '../../models/activity';
+import { Risk } from '../../models/risk';
 import { ProjectPage } from '../project/project';
+import { ProjectService } from './../../services/project';
+import { ProjectFormPage } from '../project-form/project-form';
 
 @Component({
   selector: 'page-projects',
@@ -11,11 +14,12 @@ import { ProjectPage } from '../project/project';
 })
 export class ProjectsPage {
   projects: Project[];
+  activities: Activity[];
+  risks: Risk[];
 
   constructor(
     private navCtrl: NavController,
-    private projectService: ProjectService,
-    private loadingCtrl: LoadingController
+    private projectService: ProjectService
   ) {}
   
   onLoadProject(project: Project) {
@@ -27,20 +31,16 @@ export class ProjectsPage {
   };
 
   private loadProjects() {
-    const loading = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
-    loading.present();
-
     this.projectService.getProjects()
       .subscribe(
         projects => { 
           this.projects = projects;
-          loading.dismiss();
         },
         err => {
           console.log(err);
-          loading.dismiss();
         });
+  }
+  onNewProject() {
+    this.navCtrl.push(ProjectFormPage, { mode: 'New' });
   }
 }

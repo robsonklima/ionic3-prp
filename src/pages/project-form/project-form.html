@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-title>
+      {{ mode }} Project
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+        <ion-list>
+            <ion-item>
+                <ion-label floating>Name</ion-label>
+                <ion-input 
+                type="text"
+                formControlName="projectName"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Scope</ion-label>
+                <ion-textarea 
+                formControlName="projectScope"></ion-textarea>
+            </ion-item>
+        </ion-list>
+        <button 
+            ion-button 
+            type="submit" 
+            block
+            [disabled]="!projectForm.valid">{{ mode }} Project</button>
+    </form>
+</ion-content>
