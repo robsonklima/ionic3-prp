@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController, MenuController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, 
+  ToastController, LoadingController } from 'ionic-angular';
 
 import { Project } from './../../models/project';
 import { ProjectFormPage } from '../project-form/project-form';
@@ -18,8 +19,8 @@ import { RiskService } from '../../services/risk';
 export class ProjectPage implements OnInit {
   tab: string = "home";
   project: Project;
-  activities: Activity[];
-  risks: Risk[];
+  activities: Activity[] = [];
+  risks: Risk[] = [];
 
   constructor(
     private navCtrl: NavController,
@@ -28,7 +29,8 @@ export class ProjectPage implements OnInit {
     private navParams: NavParams,
     private activityService: ActivityService,
     private projectService: ProjectService,
-    private riskService: RiskService
+    private riskService: RiskService,
+    private loadingCtrl: LoadingController
   ) {}
 
   onLoadActivity(activity: Activity) {
@@ -70,6 +72,9 @@ export class ProjectPage implements OnInit {
   }
 
   onRemoveProject(project: Project) {
+    const loading = this.loadingCtrl.create({ content: 'Please wait...' });
+    loading.present();
+
     let confirm = this.alertCtrl.create({
       title: 'Please confirm',
       message: 'Are you sure to delete this project?',
@@ -84,10 +89,14 @@ export class ProjectPage implements OnInit {
             this.projectService.removeProject(project)
               .subscribe(
                 res => {
+                  loading.dismiss();
                   this.handleMessage(res.success);
                   this.navCtrl.popToRoot();
                 },
-                err => { this.handleMessage(err.error) }
+                err => { 
+                  loading.dismiss();
+                  this.handleMessage(err.error) 
+                }
               );
           }
         }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, 
+  ToastController, LoadingController } from 'ionic-angular';
 
 import { Risk } from '../../models/risk';
 import { RiskFormPage } from '../risk-form/risk-form';
@@ -17,7 +18,8 @@ export class RiskPage implements OnInit {
     private navParams: NavParams,
     private alertCtrl: AlertController,
     private riskService: RiskService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController
   ) { }
 
   ngOnInit() {
@@ -37,6 +39,9 @@ export class RiskPage implements OnInit {
   }
 
   onRemoveRisk(risk: Risk) {
+    const loading = this.loadingCtrl.create({ content: 'Please wait...' });
+    loading.present();
+
     let confirm = this.alertCtrl.create({
       title: 'Please confirm',
       message: 'Are you sure to delete this risk?',
@@ -54,7 +59,12 @@ export class RiskPage implements OnInit {
                   this.handleMessage(res.success);
                   this.navCtrl.popToRoot();
                 },
-                err => { this.handleMessage(err.error) }
+                err => { 
+                  this.handleMessage(err.error)
+                },
+                () => {
+                  loading.dismiss();
+                }
               );
           }
         }
@@ -69,6 +79,7 @@ export class RiskPage implements OnInit {
       duration: 1500,
       position: 'bottom'
     });
+    
     toast.present();
   }
 }

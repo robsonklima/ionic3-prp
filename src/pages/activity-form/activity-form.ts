@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, NavController, ToastController } from 'ionic-angular';
+import { NavParams, NavController, ToastController, 
+  LoadingController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { Activity } from '../../models/activity';
@@ -26,7 +27,8 @@ export class ActivityFormPage implements OnInit {
     private toastCtrl: ToastController,
     private activityService: ActivityService,
     private projectService: ProjectService,
-    private userService: UserService
+    private userService: UserService,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -42,6 +44,9 @@ export class ActivityFormPage implements OnInit {
   }
 
   onSubmit() {
+    const loading = this.loadingCtrl.create({ content: 'Please wait...' });
+    loading.present();
+
     if (this.mode == 'Edit') {
       this.activity.activityTitle = this.activityForm.value.activityTitle;
       this.activity.activityDetails = this.activityForm.value.activityDetails;
@@ -52,10 +57,12 @@ export class ActivityFormPage implements OnInit {
       this.activityService.updateActivity(this.activity)
         .subscribe(
             res => {
+              loading.dismiss();
               this.handleMessage(res.success);
               this.navCtrl.pop();
             },
             err => {
+              loading.dismiss();
               this.handleMessage(err.error);
               console.log(err);
             }
@@ -66,10 +73,12 @@ export class ActivityFormPage implements OnInit {
       this.activityService.addActivity(this.activity)
         .subscribe(
           res => {
+            loading.dismiss();
             this.handleMessage(res.success);
             this.navCtrl.popToRoot();
           },
           err => {
+            loading.dismiss();
             this.handleMessage(err.error);
             console.log(err);
           }
@@ -93,7 +102,7 @@ export class ActivityFormPage implements OnInit {
     }
 
     this.activityForm = new FormGroup({
-      'activityTitle': new FormControl(activityTitle, Validators.required),
+      'activityTitle': new FormControl(this.activity.activityTitle, Validators.required),
       'activityDetails': new FormControl(activityDetails, Validators.required),
       'activityAmountHours': new FormControl(activityAmountHours, Validators.required),
       'projectId': new FormControl(projectId, Validators.required),
@@ -107,9 +116,7 @@ export class ActivityFormPage implements OnInit {
         projects => { 
           this.projects = projects;
         },
-        err => {
-          console.log(err);
-        });
+        err => {});
   }
 
   private loadUsers() {
@@ -118,9 +125,7 @@ export class ActivityFormPage implements OnInit {
         users => { 
           this.users = users;
         },
-        err => {
-          console.log(err);
-        });
+        err => {});
   }
   
   private handleMessage(message: string) {

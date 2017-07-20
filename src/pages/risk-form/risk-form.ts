@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { ToastController, NavController, NavParams } from 'ionic-angular';
+import { ToastController, NavController, NavParams, LoadingController } from 'ionic-angular';
 
 import { Risk } from "../../models/risk";
 import { RiskType } from '../../models/risk-type';
@@ -26,7 +26,8 @@ export class RiskFormPage implements OnInit {
     private riskService: RiskService,
     private toastCtrl: ToastController,
     private navCtrl: NavController,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -42,6 +43,9 @@ export class RiskFormPage implements OnInit {
   }
 
   onSubmit() {
+    const loading = this.loadingCtrl.create({ content: 'Please wait...' });
+    loading.present();
+
     if (this.mode == 'Edit') {
       this.risk.riskTitle = this.riskForm.value.riskTitle;
       this.risk.riskCause = this.riskForm.value.riskCause;
@@ -52,12 +56,13 @@ export class RiskFormPage implements OnInit {
       this.riskService.updateRisk(this.risk)
         .subscribe(
             res => {
+              loading.dismiss();
               this.handleMessage(res.success);
               this.navCtrl.pop();
             },
             err => {
+              loading.dismiss();
               this.handleMessage(err.error);
-              console.log(err);
             }
           );
     } else {
@@ -66,12 +71,13 @@ export class RiskFormPage implements OnInit {
       this.riskService.addRisk(this.risk)
         .subscribe(
           res => {
+            loading.dismiss();
             this.handleMessage(res.success);
             this.navCtrl.popToRoot();
           },
           err => {
+            loading.dismiss();
             this.handleMessage(err.error);
-            console.log(err);
           }
         );
     }
@@ -129,6 +135,7 @@ export class RiskFormPage implements OnInit {
       duration: 1500,
       position: 'bottom'
     });
+    
     toast.present();
   }
 }

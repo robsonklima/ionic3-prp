@@ -47,13 +47,12 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'activities'">
-      <ion-grid *ngIf="activities.length == 0">
-        <ion-row>
-          <ion-col text-center>
-            <p>No activities found</p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-row *ngIf="activities.length == 0">
+        <ion-col text-center>
+          <p>No activities found</p>
+          <p></p>
+        </ion-col>
+      </ion-row>
 
       <button 
         ion-item 
@@ -65,13 +64,12 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'risks'">
-      <ion-grid *ngIf="risks.length == 0">
-        <ion-row>
-          <ion-col text-center>
-            <p>No risks found</p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-row *ngIf="risks.length == 0">
+        <ion-col text-center>
+          <p>No risks found</p>
+          <p></p>
+        </ion-col>
+      </ion-row>
 
       <button 
         ion-item 

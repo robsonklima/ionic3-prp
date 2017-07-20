@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController, MenuController, LoadingController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController } from 'ionic-angular';
 
 import { AuthService } from './../../services/auth';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
@@ -32,21 +32,19 @@ export class LoginPage implements OnInit {
   }
 
   onSubmit() {
-    const loading = this.loadingCtrl.create({
-      content: 'Please wait...'
-    });
+    const loading = this.loadingCtrl.create({ content: 'Please wait...' });
     loading.present();
 
     this.authService.auth(this.loginForm.value)
       .subscribe(
         user => {
+          loading.dismiss();
           this.authService.storeUserCredentials(user);
           this.navCtrl.setRoot(TabsPage);
-          loading.dismiss();
         },
         err => { 
-          this.handleMessage('Ops', err.error) 
           loading.dismiss();
+          this.handleMessage('Ops', err.error) 
         }
       );
   }

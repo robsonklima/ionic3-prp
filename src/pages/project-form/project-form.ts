@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, NavController, ToastController } from 'ionic-angular';
+import { NavParams, NavController, ToastController, 
+  LoadingController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { Project } from "../../models/project";
@@ -18,7 +19,8 @@ export class ProjectFormPage implements OnInit {
     private navParams: NavParams,
     private navCtrl: NavController,
     private toastCtrl: ToastController,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -32,6 +34,9 @@ export class ProjectFormPage implements OnInit {
   }
 
   onSubmit() {
+    const loading = this.loadingCtrl.create({ content: 'Please wait...' });
+    loading.present();
+
     if (this.mode == 'Edit') {
       this.project.projectName = this.projectForm.value.projectName;
       this.project.projectScope = this.projectForm.value.projectScope;
@@ -39,10 +44,12 @@ export class ProjectFormPage implements OnInit {
       this.projectService.updateProject(this.project)
         .subscribe(
             res => {
+              loading.dismiss();
               this.handleMessage(res.success);
               this.navCtrl.pop();
             },
             err => {
+              loading.dismiss();
               this.handleMessage(err.error);
               console.log(err);
             }
@@ -53,12 +60,13 @@ export class ProjectFormPage implements OnInit {
       this.projectService.addProject(this.project)
         .subscribe(
           res => {
+            loading.dismiss();
             this.handleMessage(res.success);
             this.navCtrl.popToRoot();
           },
           err => {
+            loading.dismiss();
             this.handleMessage(err.error);
-            console.log(err);
           }
         );
     }

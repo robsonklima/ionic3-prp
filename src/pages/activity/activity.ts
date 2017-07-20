@@ -15,7 +15,7 @@ import { ActivityService } from '../../services/activity';
 export class ActivityPage implements OnInit {
   tab: string = "home";
   activity: Activity;
-  risks: Risk[];
+  risks: Risk[] = [];
 
   constructor(
     private navCtrl: NavController,
