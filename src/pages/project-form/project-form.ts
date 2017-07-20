@@ -39,11 +39,11 @@ export class ProjectFormPage implements OnInit {
       this.projectService.updateProject(this.project)
         .subscribe(
             res => {
-              this.handleMessage('Project updated successfully');
-              this.navCtrl.popToRoot();
+              this.handleMessage(res.success);
+              this.navCtrl.pop();
             },
             err => {
-              this.handleMessage('Unable to update project');
+              this.handleMessage(err.error);
               console.log(err);
             }
           );
@@ -53,11 +53,11 @@ export class ProjectFormPage implements OnInit {
       this.projectService.addProject(this.project)
         .subscribe(
           res => {
-            this.handleMessage('Project added successfully');
+            this.handleMessage(res.success);
             this.navCtrl.popToRoot();
           },
           err => {
-            this.handleMessage('Unable to add project');
+            this.handleMessage(err.error);
             console.log(err);
           }
         );

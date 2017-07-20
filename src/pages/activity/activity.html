@@ -49,6 +49,14 @@
     </ion-list>
     
     <ion-list *ngSwitchCase="'risks'">
+      <ion-grid *ngIf="risks.length == 0">
+        <ion-row>
+          <ion-col text-center>
+            <p>No risks found</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
       <button 
         ion-item 
         *ngFor="let risk of risks; let i = index"

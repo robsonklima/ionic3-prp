@@ -8,21 +8,39 @@ import { Activity } from '../models/activity';
 
 @Injectable()
 export class ActivityService {
-    constructor(
-      private http: Http
-    ) {}
+  constructor(
+    private http: Http
+  ) { }
 
-    getActivities() : Observable<Activity[]> {
-      return this.http.get(Settings.API_URL + 'activities')
-        .map((res:Response) => res.json())
-        .catch((error:any) => Observable.throw(
-          error.json().error));
-    }  
+  getActivities(): Observable<Activity[]> {
+    return this.http.get(Settings.API_URL + 'activities')
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(
+        error.json().error));
+  }
 
-    getActivitiesByProject(projectId: number) : Observable<Activity[]> {
-      return this.http.get(Settings.API_URL + 'activities/project/' + projectId)
-        .map((res:Response) => res.json())
-        .catch((error:any) => Observable.throw(
-          error.json().error));
-    } 
+  getActivitiesByProject(projectId: number): Observable<Activity[]> {
+    return this.http.get(Settings.API_URL + 'activities/project/' + projectId)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(
+        error.json().error));
+  }
+
+  addActivity(activity: Activity) {
+    return this.http.post(Settings.API_URL + 'activities', activity)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  updateActivity(activity: Activity) {
+    return this.http.put(Settings.API_URL + 'activities/' + activity.activityId, activity)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  removeActivity(activity: Activity) {
+    return this.http.delete(Settings.API_URL + 'activities/' + activity.activityId)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
 }

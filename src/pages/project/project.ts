@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, MenuController } from 'ionic-angular';
 
 import { Project } from './../../models/project';
 import { ProjectFormPage } from '../project-form/project-form';
@@ -84,10 +84,10 @@ export class ProjectPage implements OnInit {
             this.projectService.removeProject(project)
               .subscribe(
                 res => {
-                  this.handleMessage('Project removed successfully');
+                  this.handleMessage(res.success);
                   this.navCtrl.popToRoot();
                 },
-                err => { this.handleMessage('Unable to remove project') }
+                err => { this.handleMessage(err.error) }
               );
           }
         }

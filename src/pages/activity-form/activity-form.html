@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <ion-title>
+      {{ mode }} Activity
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="activityForm" (ngSubmit)="onSubmit()">
+        <ion-list>
+            <ion-item>
+                <ion-label floating>Title</ion-label>
+                <ion-input 
+                type="text"
+                formControlName="activityTitle"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Details</ion-label>
+                <ion-textarea 
+                formControlName="activityDetails"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Amount Hours</ion-label>
+                <ion-input 
+                type="number"
+                formControlName="activityAmountHours"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Project</ion-label>
+                <ion-select 
+                formControlName="projectId">
+                <ion-option 
+                    *ngFor="let project of projects"
+                    [value]="project.projectId">
+                    {{ project.projectName }}
+                </ion-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label>Owner</ion-label>
+                <ion-select 
+                formControlName="userId">
+                <ion-option 
+                    *ngFor="let user of users"
+                    [value]="user.userId">
+                    {{ user.userName }}
+                </ion-option>
+                </ion-select>
+            </ion-item>
+        </ion-list>
+        <button 
+            ion-button 
+            type="submit" 
+            block
+            [disabled]="!activityForm.valid">{{ mode }} Activity</button>
+    </form>
+</ion-content>

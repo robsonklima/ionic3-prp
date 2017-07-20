@@ -40,6 +40,7 @@ export class ProjectsPage {
           console.log(err);
         });
   }
+      
   onNewProject() {
     this.navCtrl.push(ProjectFormPage, { mode: 'New' });
   }

@@ -1,54 +1,54 @@
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from "rxjs/Observable";
+import 'rxjs/Rx';
+
+import { User } from '../models/user';
+
 import { Settings } from './../settings/settings';
-import {Injectable, Inject} from '@angular/core';
-import {Http, Headers} from '@angular/http';
 
 @Injectable()
 export class AuthService {
     isLoggedin: boolean;
     AuthToken;
-    user;
-    
-    constructor(public http: Http) {
+    user: User;
+
+    constructor(
+        public http: Http
+    ) {
         this.http = http;
         this.isLoggedin = false;
         this.AuthToken = null;
     }
-    
-    storeUserCredentials(token) {
-        window.localStorage.setItem('Authorization', token);
+
+    auth(user: User) {
+        return this.http.post(Settings.API_URL + 'users/login', user)
+            .map((res: Response) => res.json().user)
+            .catch((error: any) => Observable.throw(error.json()));
+    }
+
+    getToken() {
+        return this.AuthToken;
+    }
+
+    getUser() {
+        return this.user;
+    }
+
+    isLogged() {
+        return this.isLoggedin;
+    }
+
+    storeUserCredentials(user: User) {
+        window.localStorage.setItem('Authorization', user.userToken);
         this.isLoggedin = true;
-        this.AuthToken = token;
+        this.AuthToken = user.userToken;
+        this.user = user;
     }
 
     destroyUserCredentials() {
         this.isLoggedin = false;
         this.AuthToken = null;
         window.localStorage.clear();
-    }
-    
-    authenticate(user) {
-        let credentials = "userEmail=" + user.userEmail + "&userPassword=" + user.userPassword;
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        
-        return new Promise(resolve => {
-            this.http.post(Settings.API_URL + 'users/login', credentials, { headers: headers })
-                .subscribe(data => {
-                    if(data.json().user){
-                        this.storeUserCredentials(data.json().user.userToken);
-                        resolve(true);
-                    }
-                    else
-                        resolve(false);
-                });
-        });
-    }
-
-    getToken() {
-        return this.AuthToken;
-    }
-    
-    logout() {
-        this.destroyUserCredentials();
     }
 }

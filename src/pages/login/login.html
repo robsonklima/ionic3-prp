@@ -1,21 +1,23 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Project Risk Prediction
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
- <ion-list>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <ion-list>
       <ion-item>
-          <ion-label floating>Username</ion-label>
-          <ion-input [(ngModel)] = "user.userEmail" type="text"></ion-input>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="text" formControlName="userEmail"></ion-input>
       </ion-item>
       <ion-item>
-          <ion-label floating>Password</ion-label>
-          <ion-input [(ngModel)] = "user.userPassword" type="password"></ion-input>
+        <ion-label floating>Password</ion-label>
+        <ion-input type="password" formControlName="userPassword"></ion-input>
       </ion-item>
-  </ion-list>
-  <button ion-button block (click)="login(user)">Login</button>
+    </ion-list>
+    <button ion-button type="submit" block [disabled]="!loginForm.valid">Login</button>
+  </form>
 </ion-content>

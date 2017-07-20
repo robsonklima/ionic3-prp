@@ -23,6 +23,8 @@ import { RiskService } from '../services/risk';
 import { RiskFormPage } from '../pages/risk-form/risk-form';
 import { RiskTypeService } from '../services/risk-type';
 import { RiskCategoryService } from '../services/risk-category';
+import { ActivityFormPage } from '../pages/activity-form/activity-form';
+import { UserService } from '../services/user';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import { RiskCategoryService } from '../services/risk-category';
     ProjectFormPage,
     ActivitiesPage,
     ActivityPage,
+    ActivityFormPage,
     RiskPage,
     RiskFormPage,
     RiskReviewsPage
@@ -53,6 +56,7 @@ import { RiskCategoryService } from '../services/risk-category';
     ProjectFormPage,
     ActivitiesPage,
     ActivityPage,
+    ActivityFormPage,
     RiskPage,
     RiskFormPage,
     RiskReviewsPage
@@ -66,7 +70,8 @@ import { RiskCategoryService } from '../services/risk-category';
     RiskService,
     RiskTypeService,
     RiskCategoryService,
-    AuthService
+    AuthService,
+    UserService
   ]
 })
 export class AppModule {}

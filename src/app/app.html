@@ -7,16 +7,6 @@
     <ion-content>
         <ion-list >
             <button 
-                ion-item (click)="onLoad(tabsPage)"
-                *ngIf="!isAuthenticated">
-                Menu A
-            </button>
-            <button 
-                ion-item (click)="onLoad(signinPage)"
-                *ngIf="!isAuthenticated">
-                Menu B
-            </button>
-            <button 
                 ion-item (click)="onLogoff(loginPage)"
                 *ngIf="!isAuthenticated">
                 Logoff

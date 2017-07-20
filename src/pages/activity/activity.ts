@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 
 import { Activity } from '../../models/activity';
 import { Risk } from '../../models/risk';
 import { RiskPage } from '../risk/risk';
 import { RiskService } from '../../services/risk';
+import { ActivityFormPage } from "../activity-form/activity-form";
+import { ActivityService } from '../../services/activity';
 
 @Component({
   selector: 'page-activity',
@@ -18,7 +20,10 @@ export class ActivityPage implements OnInit {
   constructor(
     private navCtrl: NavController,
     private navParams: NavParams,
-    private riskService: RiskService
+    private riskService: RiskService,
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController,
+    private activityService: ActivityService
   ) {}
 
   ngOnInit() {
@@ -46,14 +51,46 @@ export class ActivityPage implements OnInit {
   }
 
   onNewActivity() {
-    
+    this.navCtrl.push(ActivityFormPage, { mode: 'New' });
   }
 
-  onEditActivity() {
-
+  onEditActivity(activity: Activity) {
+    this.navCtrl.push(ActivityFormPage, { mode: 'Edit', activity: activity });
   }
 
-  onRemoveActivity() {
-    
+  onRemoveActivity(activity: Activity) {
+    let confirm = this.alertCtrl.create({
+      title: 'Please confirm',
+      message: 'Are you sure to delete this activity?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {}
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            this.activityService.removeActivity(activity)
+              .subscribe(
+                res => {
+                  this.handleMessage(res.success);
+                  this.navCtrl.popToRoot();
+                },
+                err => { this.handleMessage(err.error) }
+              );
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  private handleMessage(message: string) {
+    const toast = this.toastCtrl.create({
+      message: message,
+      duration: 1500,
+      position: 'bottom'
+    });
+    toast.present();
   }
 }
