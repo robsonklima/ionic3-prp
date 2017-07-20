@@ -1,3 +1,5 @@
+import { AuthService } from './../services/auth';
+import { LoginPage } from './../pages/login/login';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -25,6 +27,7 @@ import { RiskCategoryService } from '../services/risk-category';
 @NgModule({
   declarations: [
     MyApp,
+    LoginPage,
     TabsPage,
     ProjectsPage,
     ProjectPage,
@@ -43,6 +46,7 @@ import { RiskCategoryService } from '../services/risk-category';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    LoginPage,
     TabsPage,
     ProjectsPage,
     ProjectPage,
@@ -61,7 +65,8 @@ import { RiskCategoryService } from '../services/risk-category';
     ActivityService,
     RiskService,
     RiskTypeService,
-    RiskCategoryService
+    RiskCategoryService,
+    AuthService
   ]
 })
 export class AppModule {}

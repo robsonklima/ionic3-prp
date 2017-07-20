@@ -16,8 +16,13 @@
                 *ngIf="!isAuthenticated">
                 Menu B
             </button>
+            <button 
+                ion-item (click)="onLogoff(loginPage)"
+                *ngIf="!isAuthenticated">
+                Logoff
+            </button>
         </ion-list>
     </ion-content>
 </ion-menu>
 
-<ion-nav [root]="tabsPage" #nav></ion-nav>
+<ion-nav [root]="loginPage" #nav></ion-nav>
