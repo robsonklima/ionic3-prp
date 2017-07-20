@@ -72,20 +72,20 @@ export class ProjectPage implements OnInit {
   }
 
   onRemoveProject(project: Project) {
-    const loading = this.loadingCtrl.create({ content: 'Please wait...' });
-    loading.present();
-
     let confirm = this.alertCtrl.create({
       title: 'Please confirm',
       message: 'Are you sure to delete this project?',
       buttons: [
         {
           text: 'Disagree',
-          handler: () => {}
+          handler: () => { }
         },
         {
           text: 'Agree',
           handler: () => {
+            const loading = this.loadingCtrl.create({ content: 'Please wait...' });
+            loading.present();
+
             this.projectService.removeProject(project)
               .subscribe(
                 res => {

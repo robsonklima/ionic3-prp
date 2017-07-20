@@ -39,9 +39,6 @@ export class RiskPage implements OnInit {
   }
 
   onRemoveRisk(risk: Risk) {
-    const loading = this.loadingCtrl.create({ content: 'Please wait...' });
-    loading.present();
-
     let confirm = this.alertCtrl.create({
       title: 'Please confirm',
       message: 'Are you sure to delete this risk?',
@@ -53,6 +50,9 @@ export class RiskPage implements OnInit {
         {
           text: 'Agree',
           handler: () => {
+            const loading = this.loadingCtrl.create({ content: 'Please wait...' });
+            loading.present();
+
             this.riskService.removeRisk(risk)
               .subscribe(
                 res => {

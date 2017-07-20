@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, 
+  ToastController, LoadingController } from 'ionic-angular';
 
 import { Activity } from '../../models/activity';
 import { Risk } from '../../models/risk';
@@ -23,7 +24,8 @@ export class ActivityPage implements OnInit {
     private riskService: RiskService,
     private alertCtrl: AlertController,
     private toastCtrl: ToastController,
-    private activityService: ActivityService
+    private activityService: ActivityService,
+    private loadingCtrl: LoadingController
   ) {}
 
   ngOnInit() {
@@ -70,13 +72,20 @@ export class ActivityPage implements OnInit {
         {
           text: 'Agree',
           handler: () => {
+            const loading = this.loadingCtrl.create({ content: 'Please wait...' });
+            loading.present();
+
             this.activityService.removeActivity(activity)
               .subscribe(
                 res => {
+                  loading.dismiss();
                   this.handleMessage(res.success);
                   this.navCtrl.popToRoot();
                 },
-                err => { this.handleMessage(err.error) }
+                err => { 
+                  loading.dismiss();
+                  this.handleMessage(err.error);
+                }
               );
           }
         }

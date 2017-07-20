@@ -102,7 +102,7 @@ export class ActivityFormPage implements OnInit {
     }
 
     this.activityForm = new FormGroup({
-      'activityTitle': new FormControl(this.activity.activityTitle, Validators.required),
+      'activityTitle': new FormControl(activityTitle, Validators.required),
       'activityDetails': new FormControl(activityDetails, Validators.required),
       'activityAmountHours': new FormControl(activityAmountHours, Validators.required),
       'projectId': new FormControl(projectId, Validators.required),
