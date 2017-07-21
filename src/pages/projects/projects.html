@@ -17,7 +17,8 @@
     Projects
   </ion-list-header>
   <ion-list>
-    <button ion-item (click)="onLoadProject(project)" *ngFor="let project of projects; let i = index">
+    <button ion-item (click)="onLoadProject(project)" 
+      *ngFor="let project of projects; let i = index">
       <h2>{{ project.projectName }}</h2>
       <p>{{ project.projectScope }}</p>
       <ion-badge color="light">

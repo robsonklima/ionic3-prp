@@ -15,25 +15,85 @@
       {{ risk.riskTitle }}
     </ion-title>
   </ion-navbar>
+
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="tab">
+      <ion-segment-button value="info">
+        Info
+      </ion-segment-button>
+      <ion-segment-button value="actions">
+        Actions
+      </ion-segment-button>
+      <ion-segment-button value="planning">
+        Historic
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-grid>
-    <ion-row>
-      <ion-col text-center>
-        <h2>{{ risk.riskTitle }}</h2>
-        <div class="subtitle">{{ risk.riskCategoryName }}</div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col text-justify>
-        <p>{{ risk.riskCause }}</p>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col text-justify>
-        <p>{{ risk.riskEffect }}</p>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <div [ngSwitch]="tab">
+    <ion-list *ngSwitchCase="'info'">
+      <ion-grid>
+        <ion-row>
+          <ion-col text-center>
+            <h2>{{ risk.riskTitle }}</h2>
+            <div class="subtitle">
+              on {{ project?.projectName || activity?.activityTitle }}
+            </div>
+            <ion-badge text-center [ngClass]="{ 
+                'ion-badge-threat': risk.riskTypeName == 'Threat', 
+                'ion-badge-opportunity': risk.riskTypeName == 'Opportunity' }">
+              {{ risk.riskTypeName }}
+            </ion-badge>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col text-justify>
+            <p>{{ risk.riskCause }}</p>
+            <p>{{ risk.riskEffect }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'actions'">
+      <ion-list-header>
+        Actions
+      </ion-list-header>
+
+      <ion-item>
+        <p>{{ risk.riskTitle }} on {{ project?.projectName || activity?.activityTitle }}<p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Active this risk</ion-label>
+        <ion-toggle 
+          [(ngModel)]="tRiskIdentification"
+          (ionChange)="onRiskIdentification()"
+          color="energized"></ion-toggle>
+      </ion-item>
+
+      <ion-item [(hidden)]="!tRiskIdentification">
+        <ion-input placeholder="Type here your response planning"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Marks as problem</ion-label>
+        <ion-toggle [(ngModel)]="probl" checked="false" color="danger"></ion-toggle>
+      </ion-item>
+
+      <ion-item [(hidden)]="!probl">
+        <ion-input placeholder="Type a historical note"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'planning'">
+      <ion-list-header>
+        Response planning
+      </ion-list-header>
+
+      
+    </ion-list>
+  </div>
 </ion-content>

@@ -63,7 +63,7 @@
 
       <button 
         ion-item 
-        *ngFor="let activity of activities; let i = index"
+        *ngFor="let activity of activities; let i = index" 
         (click)="onLoadActivity(activity)">
         <h2>{{ activity.activityTitle }}</h2>
         <p>{{ activity.activityDetails }}</p>
@@ -85,14 +85,20 @@
       <button 
         ion-item 
         *ngFor="let risk of risks; let i = index"
-        (click)="onLoadRisk(risk)">
+        (click)="onLoadRisk(risk, project)">
+        <ion-icon 
+          color="primary" 
+          name="{{ risk.riskIdentificationId ? 'checkmark-circle' : '' }}" 
+          item-end></ion-icon>
+        <!-- <ion-icon 
+          color="danger" 
+          name="close"
+          item-end></ion-icon> -->
         <h2>{{ risk.riskTitle }}</h2>
-        <ion-badge 
-          [ngClass]="{ 
-            'ion-badge-threat': risk.riskTypeName == 'Threat', 
-            'ion-badge-opportunity': risk.riskTypeName == 'Opportunity' }">{{ risk.riskTypeName }}</ion-badge>
-        <ion-badge 
-          color="light">{{ risk.riskCategoryName }}</ion-badge>
+        <ion-note [ngClass]="{ 'ion-note-threat': risk.riskTypeName == 'Threat', 
+          'ion-note-opportunity': risk.riskTypeName == 'Opportunity' }">
+          {{ risk.riskTypeName }}
+        </ion-note>
       </button>
     </ion-list>
   </div>

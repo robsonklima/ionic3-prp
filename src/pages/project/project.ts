@@ -37,8 +37,8 @@ export class ProjectPage implements OnInit {
     this.navCtrl.push(ActivityPage, { activity: activity });
   }
 
-  onLoadRisk(risk: Risk) {
-    this.navCtrl.push(RiskPage, { risk: risk });
+  onLoadRisk(risk: Risk, project: Project) {
+    this.navCtrl.push(RiskPage, { risk: risk, project: project });
   }
 
   ngOnInit() {
@@ -60,7 +60,7 @@ export class ProjectPage implements OnInit {
   }
 
   private loadRisks() {
-    this.riskService.getRisks()
+    this.riskService.getRisksByProject(this.project)
       .subscribe(
         risks => { this.risks = risks },
         err => { console.log(err) }

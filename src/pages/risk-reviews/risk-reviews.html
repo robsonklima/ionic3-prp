@@ -3,11 +3,18 @@
     <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Risks to Review</ion-title>
+    <ion-title>Reviews ({{ riskReviews.length }}) </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="cards-bg social-cards">
+  <ion-row *ngIf="riskReviews.length == 0">
+    <ion-col text-center>
+      <p>No risk reviews found</p>
+      <p></p>
+    </ion-col>
+  </ion-row>
+
   <ion-card *ngFor="let rReview of riskReviews; let i = index">
     <ion-item>
       <h2> {{ i + 1 }}.  {{ rReview.riskTitle }}</h2>
@@ -21,7 +28,7 @@
     <ion-row>
       <ion-col align-self-center text-center>
         <ion-note>
-          12 Reviews
+          Identified in {{ rReview.riskIdentificationAddedDate | date: 'dd/MM' }}
         </ion-note>
       </ion-col>
       <ion-col align-self-center text-center>

@@ -37,12 +37,12 @@ export class ActivityPage implements OnInit {
     this.activity = this.navParams.get('activity');
   }
 
-  onLoadRisk(risk: Risk) {
-    this.navCtrl.push(RiskPage, { risk: risk });
+  onLoadRisk(risk: Risk, activity: Activity) {
+    this.navCtrl.push(RiskPage, { risk: risk, activity: activity });
   }
 
   private loadRisks() {
-    this.riskService.getRisks()
+    this.riskService.getRisksByActivity(this.activity)
       .subscribe(
         risks => { 
           this.risks = risks;

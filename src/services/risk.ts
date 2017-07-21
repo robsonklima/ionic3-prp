@@ -5,6 +5,8 @@ import 'rxjs/Rx';
 import { Settings } from './../settings/settings';
 import { Observable } from "rxjs/Observable";
 import { Risk } from '../models/risk';
+import { Project } from "../models/project";
+import { Activity } from '../models/activity';
 
 @Injectable()
 export class RiskService {
@@ -14,6 +16,18 @@ export class RiskService {
 
   getRisks(): Observable<Risk[]> {
     return this.http.get(Settings.API_URL + 'risks')
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getRisksByProject(project: Project): Observable<Risk[]> {
+    return this.http.get(Settings.API_URL + 'risks/project/' + project.projectId)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getRisksByActivity(activity: Activity): Observable<Risk[]> {
+    return this.http.get(Settings.API_URL + 'risks/activity/' + activity.activityId)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json()));
   }

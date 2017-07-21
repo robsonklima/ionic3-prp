@@ -18,10 +18,11 @@
 .subtitle {
     text-transform: uppercase;
     color: #CCC;
+    margin-bottom: 12px;
 }
 
 .ion-badge-threat {
-    background-color: #f53d3d
+    background-color: #f53d3d;
 }
 
 .ion-badge-opportunity {
@@ -29,9 +30,11 @@
 }
 
 .ion-note-threat {
-    color: #f53d3d
+    color: #f53d3d;
+    font-size: 16px;
 }
 
 .ion-note-opportunity {
     color: #32db64;
+    font-size: 16px;
 }

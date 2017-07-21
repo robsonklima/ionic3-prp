@@ -15,5 +15,5 @@ export class RiskReviewService {
       return this.http.get(Settings.API_URL + 'risk-reviews/' + user.userId)
         .map((res:Response) => res.json())
         .catch((error:any) => Observable.throw(error.json().error));
-    }   
+    }
 }
