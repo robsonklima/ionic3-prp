@@ -26,6 +26,7 @@ import { RiskTypeService } from '../services/risk-type';
 import { RiskCategoryService } from '../services/risk-category';
 import { ActivityFormPage } from '../pages/activity-form/activity-form';
 import { UserService } from '../services/user';
+import { RiskReviewService } from '../services/risk-review';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { UserService } from '../services/user';
     RiskTypeService,
     RiskCategoryService,
     AuthService,
-    UserService
+    UserService,
+    RiskReviewService
   ]
 })
 export class AppModule {}

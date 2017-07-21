@@ -14,7 +14,7 @@ import { ActivityService } from '../../services/activity';
   templateUrl: 'activity.html'
 })
 export class ActivityPage implements OnInit {
-  tab: string = "home";
+  tab: string = "info";
   activity: Activity;
   risks: Risk[] = [];
 

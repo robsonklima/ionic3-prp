@@ -8,15 +8,14 @@
 </ion-header>
 
 <ion-content class="cards-bg social-cards">
-  <ion-card>
+  <ion-card *ngFor="let rReview of riskReviews; let i = index">
     <ion-item>
-      <h2>Marty McFly</h2>
-      <p>November 5, 1955</p>
+      <h2> {{ i + 1 }}.  {{ rReview.riskTitle }}</h2>
+      <p>on {{ rReview.projectName || rReview.activityTitle }}</p>
     </ion-item>
 
     <ion-card-content>
-      <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?!
-        Whoa. This is heavy.</p>
+      <p>{{ rReview.riskCause }}</p>
     </ion-card-content>
 
     <ion-row>
@@ -26,16 +25,15 @@
         </ion-note>
       </ion-col>
       <ion-col align-self-center text-center>
-        <ion-note>
-          11h ago
+        <ion-note [ngClass]="{ 'ion-note-threat': rReview.riskTypeName == 'Threat', 
+          'ion-note-opportunity': rReview.riskTypeName == 'Opportunity' }">
+          {{ rReview.riskTypeName }}
         </ion-note>
       </ion-col>
       <ion-col>
         <button ion-button color="primary" clear small icon-start
           (click)="onRiskReview()">
-          <ion-icon name='checkbox'></ion-icon>
-          Review Now
-        </button>
+          <ion-icon name="checkmark-circle-outline"></ion-icon> Review Now</button>
       </ion-col>
     </ion-row>
   </ion-card>

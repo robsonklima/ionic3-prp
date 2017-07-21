@@ -17,7 +17,7 @@ import { RiskService } from '../../services/risk';
   templateUrl: 'project.html'
 })
 export class ProjectPage implements OnInit {
-  tab: string = "home";
+  tab: string = "info";
   project: Project;
   activities: Activity[] = [];
   risks: Risk[] = [];

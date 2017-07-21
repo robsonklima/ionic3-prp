@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { Observable } from "rxjs/Observable";
 import 'rxjs/Rx';
 
 import { Settings } from './../settings/settings';
-import { Observable } from "rxjs/Observable";
-import { RiskType } from '../models/risk-type';
+import { RiskReview } from '../models/risk-review';
+import { User } from '../models/user';
 
 @Injectable()
-export class RiskTypeService {
+export class RiskReviewService {
     constructor(private http: Http) {}
 
-    getRiskTypes() : Observable<RiskType[]> {
-      return this.http.get(Settings.API_URL + 'risk-types')
+    getRiskReviews(user: User) : Observable<RiskReview[]> {
+      return this.http.get(Settings.API_URL + 'risk-reviews/' + user.userId)
         .map((res:Response) => res.json())
         .catch((error:any) => Observable.throw(error.json().error));
     }   

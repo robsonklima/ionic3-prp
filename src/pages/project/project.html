@@ -15,8 +15,8 @@
 
   <ion-toolbar no-border-top>
     <ion-segment [(ngModel)]="tab">
-      <ion-segment-button value="home">
-        Home
+      <ion-segment-button value="info">
+        Info
       </ion-segment-button>
       <ion-segment-button value="activities">
         Activities
@@ -30,7 +30,7 @@
 
 <ion-content padding>
   <div [ngSwitch]="tab">
-    <ion-list *ngSwitchCase="'home'">
+    <ion-list *ngSwitchCase="'info'">
       <ion-list-header>
         Project Info
       </ion-list-header>
@@ -89,8 +89,8 @@
         <h2>{{ risk.riskTitle }}</h2>
         <ion-badge 
           [ngClass]="{ 
-            'threat': risk.riskTypeName == 'Threat', 
-            'opportunity': risk.riskTypeName == 'Opportunity' }">{{ risk.riskTypeName }}</ion-badge>
+            'ion-badge-threat': risk.riskTypeName == 'Threat', 
+            'ion-badge-opportunity': risk.riskTypeName == 'Opportunity' }">{{ risk.riskTypeName }}</ion-badge>
         <ion-badge 
           color="light">{{ risk.riskCategoryName }}</ion-badge>
       </button>

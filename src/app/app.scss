@@ -20,10 +20,18 @@
     color: #CCC;
 }
 
-.threat {
+.ion-badge-threat {
     background-color: #f53d3d
 }
 
-.opportunity {
+.ion-badge-opportunity {
     background-color: #32db64;
+}
+
+.ion-note-threat {
+    color: #f53d3d
+}
+
+.ion-note-opportunity {
+    color: #32db64;
 }
