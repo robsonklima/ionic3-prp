@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-navbar no-border-bottom>
+        <ion-title>Risk Review</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <!-- <form (ngSubmit)="onSubmit()"> -->
+        <ion-list>
+            <ion-list-header>
+                Risk Review
+            </ion-list-header>
+            <ion-item>
+                <ion-range min="10" step="10" max="90" snaps="true" [(ngModel)]="cost" color="primary">
+                    <ion-label range-left class="small-text">Cost</ion-label>
+                </ion-range>
+            </ion-item>
+            <ion-item>
+                <ion-range min="10" step="10" max="90" snaps="true" [(ngModel)]="schedule" color="secondary">
+                    <ion-label range-left class="small-text">Schedule</ion-label>
+                </ion-range>
+            </ion-item>
+            <ion-item>
+                <ion-range min="10" step="10" max="90" snaps="true" [(ngModel)]="scope" color="royal">
+                    <ion-label range-left class="small-text">Scope</ion-label>
+                </ion-range>
+            </ion-item>
+            <ion-item>
+                <ion-range min="10" step="10" max="90" snaps="true" [(ngModel)]="quality" color="energized">
+                    <ion-label range-left class="small-text">Quality</ion-label>
+                </ion-range>
+            </ion-item>
+            <ion-item>
+                <ion-range min="10" step="10" max="90" snaps="true" [(ngModel)]="probability" color="f53d3d">
+                    <ion-label range-left class="small-text">Probability</ion-label>
+                </ion-range>
+            </ion-item>
+        </ion-list>
+        <button ion-button type="submit" block>Save Review</button>
+    <!-- </form> -->
+</ion-content>

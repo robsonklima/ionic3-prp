@@ -21,6 +21,7 @@ import { ActivityService } from '../services/activity';
 import { ProjectService } from './../services/project';
 import { RiskService } from '../services/risk';
 import { RiskFormPage } from '../pages/risk-form/risk-form';
+import { RiskReviewFormPage } from './../pages/risk-review-form/risk-review-form';
 import { RiskTypeService } from '../services/risk-type';
 import { RiskCategoryService } from '../services/risk-category';
 import { ActivityFormPage } from '../pages/activity-form/activity-form';
@@ -39,7 +40,8 @@ import { UserService } from '../services/user';
     ActivityFormPage,
     RiskPage,
     RiskFormPage,
-    RiskReviewsPage
+    RiskReviewsPage,
+    RiskReviewFormPage
   ],
   imports: [
     BrowserModule,
@@ -59,7 +61,8 @@ import { UserService } from '../services/user';
     ActivityFormPage,
     RiskPage,
     RiskFormPage,
-    RiskReviewsPage
+    RiskReviewsPage,
+    RiskReviewFormPage
   ],
   providers: [
     StatusBar,

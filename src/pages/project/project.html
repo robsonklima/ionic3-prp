@@ -31,10 +31,13 @@
 <ion-content padding>
   <div [ngSwitch]="tab">
     <ion-list *ngSwitchCase="'home'">
+      <ion-list-header>
+        Project Info
+      </ion-list-header>
       <ion-grid>
         <ion-row>
           <ion-col text-center>
-            <h2>{{ project.projectName }}</h2>
+            <h2 class="page-title">{{ project.projectName }}</h2>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -47,6 +50,10 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'activities'">
+      <ion-list-header>
+        Activities
+      </ion-list-header>
+
       <ion-row *ngIf="activities.length == 0">
         <ion-col text-center>
           <p>No activities found</p>
@@ -64,6 +71,10 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'risks'">
+      <ion-list-header>
+        Risks
+      </ion-list-header>
+
       <ion-row *ngIf="risks.length == 0">
         <ion-col text-center>
           <p>No risks found</p>

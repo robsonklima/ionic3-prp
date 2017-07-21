@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar no-border-bottom>
     <ion-title>
-      {{ mode }} Project
+      Project
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,6 +9,9 @@
 <ion-content padding>
     <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
         <ion-list>
+            <ion-list-header>
+                {{ mode }} Project
+            </ion-list-header>
             <ion-item>
                 <ion-label floating>Name</ion-label>
                 <ion-input 

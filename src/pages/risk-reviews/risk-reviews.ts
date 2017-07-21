@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { RiskReviewFormPage } from './../risk-review-form/risk-review-form';
 
 @Component({
   selector: 'page-risk-reviews',
@@ -6,9 +8,11 @@ import { Component } from '@angular/core';
 })
 export class RiskReviewsPage {
 
-  constructor() {}
-  
-  onLoadRiskReview() {
-    
+  constructor(
+    private navCtrl: NavController
+  ) {}
+
+  onRiskReview() {
+    this.navCtrl.push(RiskReviewFormPage);
   }
 }

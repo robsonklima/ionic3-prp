@@ -9,6 +9,9 @@
 <ion-content padding>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <ion-list>
+      <ion-list-header>
+        Login
+      </ion-list-header>
       <ion-item>
         <ion-label floating>Email</ion-label>
         <ion-input type="text" formControlName="userEmail"></ion-input>

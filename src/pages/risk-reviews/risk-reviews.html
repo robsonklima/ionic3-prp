@@ -3,25 +3,40 @@
     <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Risk Reviews</ion-title>
+    <ion-title>Risks to Review</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
-    <button 
-      ion-item 
-      (click)="onLoadRiskReview()">
-      <h2>Risk A</h2>
-      <h3>Don't Know What To Do!</h3>
-      <p>I've had a pretty messed up day. If we just...</p>
-    </button>
-    <button 
-      ion-item 
-      (click)="onLoadRiskReview()">
-      <h2>Risk B</h2>
-      <h3>Don't Know What To Do!</h3>
-      <p>I've had a pretty messed up day. If we just...</p>
-    </button>
-  </ion-list>
+<ion-content class="cards-bg social-cards">
+  <ion-card>
+    <ion-item>
+      <h2>Marty McFly</h2>
+      <p>November 5, 1955</p>
+    </ion-item>
+
+    <ion-card-content>
+      <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?!
+        Whoa. This is heavy.</p>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col align-self-center text-center>
+        <ion-note>
+          12 Reviews
+        </ion-note>
+      </ion-col>
+      <ion-col align-self-center text-center>
+        <ion-note>
+          11h ago
+        </ion-note>
+      </ion-col>
+      <ion-col>
+        <button ion-button color="primary" clear small icon-start
+          (click)="onRiskReview()">
+          <ion-icon name='checkbox'></ion-icon>
+          Review Now
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 </ion-content>

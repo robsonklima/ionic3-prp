@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar no-border-bottom>
     <ion-title>
-      {{ mode }} Activity
+      Activity
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,6 +9,9 @@
 <ion-content padding>
     <form [formGroup]="activityForm" (ngSubmit)="onSubmit()">
         <ion-list>
+            <ion-list-header>
+                {{ mode }} Activity
+            </ion-list-header>
             <ion-item>
                 <ion-label floating>Title</ion-label>
                 <ion-input 
