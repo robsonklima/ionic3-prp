@@ -44,7 +44,7 @@ export class LoginPage implements OnInit {
         },
         err => { 
           loading.dismiss();
-          this.handleMessage('Ops', err.error) 
+          this.handleMessage('Ops', err.error || 'Server Error');
         }
       );
   }

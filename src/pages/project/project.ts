@@ -4,6 +4,8 @@ import { NavController, NavParams, AlertController,
 
 import { Project } from './../../models/project';
 import { ProjectFormPage } from '../project-form/project-form';
+import { ActivityFormPage } from '../activity-form/activity-form';
+import { RiskFormPage } from '../risk-form/risk-form';
 import { ProjectService } from '../../services/project';
 import { Activity } from '../../models/activity';
 import { Risk } from '../../models/risk';
@@ -69,6 +71,14 @@ export class ProjectPage implements OnInit {
 
   onEditProject(project: Project) {
     this.navCtrl.push(ProjectFormPage, { project: project, mode: 'Edit' });
+  }
+
+  onNewActivity() {
+    this.navCtrl.push(ActivityFormPage, { mode: 'New' });
+  }
+
+  onNewRisk() {
+    this.navCtrl.push(RiskFormPage, { mode: 'New' });
   }
 
   onRemoveProject(project: Project) {

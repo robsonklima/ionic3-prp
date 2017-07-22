@@ -56,8 +56,7 @@
 
       <ion-row *ngIf="activities.length == 0">
         <ion-col text-center>
-          <p>No activities found</p>
-          <p></p>
+          <p>No activities found. </p>
         </ion-col>
       </ion-row>
 
@@ -68,6 +67,8 @@
         <h2>{{ activity.activityTitle }}</h2>
         <p>{{ activity.activityDetails }}</p>
       </button>
+
+      <button ion-button block clear (click)="onNewActivity()">Add a new one</button>
     </ion-list>
 
     <ion-list *ngSwitchCase="'risks'">
@@ -78,7 +79,6 @@
       <ion-row *ngIf="risks.length == 0">
         <ion-col text-center>
           <p>No risks found</p>
-          <p></p>
         </ion-col>
       </ion-row>
 
@@ -100,6 +100,8 @@
           {{ risk.riskTypeName }}
         </ion-note>
       </button>
+
+      <button ion-button block clear (click)="onNewRisk()">Add a new one</button>
     </ion-list>
   </div>
 </ion-content>
