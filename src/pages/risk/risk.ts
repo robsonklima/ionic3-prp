@@ -10,6 +10,7 @@ import { Risk } from '../../models/risk';
 import { RiskFormPage } from '../risk-form/risk-form';
 import { RiskService } from '../../services/risk';
 import { RiskIdentificationService } from '../../services/risk-identification';
+import { RiskProblemService } from '../../services/risk-problem';
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -19,6 +20,7 @@ import { AuthService } from '../../services/auth';
 export class RiskPage implements OnInit {
   tab: string = "info";
   tRiskIdentification: boolean = false;
+  tRiskProblem: boolean = false;
   project: Project;
   activity: Activity;
   risk: Risk;
@@ -31,6 +33,7 @@ export class RiskPage implements OnInit {
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     private riskIdentificationService: RiskIdentificationService,
+    private riskProblemService: RiskProblemService,
     private authService: AuthService
   ) { }
 
@@ -38,6 +41,9 @@ export class RiskPage implements OnInit {
     this.onLoadRisk();
     if (this.risk.riskIdentificationId)
       this.tRiskIdentification = true;
+
+    if (this.risk.riskProblemId)
+      this.tRiskProblem = true;
   }
 
   public onRiskIdentification() {
@@ -68,14 +74,54 @@ export class RiskPage implements OnInit {
         this.risk.riskIdentificationId
       )
         .subscribe(
-          res => {
-            this.handleMessage(res.success);
-            this.risk.riskIdentificationId = null;
-          },
-          err => {
-            this.handleMessage(err.error);
-            this.tRiskIdentification = true;
-          }
+        res => {
+          this.handleMessage(res.success);
+          this.risk.riskIdentificationId = null;
+        },
+        err => {
+          this.handleMessage(err.error);
+          this.tRiskIdentification = true;
+        }
+        );
+    }
+
+    loading.dismiss();
+  }
+
+  public onRiskProblem() {
+    const loading = this.loadingCtrl.create({ content: 'Please wait...' });
+
+    if (!this.risk.riskProblemId && this.tRiskProblem) {
+      loading.present();
+
+      this.riskProblemService.addRiskProblem({
+        riskIdentificationId: this.risk.riskIdentificationId,
+        userId: this.authService.getUser().userId
+      })
+        .subscribe(
+        res => {
+          this.handleMessage(res.success);
+          this.risk.riskProblemId = res.result.insertId
+        },
+        err => {
+          this.handleMessage(err.error);
+        }
+        );
+    } else if (!this.tRiskProblem && !this.tRiskProblem) {
+      loading.present();
+
+      this.riskProblemService.removeRiskProblem(
+        this.risk.riskProblemId
+      )
+        .subscribe(
+        res => {
+          this.handleMessage(res.success);
+          this.risk.riskProblemId = null;
+        },
+        err => {
+          this.handleMessage(err.error);
+          this.tRiskProblem = true;
+        }
         );
     }
 
@@ -113,16 +159,16 @@ export class RiskPage implements OnInit {
 
             this.riskService.removeRisk(risk)
               .subscribe(
-                res => {
-                  this.handleMessage(res.success);
-                  this.navCtrl.popToRoot();
-                },
-                err => {
-                  this.handleMessage(err.error)
-                },
-                () => {
-                  loading.dismiss();
-                }
+              res => {
+                this.handleMessage(res.success);
+                this.navCtrl.popToRoot();
+              },
+              err => {
+                this.handleMessage(err.error)
+              },
+              () => {
+                loading.dismiss();
+              }
               );
           }
         }

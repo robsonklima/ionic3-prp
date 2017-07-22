@@ -37,7 +37,7 @@
       <ion-grid>
         <ion-row>
           <ion-col text-center>
-            <h2 class="page-title">{{ project.projectName }}</h2>
+            <h2>{{ project.projectName }}</h2>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -68,7 +68,7 @@
         <p>{{ activity.activityDetails }}</p>
       </button>
 
-      <button ion-button block clear (click)="onNewActivity()">Add a new one</button>
+      <button class="new-button" ion-button block clear (click)="onNewActivity()">Add a new one</button>
     </ion-list>
 
     <ion-list *ngSwitchCase="'risks'">
@@ -101,7 +101,7 @@
         </ion-note>
       </button>
 
-      <button ion-button block clear (click)="onNewRisk()">Add a new one</button>
+      <button class="new-button" ion-button block clear (click)="onNewRisk()">Add a new one</button>
     </ion-list>
   </div>
 </ion-content>

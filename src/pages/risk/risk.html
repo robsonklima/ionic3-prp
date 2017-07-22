@@ -25,7 +25,7 @@
         Actions
       </ion-segment-button>
       <ion-segment-button value="planning">
-        Historic
+        Planning
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -34,6 +34,9 @@
 <ion-content padding>
   <div [ngSwitch]="tab">
     <ion-list *ngSwitchCase="'info'">
+      <ion-list-header>
+        Risk Info
+      </ion-list-header>
       <ion-grid>
         <ion-row>
           <ion-col text-center>
@@ -50,8 +53,8 @@
         </ion-row>
         <ion-row>
           <ion-col text-justify>
-            <p>{{ risk.riskCause }}</p>
-            <p>{{ risk.riskEffect }}</p>
+            <p>Cause: {{ risk.riskCause }}</p>
+            <p>Effect: {{ risk.riskEffect }}</p>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -59,31 +62,34 @@
 
     <ion-list *ngSwitchCase="'actions'">
       <ion-list-header>
-        Actions
+        {{ risk.riskTitle }} on 
+        {{ project?.projectName || activity?.activityTitle }}
       </ion-list-header>
 
       <ion-item>
-        <p>{{ risk.riskTitle }} on {{ project?.projectName || activity?.activityTitle }}<p>
-      </ion-item>
-
-      <ion-item>
-        <ion-label>Active this risk</ion-label>
+        <ion-label>Mark risk on {{ project?.projectName || activity?.activityTitle }}</ion-label>
         <ion-toggle 
           [(ngModel)]="tRiskIdentification"
           (ionChange)="onRiskIdentification()"
           color="energized"></ion-toggle>
       </ion-item>
-
-      <ion-item [(hidden)]="!tRiskIdentification">
-        <ion-input placeholder="Type here your response planning"></ion-input>
+      
+      <ion-item 
+        [(hidden)]="!tRiskIdentification">
+        <ion-input 
+          placeholder="Type here your response planning"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Marks as problem</ion-label>
-        <ion-toggle [(ngModel)]="probl" checked="true" color="danger"></ion-toggle>
+      <ion-item
+        [(hidden)]="!tRiskIdentification">
+        <ion-label>Mark as problem</ion-label>
+        <ion-toggle 
+          [(ngModel)]="tRiskProblem" 
+          (ionChange)="onRiskProblem()"
+          color="danger"></ion-toggle>
       </ion-item>
 
-      <ion-item [(hidden)]="!probl">
+      <ion-item [(hidden)]="!tRiskProblem || !tRiskIdentification">
         <ion-input placeholder="Type a historical note"></ion-input>
       </ion-item>
     </ion-list>
@@ -91,9 +97,7 @@
     <ion-list *ngSwitchCase="'planning'">
       <ion-list-header>
         Response planning
-      </ion-list-header>
-
-      
+      </ion-list-header>      
     </ion-list>
   </div>
 </ion-content>

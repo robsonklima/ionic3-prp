@@ -8,6 +8,7 @@ import { RiskPage } from '../risk/risk';
 import { RiskService } from '../../services/risk';
 import { ActivityFormPage } from "../activity-form/activity-form";
 import { ActivityService } from '../../services/activity';
+import { RiskFormPage } from '../risk-form/risk-form';
 
 @Component({
   selector: 'page-activity',
@@ -54,6 +55,10 @@ export class ActivityPage implements OnInit {
 
   onNewActivity() {
     this.navCtrl.push(ActivityFormPage, { mode: 'New' });
+  }
+
+  onNewRisk() {
+    this.navCtrl.push(RiskFormPage, { mode: 'New' });
   }
 
   onEditActivity(activity: Activity) {

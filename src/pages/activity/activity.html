@@ -31,6 +31,9 @@
 <ion-content padding>
   <div [ngSwitch]="tab">
     <ion-list *ngSwitchCase="'info'">
+      <ion-list-header>
+        Activity Info
+      </ion-list-header>
       <ion-grid>
         <ion-row>
           <ion-col text-center>
@@ -47,6 +50,10 @@
     </ion-list>
     
     <ion-list *ngSwitchCase="'risks'">
+      <ion-list-header>
+        Risks
+      </ion-list-header>
+
       <ion-row *ngIf="risks.length == 0">
         <ion-col text-center>
           <p>No risks found</p>
@@ -72,6 +79,8 @@
           {{ risk.riskTypeName }}
         </ion-note>
       </button>
+
+      <button class="new-button" ion-button block clear (click)="onNewRisk()">Add a new one</button>
     </ion-list>
   </div>
 </ion-content>

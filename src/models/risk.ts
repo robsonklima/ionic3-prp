@@ -9,6 +9,7 @@ export class Risk {
       public riskTypeName: string,
       public riskCategoryId: number,
       public riskCategoryName: string,
-      public riskIdentificationId: number
+      public riskIdentificationId: number,
+      public riskProblemId: number
     ) {}
 }

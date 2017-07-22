@@ -28,6 +28,7 @@ import { ActivityFormPage } from '../pages/activity-form/activity-form';
 import { UserService } from '../services/user';
 import { RiskReviewService } from '../services/risk-review';
 import { RiskIdentificationService } from '../services/risk-identification';
+import { RiskProblemService } from '../services/risk-problem';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { RiskIdentificationService } from '../services/risk-identification';
     AuthService,
     UserService,
     RiskReviewService,
-    RiskIdentificationService
+    RiskIdentificationService,
+    RiskProblemService
   ]
 })
 export class AppModule {}
