@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs/Observable";
-import { Http, Response } from '@angular/http';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 
 import { Settings } from './../settings/settings';
-import { RiskIdentification } from '../models/risk-identification';
 
 @Injectable()
 export class RiskIdentificationService {
@@ -13,8 +12,12 @@ export class RiskIdentificationService {
     private http: Http
   ) { }
 
-  addRiskIdentification(riskIdentification: RiskIdentification) {
-    return this.http.post(Settings.API_URL + 'risk-identifications', riskIdentification)
+  addRiskIdentification(riskIdentification: Object) {
+    let bodyString = JSON.stringify(riskIdentification);
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(Settings.API_URL + 'risk-identifications', riskIdentification, options)
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json()));
   }
