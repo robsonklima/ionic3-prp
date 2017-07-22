@@ -44,12 +44,12 @@ export class ProjectFormPage implements OnInit {
       this.projectService.updateProject(this.project)
         .subscribe(
             res => {
-              loading.dismiss();
+              loading._destroy;
               this.handleMessage(res.success);
               this.navCtrl.pop();
             },
             err => {
-              loading.dismiss();
+              loading._destroy;
               this.handleMessage(err.error);
               console.log(err);
             }
@@ -60,12 +60,12 @@ export class ProjectFormPage implements OnInit {
       this.projectService.addProject(this.project)
         .subscribe(
           res => {
-            loading.dismiss();
+            loading._destroy;
             this.handleMessage(res.success);
             this.navCtrl.popToRoot();
           },
           err => {
-            loading.dismiss();
+            loading._destroy;
             this.handleMessage(err.error);
           }
         );
