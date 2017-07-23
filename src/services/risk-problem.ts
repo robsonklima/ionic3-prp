@@ -16,6 +16,13 @@ export class RiskProblemService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  updateRiskProblem(riskProblem: any) {
+    return this.http.put(Settings.API_URL + 'risk-problems/' 
+      + riskProblem.riskProblemId, riskProblem)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   removeRiskProblem(riskProblemId: number) {
     return this.http.delete(Settings.API_URL + 'risk-problems/' + riskProblemId)
       .map((res: Response) => res.json())

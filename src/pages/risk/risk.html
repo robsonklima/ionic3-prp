@@ -93,7 +93,9 @@
 
       <ion-item [(hidden)]="!tRiskProblem || !tRiskIdentification">
         <ion-label floating>How will you deal with it?</ion-label>
-        <ion-textarea></ion-textarea>
+        <ion-textarea
+        [ngModel]="risk.riskProblemDeal" 
+        (ionBlur)="blurProblemDeal($event)"></ion-textarea>
       </ion-item>
     </ion-list>
 

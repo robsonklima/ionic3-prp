@@ -207,6 +207,24 @@ export class RiskPage implements OnInit {
     }
   }
 
+  public blurProblemDeal(input) {
+    if (input.value) {
+      this.riskProblemService.updateRiskProblem({
+        riskProblemId: this.risk.riskProblemId,
+        riskProblemDeal: input.value
+      })
+        .subscribe(
+        res => {
+          this.handleMessage(res.success);
+          this.risk.riskProblemDeal = input.value;
+        },
+        err => {
+          this.handleMessage(err.error);
+        }
+        );
+    }
+  }
+
   private handleMessage(message: string) {
     const toast = this.toastCtrl.create({
       message: message, duration: 1500, position: 'bottom'

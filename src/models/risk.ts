@@ -11,6 +11,7 @@ export class Risk {
       public riskCategoryName: string,
       public riskIdentificationId: number,
       public riskIdentificationResponse: string,
-      public riskProblemId: number
+      public riskProblemId: number,
+      public riskProblemDeal: string
     ) {}
 }
