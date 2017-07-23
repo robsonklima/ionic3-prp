@@ -16,6 +16,13 @@ export class RiskIdentificationService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  updateRiskIdentification(riskIdentification: any) {
+    return this.http.put(Settings.API_URL + 'risk-identifications/' 
+      + riskIdentification.riskIdentificationId, riskIdentification)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   removeRiskIdentification(riskIdentificationId: number) {
     return this.http.delete(Settings.API_URL + 'risk-identifications/' + riskIdentificationId)
       .map((res: Response) => res.json())

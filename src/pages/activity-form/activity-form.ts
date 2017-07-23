@@ -44,7 +44,9 @@ export class ActivityFormPage implements OnInit {
   }
 
   onSubmit() {
-    const loading = this.loadingCtrl.create({ content: 'Please wait...' });
+    const loading = this.loadingCtrl.create({ 
+      content: 'Please wait...' 
+    });
     loading.present();
 
     if (this.mode == 'Edit') {
@@ -57,14 +59,16 @@ export class ActivityFormPage implements OnInit {
       this.activityService.updateActivity(this.activity)
         .subscribe(
             res => {
-              loading.dismiss();
-              this.handleMessage(res.success);
-              this.navCtrl.pop();
+              loading.dismiss().then(() => {
+                this.handleMessage(res.success);
+                this.navCtrl.pop();
+              });
             },
             err => {
-              loading.dismiss();
-              this.handleMessage(err.error);
-              console.log(err);
+              loading.dismiss().then(() => {
+                this.handleMessage(err.error);
+                console.log(err);
+              });
             }
           );
     } else {
@@ -73,14 +77,16 @@ export class ActivityFormPage implements OnInit {
       this.activityService.addActivity(this.activity)
         .subscribe(
           res => {
-            loading.dismiss();
-            this.handleMessage(res.success);
-            this.navCtrl.popToRoot();
+            loading.dismiss().then(() => {
+              this.handleMessage(res.success);
+              this.navCtrl.popToRoot();
+            });
           },
           err => {
-            loading.dismiss();
-            this.handleMessage(err.error);
-            console.log(err);
+            loading.dismiss().then(() => {
+              this.handleMessage(err.error);
+              console.log(err);
+            });
           }
         );
     }

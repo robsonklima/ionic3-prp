@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 import { Project } from './../../models/project';
 import { Activity } from '../../models/activity';
@@ -13,15 +13,16 @@ import { ProjectFormPage } from '../project-form/project-form';
   templateUrl: 'projects.html'
 })
 export class ProjectsPage {
-  projects: Project[];
+  projects: Project[] = [];
   activities: Activity[];
   risks: Risk[];
 
   constructor(
     private navCtrl: NavController,
-    private projectService: ProjectService
-  ) {}
-  
+    private projectService: ProjectService,
+    private alertCtrl: AlertController
+  ) { }
+
   onLoadProject(project: Project) {
     this.navCtrl.push(ProjectPage, { project: project });
   }
@@ -33,15 +34,24 @@ export class ProjectsPage {
   private loadProjects() {
     this.projectService.getProjects()
       .subscribe(
-        projects => { 
-          this.projects = projects;
-        },
-        err => {
-          console.log(err);
-        });
+      projects => {
+        this.projects = projects;
+      },
+      err => {
+        this.handleMessage('An error ocurred', err.error);
+      });
   }
-      
+
   onNewProject() {
     this.navCtrl.push(ProjectFormPage, { mode: 'New' });
+  }
+
+  private handleMessage(title: string, message: string) {
+    const alert = this.alertCtrl.create({
+      title: title,
+      message: message,
+      buttons: ['Ok']
+    });
+    alert.present();
   }
 }

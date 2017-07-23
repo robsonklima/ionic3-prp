@@ -35,14 +35,6 @@ export class ProjectPage implements OnInit {
     private loadingCtrl: LoadingController
   ) {}
 
-  onLoadActivity(activity: Activity) {
-    this.navCtrl.push(ActivityPage, { activity: activity });
-  }
-
-  onLoadRisk(risk: Risk, project: Project) {
-    this.navCtrl.push(RiskPage, { risk: risk, project: project });
-  }
-
   ngOnInit() {
     this.loadProject();
     this.loadActivities();
@@ -73,12 +65,24 @@ export class ProjectPage implements OnInit {
     this.navCtrl.push(ProjectFormPage, { project: project, mode: 'Edit' });
   }
 
+  onNewProject() {
+    this.navCtrl.push(ProjectFormPage, { mode: 'New' });
+  }
+
   onNewActivity() {
     this.navCtrl.push(ActivityFormPage, { mode: 'New' });
   }
 
   onNewRisk() {
     this.navCtrl.push(RiskFormPage, { mode: 'New' });
+  }
+
+  onLoadActivity(activity: Activity) {
+    this.navCtrl.push(ActivityPage, { activity: activity });
+  }
+
+  onLoadRisk(risk: Risk, project: Project) {
+    this.navCtrl.push(RiskPage, { risk: risk, project: project });
   }
 
   onRemoveProject(project: Project) {
@@ -93,19 +97,23 @@ export class ProjectPage implements OnInit {
         {
           text: 'Agree',
           handler: () => {
-            const loading = this.loadingCtrl.create({ content: 'Please wait...' });
+            const loading = this.loadingCtrl.create({ 
+              content: 'Please wait...' 
+            });
             loading.present();
 
             this.projectService.removeProject(project)
               .subscribe(
                 res => {
-                  loading.dismiss();
-                  this.handleMessage(res.success);
-                  this.navCtrl.popToRoot();
+                  loading.dismiss().then(() => {
+                    this.handleMessage(res.success);
+                    this.navCtrl.popToRoot();
+                  });
                 },
                 err => { 
-                  loading.dismiss();
-                  this.handleMessage(err.error) 
+                  loading.dismiss().then(() => {
+                    this.handleMessage(err.error) 
+                  });
                 }
               );
           }
@@ -121,6 +129,7 @@ export class ProjectPage implements OnInit {
       duration: 1500,
       position: 'bottom'
     });
+    
     toast.present();
   }
 }

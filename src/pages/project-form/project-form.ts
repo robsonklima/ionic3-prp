@@ -34,7 +34,9 @@ export class ProjectFormPage implements OnInit {
   }
 
   onSubmit() {
-    const loading = this.loadingCtrl.create({ content: 'Please wait...' });
+    const loading = this.loadingCtrl.create({ 
+      content: 'Please wait...' 
+    });
     loading.present();
 
     if (this.mode == 'Edit') {
@@ -44,14 +46,15 @@ export class ProjectFormPage implements OnInit {
       this.projectService.updateProject(this.project)
         .subscribe(
             res => {
-              loading._destroy;
-              this.handleMessage(res.success);
-              this.navCtrl.pop();
+              loading.dismiss().then(() => {
+                this.handleMessage(res.success);
+                this.navCtrl.pop();
+              });
             },
             err => {
-              loading._destroy;
-              this.handleMessage(err.error);
-              console.log(err);
+              loading.dismiss().then(() => {
+                this.handleMessage(err.error);
+              });
             }
           );
     } else {
@@ -60,13 +63,15 @@ export class ProjectFormPage implements OnInit {
       this.projectService.addProject(this.project)
         .subscribe(
           res => {
-            loading._destroy;
-            this.handleMessage(res.success);
-            this.navCtrl.popToRoot();
+            loading.dismiss().then(() => {
+              this.handleMessage(res.success);
+              this.navCtrl.popToRoot();
+            });
           },
           err => {
-            loading._destroy;
-            this.handleMessage(err.error);
+            loading.dismiss().then(() => {
+              this.handleMessage(err.error);
+            });
           }
         );
     }

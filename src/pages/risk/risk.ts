@@ -46,6 +46,12 @@ export class RiskPage implements OnInit {
       this.tRiskProblem = true;
   }
 
+  private onLoadRisk() {
+    this.risk = this.navParams.get('risk');
+    this.project = this.navParams.get('project');
+    this.activity = this.navParams.get('activity');
+  }
+
   public onRiskIdentification() {
     const loading = this.loadingCtrl.create({ content: 'Please wait...' });
 
@@ -60,11 +66,15 @@ export class RiskPage implements OnInit {
       })
         .subscribe(
         res => {
-          this.handleMessage(res.success);
-          this.risk.riskIdentificationId = res.result.insertId
+          loading.dismiss().then(() => {
+            this.handleMessage(res.success);
+            this.risk.riskIdentificationId = res.result.insertId;
+          });
         },
         err => {
-          this.handleMessage(err.error);
+          loading.dismiss().then(() => {
+            this.handleMessage(err.error);
+          })
         }
         );
     } else if (!this.tRiskIdentification && !this.tRiskIdentification) {
@@ -75,17 +85,20 @@ export class RiskPage implements OnInit {
       )
         .subscribe(
         res => {
-          this.handleMessage(res.success);
-          this.risk.riskIdentificationId = null;
+          loading.dismiss().then(() => {
+            this.handleMessage(res.success);
+            this.risk.riskIdentificationId = null;
+            this.risk.riskIdentificationResponse = null;
+          });
         },
         err => {
-          this.handleMessage(err.error);
-          this.tRiskIdentification = true;
+          loading.dismiss().then(() => {
+            this.handleMessage(err.error);
+            this.tRiskIdentification = true;
+          });
         }
         );
     }
-
-    loading.dismiss();
   }
 
   public onRiskProblem() {
@@ -100,11 +113,15 @@ export class RiskPage implements OnInit {
       })
         .subscribe(
         res => {
-          this.handleMessage(res.success);
-          this.risk.riskProblemId = res.result.insertId
+          loading.dismiss().then(() => {
+            this.handleMessage(res.success);
+            this.risk.riskProblemId = res.result.insertId
+          });
         },
         err => {
-          this.handleMessage(err.error);
+          loading.dismiss().then(() => {
+            this.handleMessage(err.error);
+          });
         }
         );
     } else if (!this.tRiskProblem && !this.tRiskProblem) {
@@ -115,31 +132,19 @@ export class RiskPage implements OnInit {
       )
         .subscribe(
         res => {
-          this.handleMessage(res.success);
-          this.risk.riskProblemId = null;
+          loading.dismiss().then(() => {
+            this.handleMessage(res.success);
+            this.risk.riskProblemId = null;
+          });
         },
         err => {
-          this.handleMessage(err.error);
-          this.tRiskProblem = true;
+          loading.dismiss().then(() => {
+            this.handleMessage(err.error);
+            this.tRiskProblem = true;
+          });
         }
         );
     }
-
-    loading.dismiss();
-  }
-
-  public onNewRisk() {
-    this.navCtrl.push(RiskFormPage, { mode: 'New' });
-  }
-
-  private onLoadRisk() {
-    this.risk = this.navParams.get('risk');
-    this.project = this.navParams.get('project');
-    this.activity = this.navParams.get('activity');
-  }
-
-  public onEditRisk(risk: Risk) {
-    this.navCtrl.push(RiskFormPage, { mode: 'Edit', risk: risk });
   }
 
   public onRemoveRisk(risk: Risk) {
@@ -160,14 +165,13 @@ export class RiskPage implements OnInit {
             this.riskService.removeRisk(risk)
               .subscribe(
               res => {
+                loading.dismiss();
                 this.handleMessage(res.success);
                 this.navCtrl.popToRoot();
               },
               err => {
-                this.handleMessage(err.error)
-              },
-              () => {
                 loading.dismiss();
+                this.handleMessage(err.error)
               }
               );
           }
@@ -177,11 +181,35 @@ export class RiskPage implements OnInit {
     confirm.present();
   }
 
+  public onNewRisk() {
+    this.navCtrl.push(RiskFormPage, { mode: 'New' });
+  }
+
+  public onEditRisk(risk: Risk) {
+    this.navCtrl.push(RiskFormPage, { mode: 'Edit', risk: risk });
+  }
+
+  public blurResponsePlanning(input) {
+    if (input.value) {
+      this.riskIdentificationService.updateRiskIdentification({
+        riskIdentificationId: this.risk.riskIdentificationId,
+        riskIdentificationResponse: input.value
+      })
+        .subscribe(
+        res => {
+          this.handleMessage(res.success);
+          this.risk.riskIdentificationResponse = input.value;
+        },
+        err => {
+          this.handleMessage(err.error);
+        }
+        );
+    }
+  }
+
   private handleMessage(message: string) {
     const toast = this.toastCtrl.create({
-      message: message,
-      duration: 1500,
-      position: 'bottom'
+      message: message, duration: 1500, position: 'bottom'
     });
 
     toast.present();

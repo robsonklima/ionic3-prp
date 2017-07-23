@@ -38,13 +38,15 @@ export class LoginPage implements OnInit {
     this.authService.auth(this.loginForm.value)
       .subscribe(
         user => {
-          loading.dismiss();
-          this.authService.storeUserCredentials(user);
-          this.navCtrl.setRoot(TabsPage);
+          loading.dismiss().then(() => {
+            this.authService.storeUserCredentials(user);
+            this.navCtrl.setRoot(TabsPage);
+          });
         },
         err => { 
-          loading.dismiss();
-          this.handleMessage('Ops', err.error || 'Server Error');
+          loading.dismiss().then(() => {
+            this.handleMessage('Ops', err.error || 'Server Error');
+          });
         }
       );
   }

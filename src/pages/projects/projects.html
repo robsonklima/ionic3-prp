@@ -17,15 +17,30 @@
     Projects
   </ion-list-header>
   <ion-list>
+    <ion-row *ngIf="projects.length == 0">
+      <ion-col text-center>
+        <p>No projects found or loading.</p>
+      </ion-col>
+    </ion-row>
+
     <button ion-item (click)="onLoadProject(project)" 
       *ngFor="let project of projects; let i = index">
       <h2>{{ project.projectName }}</h2>
       <p>{{ project.projectScope }}</p>
-      <ion-badge color="light">
+      <!-- <ion-badge color="light">
         {{ project.projectAddedDate | date: 'dd/MM' }}
-      </ion-badge>
+      </ion-badge> -->
       <ion-badge color="light">
-        {{ project.projectAmountActivities }} activities
+        {{ project.projectAmountActivities }} 
+        {{ project.projectAmountActivities == 1 ? 'activity' : 'activities' }}
+      </ion-badge>
+      <ion-badge color="energized">
+        {{ project.projectAmountRiskIdentifications }}
+        {{ project.projectAmountRiskIdentifications == 1 ? 'risk' : 'risks' }}
+      </ion-badge>
+      <ion-badge color="danger">
+        {{ project.projectAmountProblems }}
+        {{ project.projectAmountProblems == 1 ? 'problem' : 'problems' }}
       </ion-badge>
     </button>
   </ion-list>

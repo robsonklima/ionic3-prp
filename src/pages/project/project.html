@@ -1,6 +1,9 @@
 <ion-header>
   <ion-navbar no-border-bottom>
     <ion-buttons end>
+      <button ion-button icon-only (click)="onNewProject()">
+        <ion-icon name="add"></ion-icon>
+      </button>
       <button ion-button icon-only (click)="onEditProject(project)">
         <ion-icon name="create"></ion-icon>
       </button>
@@ -99,6 +102,9 @@
           'ion-note-opportunity': risk.riskTypeName == 'Opportunity' }">
           {{ risk.riskTypeName }}
         </ion-note>
+        <p color="danger" >
+          {{ risk.riskProblemId ? 'Became a problem' : '' }}
+        </p>
       </button>
 
       <button class="new-button" ion-button block clear (click)="onNewRisk()">Add a new one</button>

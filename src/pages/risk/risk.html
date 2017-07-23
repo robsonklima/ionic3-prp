@@ -24,8 +24,8 @@
       <ion-segment-button value="actions">
         Actions
       </ion-segment-button>
-      <ion-segment-button value="planning">
-        Planning
+      <ion-segment-button value="plannings">
+        Plannings
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -67,7 +67,7 @@
       </ion-list-header>
 
       <ion-item>
-        <ion-label>Mark risk on {{ project?.projectName || activity?.activityTitle }}</ion-label>
+        <ion-label>Mark as risk</ion-label>
         <ion-toggle 
           [(ngModel)]="tRiskIdentification"
           (ionChange)="onRiskIdentification()"
@@ -76,8 +76,10 @@
       
       <ion-item 
         [(hidden)]="!tRiskIdentification">
-        <ion-input 
-          placeholder="Type here your response planning"></ion-input>
+        <ion-label floating>What is your response plan?</ion-label>
+        <ion-textarea 
+          [ngModel]="risk.riskIdentificationResponse" 
+          (ionBlur)="blurResponsePlanning($event)"></ion-textarea>
       </ion-item>
 
       <ion-item
@@ -90,14 +92,72 @@
       </ion-item>
 
       <ion-item [(hidden)]="!tRiskProblem || !tRiskIdentification">
-        <ion-input placeholder="Type a historical note"></ion-input>
+        <ion-label floating>How will you deal with it?</ion-label>
+        <ion-textarea></ion-textarea>
       </ion-item>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'planning'">
+    <ion-list *ngSwitchCase="'plannings'">
       <ion-list-header>
-        Response planning
-      </ion-list-header>      
+        Response plannings
+      </ion-list-header>    
+      
+      <ion-card color="light">
+        <ion-item color="light">
+          <h2>On Project Alpha</h2>
+        </ion-item>
+
+        <ion-card-content>
+          <p>Meeting with technical team to estimate sufficient resources.</p>
+        </ion-card-content>
+
+        <ion-row>
+          <ion-col align-self-center text-center>
+            <ion-note>
+              30/06/17
+            </ion-note>
+          </ion-col>
+          <ion-col align-self-center text-center>
+            <ion-note>
+              User Name
+            </ion-note>
+          </ion-col>
+          <ion-col>
+            <button ion-button color="primary" clear small icon-start
+              (click)="call()">
+              <ion-icon name="checkmark-circle"></ion-icon> Use it</button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+
+      <ion-card color="light">
+        <ion-item color="light">
+          <h2>On activity 2</h2>
+        </ion-item>
+
+        <ion-card-content>
+          <p>Performed cleaning in the production environment in order to optimize resources.</p>
+        </ion-card-content>
+
+        <ion-row>
+          <ion-col align-self-center text-center>
+            <ion-note>
+              01/02/17
+            </ion-note>
+          </ion-col>
+          <ion-col align-self-center text-center>
+            <ion-note>
+              User Name
+            </ion-note>
+          </ion-col>
+          <ion-col>
+            <button ion-button color="primary" clear small icon-start
+              (click)="call()">
+              <ion-icon name="checkmark-circle"></ion-icon> Use it</button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+      
     </ion-list>
   </div>
 </ion-content>
