@@ -6,6 +6,7 @@ export class Activity {
       public activityAmountHours: number,
       public projectId: number,
       public userId: number,
+      public userName: string,
       public activityAddedDate: string
     ) {}
 }

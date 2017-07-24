@@ -16,4 +16,16 @@ export class RiskReviewService {
         .map((res:Response) => res.json())
         .catch((error:any) => Observable.throw(error.json().error));
     }
+
+    addRiskReview(riskReview: RiskReview) {
+      return this.http.post(Settings.API_URL + 'risk-reviews', riskReview)
+        .map((res: Response) => res.json())
+        .catch((error: any) => Observable.throw(error.json()));
+    }
+
+    updateRiskReview(riskReview: RiskReview) {
+      return this.http.put(Settings.API_URL + 'risk-reviews/' + riskReview.riskReviewId, riskReview)
+        .map((res: Response) => res.json())
+        .catch((error: any) => Observable.throw(error.json()));
+    }
 }

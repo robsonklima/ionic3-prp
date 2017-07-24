@@ -69,6 +69,14 @@
         (click)="onLoadActivity(activity)">
         <h2>{{ activity.activityTitle }}</h2>
         <p>{{ activity.activityDetails }}</p>
+        <ion-badge color="energized">
+          {{ activity.activityAmountRiskIdentifications }}
+          {{ activity.activityAmountRiskIdentifications == 1 ? 'risk' : 'risks' }}
+        </ion-badge>
+        <ion-badge color="danger">
+          {{ activity.activityAmountProblems }}
+          {{ activity.activityAmountProblems == 1 ? 'problem' : 'problems' }}
+        </ion-badge>
       </button>
 
       <button class="new-button" ion-button block clear (click)="onNewActivity()">Add a new one</button>
@@ -91,7 +99,7 @@
         (click)="onLoadRisk(risk, project)">
         <ion-icon 
           color="primary" 
-          name="{{ risk.riskIdentificationId ? 'checkmark-circle' : 'checkmark-circle-outline' }}" 
+          name="{{ risk.riskIdentificationId ? 'checkmark-circle' : 'radio-button-off' }}" 
           item-start></ion-icon>
         <!-- <ion-icon 
           color="danger" 
@@ -102,9 +110,7 @@
           'ion-note-opportunity': risk.riskTypeName == 'Opportunity' }">
           {{ risk.riskTypeName }}
         </ion-note>
-        <p color="danger" >
-          {{ risk.riskProblemId ? 'Became a problem' : '' }}
-        </p>
+        <p>{{ risk.riskProblemId ? 'Became a problem' : '' }}</p>
       </button>
 
       <button class="new-button" ion-button block clear (click)="onNewRisk()">Add a new one</button>

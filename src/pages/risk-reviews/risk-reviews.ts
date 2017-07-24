@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { RiskReviewFormPage } from './../risk-review-form/risk-review-form';
 import { RiskReviewService } from '../../services/risk-review';
@@ -9,7 +9,7 @@ import { RiskReview } from '../../models/risk-review';
   selector: 'page-risk-reviews',
   templateUrl: 'risk-reviews.html'
 })
-export class RiskReviewsPage implements OnInit {
+export class RiskReviewsPage {
   riskReviews: RiskReview[] = [];
 
   constructor(
@@ -18,12 +18,12 @@ export class RiskReviewsPage implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.loadRiskReviews();
   }
 
-  onRiskReview() {
-    this.navCtrl.push(RiskReviewFormPage);
+  onLoadRiskReview(riskReview: RiskReview) {
+    this.navCtrl.push(RiskReviewFormPage, { riskReview: riskReview });
   }
 
   private loadRiskReviews() {

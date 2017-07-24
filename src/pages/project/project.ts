@@ -37,6 +37,9 @@ export class ProjectPage implements OnInit {
 
   ngOnInit() {
     this.loadProject();
+  }
+
+  ionViewWillEnter() {
     this.loadActivities();
     this.loadRisks();
   }

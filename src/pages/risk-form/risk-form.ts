@@ -58,7 +58,7 @@ export class RiskFormPage implements OnInit {
             res => {
               loading.dismiss();
               this.handleMessage(res.success);
-              this.navCtrl.pop();
+              this.navCtrl.popToRoot();
             },
             err => {
               loading.dismiss();

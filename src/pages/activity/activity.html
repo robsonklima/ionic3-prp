@@ -38,7 +38,7 @@
         <ion-row>
           <ion-col text-center>
             <h2>{{ activity.activityTitle }}</h2>
-            <div class="subtitle">{{ activity.activityAmountHours }} hours</div>
+            <div class="subtitle">{{ activity.activityAmountHours }} hours / {{ activity.userName }}</div>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -67,8 +67,8 @@
         (click)="onLoadRisk(risk, activity)">
         <ion-icon 
           color="primary" 
-          name="{{ risk.riskIdentificationId ? 'checkmark-circle' : '' }}" 
-          item-end></ion-icon>
+          name="{{ risk.riskIdentificationId ? 'checkmark-circle' : 'radio-button-off' }}" 
+          item-start></ion-icon>
         <!-- <ion-icon 
           color="danger" 
           name="close"
@@ -78,6 +78,7 @@
           'ion-note-opportunity': risk.riskTypeName == 'Opportunity' }">
           {{ risk.riskTypeName }}
         </ion-note>
+        <p class="bacame-problem">{{ risk.riskProblemId ? 'Became a problem' : '' }}</p>
       </button>
 
       <button class="new-button" ion-button block clear (click)="onNewRisk()">Add a new one</button>

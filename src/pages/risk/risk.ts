@@ -38,7 +38,10 @@ export class RiskPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.onLoadRisk();
+    this.onLoadRisk();    
+  }
+
+  ionViewWillEnter() {
     if (this.risk.riskIdentificationId)
       this.tRiskIdentification = true;
 
@@ -135,6 +138,7 @@ export class RiskPage implements OnInit {
           loading.dismiss().then(() => {
             this.handleMessage(res.success);
             this.risk.riskProblemId = null;
+            this.risk.riskProblemDeal = null;
           });
         },
         err => {

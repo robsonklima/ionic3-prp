@@ -1,5 +1,11 @@
 export class RiskReview {
     constructor(
+        public riskReviewId: number,
+        public riskReviewCost: string,
+        public riskReviewSchedule: string,
+        public riskReviewScope: string,
+        public riskReviewQuality: string,
+        public riskReviewProbability: string,
         public riskIdentificationId: number,
         public riskIdentificationAddedDate: string,
         public riskId: number,

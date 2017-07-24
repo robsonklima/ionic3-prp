@@ -98,6 +98,7 @@ export class ProjectFormPage implements OnInit {
       duration: 1500,
       position: 'bottom'
     });
+    
     toast.present();
   }
 }

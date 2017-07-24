@@ -5,37 +5,37 @@
 </ion-header>
 
 <ion-content padding>
-    <!-- <form (ngSubmit)="onSubmit()"> -->
+    <form [formGroup]="riskReviewForm" (ngSubmit)="onSubmit()">
         <ion-list>
             <ion-list-header>
-                Risk Review
+                {{ mode }} Risk Review
             </ion-list-header>
             <ion-item>
-                <ion-range min="10" step="10" max="90" snaps="true" [(ngModel)]="cost" color="primary">
+                <ion-range formControlName="cost" min="10" step="10" max="90" snaps="true" color="primary">
                     <ion-label range-left class="small-text">Cost</ion-label>
                 </ion-range>
             </ion-item>
             <ion-item>
-                <ion-range min="10" step="10" max="90" snaps="true" [(ngModel)]="schedule" color="secondary">
+                <ion-range formControlName="schedule" min="10" step="10" max="90" snaps="true" color="primary">
                     <ion-label range-left class="small-text">Schedule</ion-label>
                 </ion-range>
             </ion-item>
             <ion-item>
-                <ion-range min="10" step="10" max="90" snaps="true" [(ngModel)]="scope" color="royal">
+                <ion-range formControlName="scope" min="10" step="10" max="90" snaps="true" color="primary">
                     <ion-label range-left class="small-text">Scope</ion-label>
                 </ion-range>
             </ion-item>
             <ion-item>
-                <ion-range min="10" step="10" max="90" snaps="true" [(ngModel)]="quality" color="energized">
+                <ion-range formControlName="quality" min="10" step="10" max="90" snaps="true" color="primary">
                     <ion-label range-left class="small-text">Quality</ion-label>
                 </ion-range>
             </ion-item>
             <ion-item>
-                <ion-range min="10" step="10" max="90" snaps="true" [(ngModel)]="probability" color="f53d3d">
+                <ion-range formControlName="probability" min="10" step="10" max="90" snaps="true" color="primary">
                     <ion-label range-left class="small-text">Probability</ion-label>
                 </ion-range>
             </ion-item>
         </ion-list>
-        <button ion-button type="submit" block>Save Review</button>
-    <!-- </form> -->
+        <button ion-button type="submit" block [disabled]="!riskReviewForm.valid">Save Review</button>
+    </form>
 </ion-content>
