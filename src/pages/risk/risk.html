@@ -104,59 +104,38 @@
         Response plannings
       </ion-list-header>    
       
-      <ion-card>
-        <ion-item>
-          <h2>On Project Alpha</h2>
-        </ion-item>
-
-        <ion-card-content>
-          <p>Meeting with technical team to estimate sufficient resources.</p>
-        </ion-card-content>
-
-        <ion-row>
-          <ion-col align-self-center text-center>
-            <ion-note>
-              30/06/17
-            </ion-note>
-          </ion-col>
-          <ion-col align-self-center text-center>
-            <ion-note>
-              User Name
-            </ion-note>
-          </ion-col>
-          <ion-col>
-            <button ion-button color="primary" clear small icon-start
-              (click)="call()">
-              <ion-icon name="checkmark-circle"></ion-icon> Use it</button>
+      <ion-card
+        *ngFor="let rIdentification of riskIdentifications; let i = index">
+        <ion-row *ngIf="riskIdentifications.length == 0">
+          <ion-col text-center>
+            <p>No plannings found or loading.</p>
           </ion-col>
         </ion-row>
-      </ion-card>
 
-      <ion-card>
         <ion-item>
-          <h2>On activity 2</h2>
+          <h2>On {{ rIdentification.projectName || rIdentification.activityTitle }}</h2>
         </ion-item>
 
         <ion-card-content>
-          <p>Performed cleaning in the production environment in order to optimize resources.</p>
+          <p>{{ rIdentification.riskIdentificationResponse }}</p>
         </ion-card-content>
 
         <ion-row>
           <ion-col align-self-center text-center>
             <ion-note>
-              01/02/17
+              {{ rIdentification.riskIdentificationAddedDate | date:'dd/MM' }}
             </ion-note>
           </ion-col>
           <ion-col align-self-center text-center>
             <ion-note>
-              User Name
+              {{ rIdentification.userName }}
             </ion-note>
           </ion-col>
-          <ion-col>
+          <!-- <ion-col>
             <button ion-button color="primary" clear small icon-start
               (click)="call()">
               <ion-icon name="checkmark-circle"></ion-icon> Use it</button>
-          </ion-col>
+          </ion-col> -->
         </ion-row>
       </ion-card>
       

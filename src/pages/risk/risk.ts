@@ -1,8 +1,6 @@
+import { RiskIdentification } from './../../models/risk-identification';
 import { Component, OnInit } from '@angular/core';
-import {
-  NavController, NavParams, AlertController,
-  ToastController, LoadingController
-} from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, LoadingController} from 'ionic-angular';
 
 import { Project } from "../../models/project";
 import { Activity } from '../../models/activity';
@@ -24,6 +22,7 @@ export class RiskPage implements OnInit {
   project: Project;
   activity: Activity;
   risk: Risk;
+  riskIdentifications: RiskIdentification[] = [];
 
   constructor(
     private navCtrl: NavController,
@@ -38,7 +37,8 @@ export class RiskPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.onLoadRisk();    
+    this.onLoadRisk();
+    this.onLoadRiskIdentifications();
   }
 
   ionViewWillEnter() {
@@ -227,6 +227,15 @@ export class RiskPage implements OnInit {
         }
         );
     }
+  }
+
+  private onLoadRiskIdentifications() {
+    this.riskIdentificationService.getRiskIdentifications(this.risk)
+      .subscribe(
+        riskIdentifications => { 
+          this.riskIdentifications = riskIdentifications;
+        },
+        err => {});
   }
 
   private handleMessage(message: string) {
