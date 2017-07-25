@@ -7,15 +7,21 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="cards-bg social-cards">
+<ion-content padding>
+  <ion-list-header>
+    Risks available to review
+  </ion-list-header>
+  
   <ion-row *ngIf="riskReviews.length == 0">
     <ion-col text-center>
-      <p>No risk reviews found</p>
+      <p>No risks available to review</p>
       <p></p>
     </ion-col>
   </ion-row>
 
-  <ion-card *ngFor="let rReview of riskReviews; let i = index">
+  <ion-card 
+    *ngFor="let rReview of riskReviews; let i = index" 
+    [ngClass]="{ 'revised': rReview.riskReviewId }">
     <ion-item>
       <h2> {{ i + 1 }}.  {{ rReview.riskTitle }}</h2>
       <p>on {{ rReview.projectName || rReview.activityTitle }}</p>
@@ -27,20 +33,22 @@
 
     <ion-row>
       <ion-col align-self-center text-center>
-        <ion-note>
-          Identified in {{ rReview.riskIdentificationAddedDate | date: 'dd/MM' }}
-        </ion-note>
-      </ion-col>
-      <ion-col align-self-center text-center>
         <ion-note [ngClass]="{ 'ion-note-threat': rReview.riskTypeName == 'Threat', 
           'ion-note-opportunity': rReview.riskTypeName == 'Opportunity' }">
           {{ rReview.riskTypeName }}
         </ion-note>
       </ion-col>
+      <ion-col align-self-center text-center>
+        <ion-note>
+          {{ rReview.riskReviewId ? 'Revised' : '' }}
+        </ion-note>
+      </ion-col>
       <ion-col>
         <button ion-button color="primary" clear small icon-start
           (click)="onLoadRiskReview(rReview)">
-          <ion-icon name="checkmark-circle-outline"></ion-icon> Review Now</button>
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+          {{ rReview.riskReviewId ? 'Edit Review' : 'Add Review' }}
+        </button>
       </ion-col>
     </ion-row>
   </ion-card>

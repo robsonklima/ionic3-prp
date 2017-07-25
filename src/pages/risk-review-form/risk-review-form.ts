@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NavParams, LoadingController, ToastController, NavController } from 'ionic-angular';
 import { RiskReview } from '../../models/risk-review';
 import { RiskReviewService } from '../../services/risk-review';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'page-risk-review-form',
@@ -17,11 +18,13 @@ export class RiskReviewFormPage implements OnInit {
     private loadingCtrl: LoadingController,
     private riskReviewService: RiskReviewService,
     private toastCtrl: ToastController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
     this.riskReview = this.navParams.get('riskReview');
+    
     this.initializeForm();
   }
 
@@ -61,6 +64,7 @@ export class RiskReviewFormPage implements OnInit {
       this.riskReview.riskReviewScope = this.riskReviewForm.value.scope;
       this.riskReview.riskReviewQuality = this.riskReviewForm.value.quality;
       this.riskReview.riskReviewProbability = this.riskReviewForm.value.probability;
+      this.riskReview.userId = this.authService.getUser().userId;
 
       this.riskReviewService.updateRiskReview(this.riskReview)
         .subscribe(
@@ -82,6 +86,7 @@ export class RiskReviewFormPage implements OnInit {
       this.riskReview.riskReviewScope = this.riskReviewForm.value.scope;
       this.riskReview.riskReviewQuality = this.riskReviewForm.value.quality;
       this.riskReview.riskReviewProbability = this.riskReviewForm.value.probability;
+      this.riskReview.userId = this.authService.getUser().userId;
 
       this.riskReviewService.addRiskReview(this.riskReview)
         .subscribe(

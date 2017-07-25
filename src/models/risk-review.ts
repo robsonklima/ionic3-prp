@@ -7,6 +7,7 @@ export class RiskReview {
         public riskReviewQuality: string,
         public riskReviewProbability: string,
         public riskIdentificationId: number,
+        public userId: number,
         public riskIdentificationAddedDate: string,
         public riskId: number,
         public riskTitle: string,
@@ -18,8 +19,6 @@ export class RiskReview {
         public activityId: number,
         public activityTitle: string,
         public activityDetails: string,
-        public userId: number,
-        public userName: string,
         public riskTypeName: string,
         public riskReviewAddedDate: string
     ) {}
