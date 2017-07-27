@@ -49,6 +49,10 @@
                 'ion-badge-opportunity': risk.riskTypeName == 'Opportunity' }">
               {{ risk.riskTypeName }}
             </ion-badge>
+
+            <ion-badge text-center color="light">
+              {{ risk.riskCategoryName }}
+            </ion-badge>
           </ion-col>
         </ion-row>
         <ion-row>
@@ -131,11 +135,6 @@
               {{ rIdentification.userName }}
             </ion-note>
           </ion-col>
-          <!-- <ion-col>
-            <button ion-button color="primary" clear small icon-start
-              (click)="call()">
-              <ion-icon name="checkmark-circle"></ion-icon> Use it</button>
-          </ion-col> -->
         </ion-row>
       </ion-card>
       
