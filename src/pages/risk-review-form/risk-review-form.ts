@@ -24,7 +24,6 @@ export class RiskReviewFormPage implements OnInit {
 
   ngOnInit() {
     this.riskReview = this.navParams.get('riskReview');
-    
     this.initializeForm();
   }
 

@@ -9,38 +9,40 @@ import { AuthService } from './auth';
 
 @Injectable()
 export class ProjectService {
-  headers; 
-  options;
 
   constructor(
     private http: Http,
     private authService: AuthService
-  ) { 
-    this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.authService.getToken() });
-    this.options = new RequestOptions({ headers: this.headers });
-  }
+  ) {}
 
   getProjects(): Observable<Project[]> {
-    return this.http.get(Settings.API_URL + 'projects', this.options)
+    return this.http.get(Settings.API_URL + 'projects', this.getHeaders())
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   addProject(project: Project) {
-    return this.http.post(Settings.API_URL + 'projects', project, this.options)
+    return this.http.post(Settings.API_URL + 'projects', project, this.getHeaders())
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   updateProject(project: Project) {
-    return this.http.put(Settings.API_URL + 'projects/' + project.projectId, project, this.options)
+    return this.http.put(Settings.API_URL + 'projects/' + project.projectId, project, this.getHeaders())
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   removeProject(project: Project) {
-    return this.http.delete(Settings.API_URL + 'projects/' + project.projectId, this.options)
+    return this.http.delete(Settings.API_URL + 'projects/' + project.projectId, this.getHeaders())
       .map((res: Response) => res.json())
       .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  private getHeaders() {
+    return new RequestOptions({ headers: new Headers ({ 
+      'Content-Type': 'application/json', 
+      'Authorization': 'Bearer ' + this.authService.getToken()}) 
+    });
   }
 }

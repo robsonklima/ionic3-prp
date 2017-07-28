@@ -31,6 +31,12 @@ export class ProjectsPage {
     this.loadProjects();
   };
 
+  // Ionviewcanenter():Promise<boolean>{ 
+  //   return this.storage.get('token').then((token: string) => {
+  //     return tokennotexpired(null, token); 
+  //   }); 
+  // }
+
   private loadProjects() {
     this.projectService.getProjects()
       .subscribe(
