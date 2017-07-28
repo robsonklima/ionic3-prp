@@ -26,9 +26,8 @@ export class ProjectFormPage implements OnInit {
   ngOnInit() {
     this.mode = this.navParams.get('mode');
 
-    if (this.mode == 'Edit') {
+    if (this.mode == 'Edit')
       this.project = this.navParams.get('project');
-    }
     
     this.initializeForm();
   }

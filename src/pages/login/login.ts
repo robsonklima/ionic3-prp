@@ -23,10 +23,6 @@ export class LoginPage implements OnInit {
     this.initializeForm();
   }
 
-  ionViewEnter() {
-    
-  }
-
   private initializeForm() {
     this.loginForm = new FormGroup({
       'userEmail': new FormControl(null, Validators.required),

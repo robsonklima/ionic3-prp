@@ -1,6 +1,6 @@
 import { RiskIdentification } from './../../models/risk-identification';
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController, LoadingController} from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController, LoadingController } from 'ionic-angular';
 
 import { Project } from "../../models/project";
 import { Activity } from '../../models/activity';
@@ -18,11 +18,11 @@ import { AuthService } from '../../services/auth';
 export class RiskPage implements OnInit {
   tab: string = "info";
   tRiskIdentification: boolean = false;
+  riskIdentifications: RiskIdentification[] = [];
   tRiskProblem: boolean = false;
   project: Project;
   activity: Activity;
   risk: Risk;
-  riskIdentifications: RiskIdentification[] = [];
 
   constructor(
     private navCtrl: NavController,
@@ -118,7 +118,7 @@ export class RiskPage implements OnInit {
         res => {
           loading.dismiss().then(() => {
             this.handleMessage(res.success);
-            this.risk.riskProblemId = res.result.insertId
+            this.risk.riskProblemId = res.result.insertId;
           });
         },
         err => {
@@ -130,9 +130,7 @@ export class RiskPage implements OnInit {
     } else if (!this.tRiskProblem && !this.tRiskProblem) {
       loading.present();
 
-      this.riskProblemService.removeRiskProblem(
-        this.risk.riskProblemId
-      )
+      this.riskProblemService.removeRiskProblem(this.risk.riskProblemId)
         .subscribe(
         res => {
           loading.dismiss().then(() => {
@@ -232,10 +230,10 @@ export class RiskPage implements OnInit {
   private onLoadRiskIdentifications() {
     this.riskIdentificationService.getRiskIdentifications(this.risk)
       .subscribe(
-        riskIdentifications => { 
-          this.riskIdentifications = riskIdentifications;
-        },
-        err => {});
+      riskIdentifications => {
+        this.riskIdentifications = riskIdentifications;
+      },
+      err => { });
   }
 
   private handleMessage(message: string) {
