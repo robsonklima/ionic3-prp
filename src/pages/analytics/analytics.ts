@@ -22,9 +22,6 @@ export class AnalyticsPage {
         for (var i = 0; i < res.length; i++) {
           this.rcLabels.push(res[i].label);
           this.rcValues.push(res[i].value);
-
-          console.log(res[i].label);
-          console.log(res[i].value);
         }
 
         this.loadRCChart();
@@ -64,4 +61,5 @@ export class AnalyticsPage {
       options: { scales: { yAxes: [{ ticks: { beginAtZero: true } }] } }
     });
   }
+
 }

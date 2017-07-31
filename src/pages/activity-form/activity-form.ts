@@ -34,9 +34,8 @@ export class ActivityFormPage implements OnInit {
   ngOnInit() {
     this.mode = this.navParams.get('mode');
 
-    if (this.mode == 'Edit') {
+    if (this.mode == 'Edit')
       this.activity = this.navParams.get('activity');
-    }
     
     this.initializeForm();
     this.loadProjects();
