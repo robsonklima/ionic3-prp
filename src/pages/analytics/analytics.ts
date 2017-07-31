@@ -33,6 +33,7 @@ export class AnalyticsPage {
       );
   }
 
+  // Risk and Categories Chart
   private loadRCChart() {
     this.rcCanvas = new Chart(this.rcCanvas.nativeElement, {
       type: 'bar',
