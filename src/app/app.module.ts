@@ -29,6 +29,8 @@ import { UserService } from '../services/user';
 import { RiskReviewService } from '../services/risk-review';
 import { RiskIdentificationService } from '../services/risk-identification';
 import { RiskProblemService } from '../services/risk-problem';
+import { AnalyticsPage } from '../pages/analytics/analytics';
+import { AnalyticService } from '../services/analytic';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import { RiskProblemService } from '../services/risk-problem';
     RiskPage,
     RiskFormPage,
     RiskReviewsPage,
-    RiskReviewFormPage
+    RiskReviewFormPage,
+    AnalyticsPage
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import { RiskProblemService } from '../services/risk-problem';
     RiskPage,
     RiskFormPage,
     RiskReviewsPage,
-    RiskReviewFormPage
+    RiskReviewFormPage,
+    AnalyticsPage
   ],
   providers: [
     StatusBar,
@@ -80,7 +84,8 @@ import { RiskProblemService } from '../services/risk-problem';
     UserService,
     RiskReviewService,
     RiskIdentificationService,
-    RiskProblemService
+    RiskProblemService,
+    AnalyticService
   ]
 })
 export class AppModule {}

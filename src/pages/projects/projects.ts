@@ -4,8 +4,8 @@ import { NavController, AlertController } from 'ionic-angular';
 import { Project } from './../../models/project';
 import { Activity } from '../../models/activity';
 import { Risk } from '../../models/risk';
-import { ProjectPage } from '../project/project';
 import { ProjectService } from './../../services/project';
+import { ProjectPage } from '../project/project';
 import { ProjectFormPage } from '../project-form/project-form';
 
 @Component({
@@ -30,12 +30,6 @@ export class ProjectsPage {
   ionViewWillEnter() {
     this.loadProjects();
   };
-
-  // Ionviewcanenter():Promise<boolean>{ 
-  //   return this.storage.get('token').then((token: string) => {
-  //     return tokennotexpired(null, token); 
-  //   }); 
-  // }
 
   private loadProjects() {
     this.projectService.getProjects()

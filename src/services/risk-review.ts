@@ -17,11 +17,11 @@ export class RiskReviewService {
         .catch((error:any) => Observable.throw(error.json().error));
     }
 
-    // getRiskReviewById(id: number) : Observable<RiskReview> {
-    //   return this.http.get(Settings.API_URL + 'risk-reviews/' + id)
-    //     .map((res:Response) => res)
-    //     .catch((error:any) => Observable.throw(error.json().error));
-    // }
+    getRiskReviewById(id: number) : Observable<RiskReview> {
+      return this.http.get(Settings.API_URL + 'risk-reviews/' + id)
+        .map((res:Response) => res.json())
+        .catch((error:any) => Observable.throw(error.json().error));
+    }
 
     addRiskReview(riskReview: RiskReview) {
       return this.http.post(Settings.API_URL + 'risk-reviews', riskReview)
