@@ -1,41 +1,50 @@
 <ion-header>
-    <ion-navbar no-border-bottom>
-        <button ion-button icon-only menuToggle>
+  <ion-navbar no-border-bottom>
+    <button ion-button icon-only menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-        <ion-title>Analytics </ion-title>
-    </ion-navbar>
+    <ion-title>Analytics </ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <ion-list-header>
-        Analytics
-    </ion-list-header>
+  <ion-list-header>
+    Analytics
+  </ion-list-header>
 
-    <ion-card>
-        <ion-card-header>
-            Risks by Categories
-        </ion-card-header>
-        <ion-card-content>
-            <canvas #rcCanvas></canvas>
-        </ion-card-content>
-    </ion-card>
+  <ion-card>
+    <ion-card-header>
+      Risks by Categories
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #rcCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
 
-    <!-- <ion-card>
-        <ion-card-header>
-            Line Chart
-        </ion-card-header>
-        <ion-card-content>
-            <canvas #lineCanvas></canvas>
-        </ion-card-content>
-    </ion-card>
+  <ion-card>
+    <ion-card-header>
+      Risks by Types
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #rtCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
 
-     <ion-card>
-        <ion-card-header>
-            Doughnut Chart
-        </ion-card-header>
-        <ion-card-content>
-            <canvas #doughnutCanvas></canvas>
-        </ion-card-content>
-    </ion-card>  -->
+  <ion-card>
+    <ion-card-header>
+      Risks by Projects
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #rpCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Risks by Activities
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #raCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

@@ -15,4 +15,22 @@ export class AnalyticService {
       .map((res:Response) => res.json())
       .catch((error:any) => Observable.throw(error.json().error));
   }   
+  
+  getRisksAndTypes() : Observable<Analytic[]> {
+    return this.http.get(Settings.API_URL + 'analytics/risk-types')
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error));
+  }
+
+  getRisksAndProjects() : Observable<Analytic[]> {
+    return this.http.get(Settings.API_URL + 'analytics/projects')
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error));
+  }
+
+  getRisksAndActivities() : Observable<Analytic[]> {
+    return this.http.get(Settings.API_URL + 'analytics/activities')
+      .map((res:Response) => res.json())
+      .catch((error:any) => Observable.throw(error.json().error));
+  }
 }
