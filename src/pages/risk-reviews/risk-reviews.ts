@@ -22,7 +22,7 @@ export class RiskReviewsPage {
     this.loadRiskReviews();
   }
 
-  onLoadRiskReview(riskReview: RiskReview) {
+  public onLoadRiskReview(riskReview: RiskReview) {
     this.navCtrl.push(RiskReviewFormPage, { riskReview: riskReview });
   }
 

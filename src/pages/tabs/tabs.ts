@@ -9,6 +9,5 @@ import { AnalyticsPage } from '../analytics/analytics';
 })
 export class TabsPage {
   projectsPage = ProjectsPage;
-  analyticsPage = AnalyticsPage;
   riskReviewsPage = RiskReviewsPage;
 }

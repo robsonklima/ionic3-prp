@@ -4,6 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from './../pages/login/login';
+import { AnalyticsPage } from '../pages/analytics/analytics';
+import { ProjectsPage } from '../pages/projects/projects';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,6 +25,16 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+  }
+
+  onProjects() {
+    this.nav.push(ProjectsPage);
+    this.menuCtrl.close();
+  }
+
+  onAnalytics() {
+    this.nav.push(AnalyticsPage);
+    this.menuCtrl.close();
   }
 
   onLogoff() {
