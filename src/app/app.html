@@ -7,16 +7,16 @@
     <ion-content>
         <ion-list >
             <button 
-                ion-item (click)="onProjects()"
+                ion-item (click)="onHome()"
                 *ngIf="!isAuthenticated">
-                Projects
+                Home
             </button>
             <button 
                 ion-item (click)="onAnalytics()"
                 *ngIf="!isAuthenticated">
                 Analytics
             </button>
-            <button 
+            <button     
                 ion-item (click)="onLogoff(loginPage)"
                 *ngIf="!isAuthenticated">
                 Logoff
