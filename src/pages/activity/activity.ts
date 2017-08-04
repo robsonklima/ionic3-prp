@@ -18,6 +18,7 @@ export class ActivityPage implements OnInit {
   tab: string = "info";
   activity: Activity;
   risks: Risk[] = [];
+  expectedValues: any;
 
   constructor(
     private navCtrl: NavController,
@@ -32,10 +33,19 @@ export class ActivityPage implements OnInit {
   ngOnInit() {
     this.loadActivity();
     this.loadRisks();
+    this.loadExpectedValues();
   }
 
   loadActivity() {
     this.activity = this.navParams.get('activity');
+  }
+
+  private loadExpectedValues() {
+    this.activityService.getExpectedValues(this.activity.activityId)
+      .subscribe(
+        expectedValues => { this.expectedValues = expectedValues },
+        err => { console.log(err) }
+      );
   }
 
   onLoadRisk(risk: Risk, activity: Activity) {

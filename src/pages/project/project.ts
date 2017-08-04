@@ -23,6 +23,7 @@ export class ProjectPage implements OnInit {
   project: Project;
   activities: Activity[] = [];
   risks: Risk[] = [];
+  expectedValues: any;
 
   constructor(
     private navCtrl: NavController,
@@ -37,6 +38,7 @@ export class ProjectPage implements OnInit {
 
   ngOnInit() {
     this.loadProject();
+    this.loadExpectedValues();
   }
 
   ionViewWillEnter() {
@@ -46,6 +48,14 @@ export class ProjectPage implements OnInit {
 
   private loadProject() {
     this.project = this.navParams.get('project');
+  }
+
+  private loadExpectedValues() {
+    this.projectService.getExpectedValues(this.project.projectId)
+      .subscribe(
+        expectedValues => { this.expectedValues = expectedValues },
+        err => { console.log(err) }
+      );
   }
 
   private loadActivities() {

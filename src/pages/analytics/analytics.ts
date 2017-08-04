@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
+
+import { RiskReview } from '../../models/risk-review';
 import { AnalyticService } from '../../services/analytic';
 
 @Component({
@@ -7,6 +9,7 @@ import { AnalyticService } from '../../services/analytic';
   templateUrl: 'analytics.html'
 })
 export class AnalyticsPage {
+  rReviews: RiskReview[] = [];
   rcLabels: string[] = [];
   rcValues: number[] = [];
   rtLabels: string[] = [];
@@ -20,9 +23,17 @@ export class AnalyticsPage {
   @ViewChild('rpCanvas') rpCanvas;
   @ViewChild('raCanvas') raCanvas;
 
-  constructor( private analyticService: AnalyticService ) { }
+  constructor( 
+    private analyticService: AnalyticService 
+  ) { }
 
   ionViewDidLoad() {
+    this.analyticService.getRisksTop10()
+      .subscribe(
+      res => {
+        this.rReviews = res;
+      }, err => { } );
+
     this.analyticService.getRisksAndCategories()
       .subscribe(
       res => {

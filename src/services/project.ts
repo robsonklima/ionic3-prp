@@ -21,6 +21,12 @@ export class ProjectService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  getExpectedValues(projectId: number): Observable<any> {
+    return this.http.get(Settings.API_URL + 'projects/expected-values/' + projectId, this.getHeaders())
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   addProject(project: Project) {
     return this.http.post(Settings.API_URL + 'projects', project, this.getHeaders())
       .map((res: Response) => res.json())

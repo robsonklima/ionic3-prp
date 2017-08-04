@@ -12,6 +12,25 @@
     Analytics
   </ion-list-header>
 
+  <ion-card *ngIf="rReviews.length > 0">
+    <ion-card-header>
+      Risks Top 10
+    </ion-card-header>
+    <ion-card-content class="list-content">
+        <ion-item *ngFor="let rReview of rReviews; let i = index">
+          <h2>{{ rReview.riskTitle }}</h2>
+          <p>On {{ rReview.projectName || rReview.activityTitle }}</p>
+          <h3 [ngClass]="{ 
+            'low': rReview.riskReviewPriority == 'Low', 
+            'medium': rReview.riskReviewPriority == 'Medium', 
+            'red': rReview.riskReviewPriority == 'High' }">
+            {{ rReview.riskReviewPriority }} Priority</h3>
+          <p>Consolidated Impact: {{ rReview.riskReviewConsImpact }}</p> 
+          <p>Probability: {{ rReview.riskReviewProbability }}</p>
+        </ion-item> 
+    </ion-card-content>
+  </ion-card>
+
   <ion-card>
     <ion-card-header>
       Risks by Categories
