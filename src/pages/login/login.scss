@@ -1,5 +1,22 @@
 page-login {
     ion-list-header {
-        margin-bottom: 0px;
+        margin-bottom: 4px;
+        text-align: center;
+    }
+
+    ion-list {
+      margin-bottom: 14px !important;
+    }
+
+    .login-content {
+      position: relative;
+    }
+
+    .login {
+      position: absolute;
+      top: 35%;
+      height: 20em;
+      margin-top: -3em;
+      width: 91%;
     }
 }
