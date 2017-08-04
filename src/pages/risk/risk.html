@@ -66,56 +66,42 @@
 
     <ion-list *ngSwitchCase="'actions'">
       <ion-list-header>
-        {{ risk.riskTitle }} on 
-        {{ project?.projectName || activity?.activityTitle }}
+        {{ risk.riskTitle }} on {{ project?.projectName || activity?.activityTitle }}
       </ion-list-header>
 
       <ion-item>
         <ion-label>Mark as risk</ion-label>
-        <ion-toggle 
-          [(ngModel)]="tRiskIdentification"
-          (ionChange)="onRiskIdentification()"
-          color="energized"></ion-toggle>
-      </ion-item>
-      
-      <ion-item 
-        [(hidden)]="!tRiskIdentification">
-        <ion-label floating>What is your response plan?</ion-label>
-        <ion-textarea 
-          [ngModel]="risk.riskIdentificationResponse" 
-          (ionBlur)="blurResponsePlanning($event)"></ion-textarea>
+        <ion-toggle [(ngModel)]="tRiskIdentification" (ionChange)="onRiskIdentification()" color="energized"></ion-toggle>
       </ion-item>
 
-      <ion-item
-        [(hidden)]="!tRiskIdentification">
+      <ion-item [(hidden)]="!tRiskIdentification">
+        <ion-label floating>What is your response plan?</ion-label>
+        <ion-textarea [ngModel]="risk.riskIdentificationResponse" (ionBlur)="blurResponsePlanning($event)"></ion-textarea>
+      </ion-item>
+
+      <ion-item [(hidden)]="!tRiskIdentification">
         <ion-label>Mark as problem</ion-label>
-        <ion-toggle 
-          [(ngModel)]="tRiskProblem" 
-          (ionChange)="onRiskProblem()"
-          color="danger"></ion-toggle>
+        <ion-toggle [(ngModel)]="tRiskProblem" (ionChange)="onRiskProblem()" color="danger"></ion-toggle>
       </ion-item>
 
       <ion-item [(hidden)]="!tRiskProblem || !tRiskIdentification">
         <ion-label floating>How will you deal with it?</ion-label>
-        <ion-textarea
-        [ngModel]="risk.riskProblemDeal" 
-        (ionBlur)="blurProblemDeal($event)"></ion-textarea>
+        <ion-textarea [ngModel]="risk.riskProblemDeal" (ionBlur)="blurProblemDeal($event)"></ion-textarea>
       </ion-item>
     </ion-list>
 
     <ion-list *ngSwitchCase="'plannings'">
       <ion-list-header>
         Response plannings
-      </ion-list-header>    
-      
-      <ion-card
-        *ngFor="let rIdentification of riskIdentifications; let i = index">
-        <ion-row *ngIf="riskIdentifications.length == 0">
-          <ion-col text-center>
-            <p>No plannings found or loading.</p>
-          </ion-col>
-        </ion-row>
+      </ion-list-header>
 
+      <ion-row *ngIf="riskIdentifications.length == 0">
+        <ion-col text-center>
+          <p>No plannings found.</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-card *ngFor="let rIdentification of riskIdentifications; let i = index">
         <ion-item>
           <h2>On {{ rIdentification.projectName || rIdentification.activityTitle }}</h2>
         </ion-item>
@@ -137,7 +123,6 @@
           </ion-col>
         </ion-row>
       </ion-card>
-      
     </ion-list>
   </div>
 </ion-content>
