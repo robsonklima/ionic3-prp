@@ -34,7 +34,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <div [ngSwitch]="tab">
     <ion-list *ngSwitchCase="'info'">
       <ion-list-header>
@@ -116,25 +116,79 @@
 
       <ion-row *ngIf="reviewedRisks.length == 0">
         <ion-col text-center>
-          <p>No reviews found. </p>
+          <p>No risk reviews found. </p>
         </ion-col>
       </ion-row>
 
-      <ion-item *ngFor="let revRisk of reviewedRisks; let i = index">
-        <h2>{{ revRisk.riskTitle }}</h2>
-        <p>AAA</p>
-        <h3 [ngClass]="{ 
-            'low': revRisk.riskReviewPriority == 'Low', 
-            'medium': revRisk.riskReviewPriority == 'Medium', 
-            'red': revRisk.riskReviewPriority == 'High' }">
-          {{ revRisk.riskReviewPriority }} Priority</h3>
-        <p>{{ revRisk.riskTypeName }}</p>
-        <p>Consolidated Impact: {{ revRisk.consolidatedImpact }}</p>
-        <p>Cost Impact: {{ revRisk.riskReviewCost }}</p>
-        <p>Reviews: {{ revRisk.riskReviewAmount }}</p>
-      </ion-item>
+      <ion-grid *ngFor="let revRisk of reviewedRisks; let i = index">
+        <ion-row>
+          <ion-item>
+            <h2 class="title">{{ revRisk.riskTitle }}</h2>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            Priority
+            <ion-badge item-end [ngClass]="{
+              'ion-badge-low': revRisk.riskReviewPriority == 'Low', 
+              'ion-badge-medium': revRisk.riskReviewPriority == 'Medium', 
+              'ion-badge-high': revRisk.riskReviewPriority == 'High' }">
+              {{ revRisk.riskReviewPriority }}</ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            Type
+            <ion-badge item-end [ngClass]="{ 
+              'ion-badge-threat': revRisk.riskTypeName == 'Threat', 
+              'ion-badge-opportunity': revRisk.riskTypeName == 'Opportunity' }">
+              {{ revRisk.riskTypeName }}</ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            Consolidated Impact 
+            <p>Higher value between cost, schedule, scope and quality</p>
+            <ion-badge item-end color="light">
+              {{ revRisk.consolidatedImpact }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>            
+            Cost Impact
+            <ion-badge item-end color="light">
+              {{ revRisk.riskReviewCost }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            Expected Value
+            <ion-badge item-end color="light">
+              {{ revRisk.expectedValue | currency: 'USD' : true }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            Impact Value
+            <ion-badge item-end color="light">
+              {{ revRisk.impactValue | currency: 'USD' : true }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            Reviews            
+            <ion-badge item-end color="light">
+              {{ revRisk.riskReviewAmount }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+      </ion-grid>
 
-      <br/>
+      <div class="divider"></div>
 
       <ion-list-header>
         Expected Values
