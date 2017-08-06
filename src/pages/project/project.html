@@ -44,9 +44,6 @@
         <ion-row>
           <ion-col text-center>
             <h2>{{ project.projectName }}</h2>
-            <!-- <ion-badge text-center color="light">
-              {{ project.projectValue | currency: 'USD' : true }}
-            </ion-badge> -->
           </ion-col>
         </ion-row>
         <ion-row>
@@ -57,7 +54,7 @@
         </ion-row>
       </ion-grid>
     </ion-list>
-    
+
     <ion-list *ngSwitchCase="'values'">
       <ion-list-header>
         Expected Values
@@ -120,10 +117,7 @@
         </ion-col>
       </ion-row>
 
-      <button 
-        ion-item 
-        *ngFor="let activity of activities; let i = index" 
-        (click)="onLoadActivity(activity)">
+      <button ion-item *ngFor="let activity of activities; let i = index" (click)="onLoadActivity(activity)">
         <h2>{{ activity.activityTitle }}</h2>
         <p>{{ activity.activityDetails }}</p>
         <ion-badge color="energized">
@@ -150,18 +144,11 @@
         </ion-col>
       </ion-row>
 
-      <button 
-        ion-item 
-        *ngFor="let risk of risks; let i = index"
-        (click)="onLoadRisk(risk, project)">
+      <button ion-item *ngFor="let risk of risks; let i = index" (click)="onLoadRisk(risk, project)">
         <ion-icon 
           color="primary" 
           name="{{ risk.riskIdentificationId ? 'checkmark-circle' : 'radio-button-off' }}" 
           item-start></ion-icon>
-        <!-- <ion-icon 
-          color="danger" 
-          name="close"
-          item-end></ion-icon> -->
         <h2>{{ risk.riskTitle }}</h2>
         <ion-note [ngClass]="{ 'ion-note-threat': risk.riskTypeName == 'Threat', 
           'ion-note-opportunity': risk.riskTypeName == 'Opportunity' }">
