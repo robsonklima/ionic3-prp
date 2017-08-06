@@ -27,6 +27,12 @@ export class ProjectService {
       .catch((error: any) => Observable.throw(error.json()));
   }
 
+  getReviewedRisks(projectId: number): Observable<any[]> {
+    return this.http.get(Settings.API_URL + 'projects/reviewed-risks/' + projectId, this.getHeaders())
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   addProject(project: Project) {
     return this.http.post(Settings.API_URL + 'projects', project, this.getHeaders())
       .map((res: Response) => res.json())

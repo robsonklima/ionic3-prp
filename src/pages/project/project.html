@@ -21,14 +21,14 @@
       <ion-segment-button value="info">
         Info
       </ion-segment-button>
-      <ion-segment-button value="values">
-        Values
-      </ion-segment-button>
       <ion-segment-button value="activities">
         Activities
       </ion-segment-button>
       <ion-segment-button value="risks">
         Risks
+      </ion-segment-button>
+      <ion-segment-button value="reviews">
+        Reviews
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -51,57 +51,6 @@
             <p>{{ project.projectScope }}</p>
             <p></p>
           </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-list>
-
-    <ion-list *ngSwitchCase="'values'">
-      <ion-list-header>
-        Expected Values
-      </ion-list-header>
-
-      <ion-row *ngIf="!expectedValues?.bestCase">
-        <ion-col text-center>
-          <p>No expected values found. </p>
-        </ion-col>
-      </ion-row>
-
-      <ion-grid>
-        <ion-row>
-          <ion-item *ngIf="expectedValues?.bestCase">
-            <ion-icon name="thumbs-up" item-start></ion-icon>
-            Best Case
-            <ion-badge item-end color="secondary">
-              {{ expectedValues?.bestCase | currency: 'USD' : true }}
-            </ion-badge>
-          </ion-item>
-        </ion-row>
-        <ion-row>
-          <ion-item *ngIf="expectedValues?.baseValue">
-            <ion-icon name="logo-usd" item-start></ion-icon>
-            Base Value
-            <ion-badge item-end color="light">
-              {{ expectedValues?.baseValue | currency: 'USD' : true }}
-            </ion-badge>
-          </ion-item>
-        </ion-row>
-        <ion-row>
-          <ion-item *ngIf="expectedValues?.expectedValue">
-            <ion-icon name="umbrella" item-start></ion-icon>
-            Expected Value
-            <ion-badge item-end color="light">
-              {{ expectedValues?.expectedValue | currency: 'USD' : true }}
-            </ion-badge>
-          </ion-item>
-        </ion-row>
-        <ion-row>
-          <ion-item *ngIf="expectedValues?.worstCase">
-            <ion-icon name="thumbs-down" item-start></ion-icon>
-            Worst Case
-            <ion-badge item-end color="danger">
-              {{ expectedValues?.worstCase | currency: 'USD' : true }}
-            </ion-badge>
-          </ion-item>
         </ion-row>
       </ion-grid>
     </ion-list>
@@ -158,6 +107,83 @@
       </button>
 
       <button class="new-button" ion-button block clear (click)="onNewRisk()">Add a new one</button>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'reviews'">
+      <ion-list-header>
+        Reviewed Risks
+      </ion-list-header>
+
+      <ion-row *ngIf="reviewedRisks.length == 0">
+        <ion-col text-center>
+          <p>No reviews found. </p>
+        </ion-col>
+      </ion-row>
+
+      <ion-item *ngFor="let revRisk of reviewedRisks; let i = index">
+        <h2>{{ revRisk.riskTitle }}</h2>
+        <p>AAA</p>
+        <h3 [ngClass]="{ 
+            'low': revRisk.riskReviewPriority == 'Low', 
+            'medium': revRisk.riskReviewPriority == 'Medium', 
+            'red': revRisk.riskReviewPriority == 'High' }">
+          {{ revRisk.riskReviewPriority }} Priority</h3>
+        <p>{{ revRisk.riskTypeName }}</p>
+        <p>Consolidated Impact: {{ revRisk.consolidatedImpact }}</p>
+        <p>Cost Impact: {{ revRisk.riskReviewCost }}</p>
+        <p>Reviews: {{ revRisk.riskReviewAmount }}</p>
+      </ion-item>
+
+      <br/>
+
+      <ion-list-header>
+        Expected Values
+      </ion-list-header>
+
+      <ion-row *ngIf="!expectedValues?.bestCase">
+        <ion-col text-center>
+          <p>No expected values found. </p>
+        </ion-col>
+      </ion-row>
+
+      <ion-grid>
+        <ion-row>
+          <ion-item *ngIf="expectedValues?.bestCase">
+            <ion-icon name="thumbs-up" item-start></ion-icon>
+            Best Case
+            <ion-badge item-end color="secondary">
+              {{ expectedValues?.bestCase | currency: 'USD' : true }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item *ngIf="expectedValues?.baseValue">
+            <ion-icon name="logo-usd" item-start></ion-icon>
+            Base Value
+            <ion-badge item-end color="light">
+              {{ expectedValues?.baseValue | currency: 'USD' : true }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item *ngIf="expectedValues?.expectedValue">
+            <ion-icon name="umbrella" item-start></ion-icon>
+            Expected Value
+            <ion-badge item-end color="light">
+              {{ expectedValues?.expectedValue | currency: 'USD' : true }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item *ngIf="expectedValues?.worstCase">
+            <ion-icon name="thumbs-down" item-start></ion-icon>
+            Worst Case
+            <ion-badge item-end color="danger">
+              {{ expectedValues?.worstCase | currency: 'USD' : true }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+      </ion-grid>
     </ion-list>
   </div>
 </ion-content>
