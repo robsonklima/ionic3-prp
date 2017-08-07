@@ -47,8 +47,32 @@
           </ion-col>
         </ion-row>
         <ion-row>
+          <ion-item>
+            Activities
+            <ion-badge item-end color="light">
+              {{ project.projectAmountActivities }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            Risks
+            <ion-badge item-end color="light">
+              {{ project.projectAmountRiskIdentifications }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            Problems
+            <ion-badge item-end color="light">
+              {{ project.projectAmountProblems }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
           <ion-col text-justify>
-            <p>{{ project.projectScope }}</p>
+            <p>Scope: {{ project.projectScope }}</p>
             <p></p>
           </ion-col>
         </ion-row>

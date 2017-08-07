@@ -149,7 +149,7 @@ export class ProjectPage implements OnInit {
   private handleMessage(message: string) {
     const toast = this.toastCtrl.create({
       message: message,
-      duration: 1500,
+      duration: 2000,
       position: 'bottom'
     });
     
