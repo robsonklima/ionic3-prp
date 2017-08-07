@@ -28,13 +28,13 @@
         Risks
       </ion-segment-button>
       <ion-segment-button value="reviews">
-        Reviews
+        Analysis
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
   <div [ngSwitch]="tab">
     <ion-list *ngSwitchCase="'info'">
       <ion-list-header>
@@ -45,6 +45,11 @@
           <ion-col text-center>
             <h2>{{ project.projectName }}</h2>
           </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-item text-wrap>
+            <p text-justify>Scope: {{ project.projectScope }}</p>
+          </ion-item>
         </ion-row>
         <ion-row>
           <ion-item>
@@ -69,13 +74,7 @@
               {{ project.projectAmountProblems }}
             </ion-badge>
           </ion-item>
-        </ion-row>
-        <ion-row>
-          <ion-col text-justify>
-            <p>Scope: {{ project.projectScope }}</p>
-            <p></p>
-          </ion-col>
-        </ion-row>
+        </ion-row>  
       </ion-grid>
     </ion-list>
 
@@ -135,12 +134,12 @@
 
     <ion-list *ngSwitchCase="'reviews'">
       <ion-list-header>
-        Reviewed Risks
+        Risks Analysis
       </ion-list-header>
 
       <ion-row *ngIf="reviewedRisks.length == 0">
         <ion-col text-center>
-          <p>No risk reviews found. </p>
+          <p>No risk reviews found.</p>
         </ion-col>
       </ion-row>
 
@@ -170,7 +169,7 @@
           </ion-item>
         </ion-row>
         <ion-row>
-          <ion-item>
+          <ion-item text-wrap>
             Consolidated Impact 
             <p>Higher value between cost, schedule, scope and quality</p>
             <ion-badge item-end color="light">
@@ -183,6 +182,14 @@
             Cost Impact
             <ion-badge item-end color="light">
               {{ revRisk.riskReviewCost }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>            
+            Probability
+            <ion-badge item-end color="light">
+              {{ revRisk.riskReviewProbability }}
             </ion-badge>
           </ion-item>
         </ion-row>
@@ -215,7 +222,7 @@
       <div class="divider"></div>
 
       <ion-list-header>
-        Expected Values
+        Project Analysis
       </ion-list-header>
 
       <ion-row *ngIf="!expectedValues?.bestCase">

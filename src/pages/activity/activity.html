@@ -25,7 +25,7 @@
         Risks
       </ion-segment-button>
       <ion-segment-button value="reviews">
-        Reviews
+        Analysis
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -42,6 +42,11 @@
           <ion-col text-center>
             <h2>{{ activity.activityTitle }}</h2>
           </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-item text-wrap>
+            <p text-justify>Details: {{ activity.activityDetails }}</p>
+          </ion-item>
         </ion-row>
         <ion-row>
           <ion-item>
@@ -74,11 +79,6 @@
               {{ activity.activityAmountProblems }}
             </ion-badge>
           </ion-item>
-        </ion-row>
-        <ion-row>
-          <ion-col text-justify>
-            <p>Details: {{ activity.activityDetails }}</p>
-          </ion-col>
         </ion-row>
       </ion-grid>
     </ion-list>
@@ -116,7 +116,7 @@
 
     <ion-list *ngSwitchCase="'reviews'">
       <ion-list-header>
-        Reviewed Risks
+        Risks Analysis
       </ion-list-header>
 
       <ion-row *ngIf="reviewedRisks.length == 0">
@@ -196,7 +196,7 @@
       <div class="divider"></div>
 
       <ion-list-header>
-        Expected Values
+        Activity Analysis
       </ion-list-header>
 
       <ion-row *ngIf="!expectedValues?.bestCase">

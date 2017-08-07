@@ -1,5 +1,14 @@
 <ion-header>
     <ion-navbar no-border-bottom>
+        <ion-buttons end>
+        <button 
+            ion-button 
+            icon-only 
+            (click)="onRemoveRiskReview(riskReview)"
+            *ngIf="riskReview?.riskReviewId">
+            <ion-icon name="trash"></ion-icon>
+        </button>
+        </ion-buttons>
         <ion-title>Risk Review</ion-title>
     </ion-navbar>
 </ion-header>

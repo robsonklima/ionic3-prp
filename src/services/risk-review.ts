@@ -34,4 +34,10 @@ export class RiskReviewService {
         .map((res: Response) => res.json())
         .catch((error: any) => Observable.throw(error.json()));
     }
+
+    removeRiskReview(riskReview: RiskReview) {
+      return this.http.delete(Settings.API_URL + 'risk-reviews/' + riskReview.riskReviewId)
+        .map((res: Response) => res.json())
+        .catch((error: any) => Observable.throw(error.json()));
+    }
 }
