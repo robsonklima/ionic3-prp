@@ -7,7 +7,7 @@
     <ion-content>
         <ion-list >
             <button 
-                ion-item (click)="onProjects()"
+                ion-item (click)="onHome()"
                 *ngIf="!isAuthenticated">
                 Home
             </button>
@@ -16,7 +16,7 @@
                 *ngIf="!isAuthenticated">
                 Analytics
             </button>
-            <button 
+            <button     
                 ion-item (click)="onLogoff(loginPage)"
                 *ngIf="!isAuthenticated">
                 Logoff

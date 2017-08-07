@@ -56,13 +56,16 @@ export class RiskFormPage implements OnInit {
       this.riskService.updateRisk(this.risk)
         .subscribe(
             res => {
-              loading.dismiss();
-              this.handleMessage(res.success);
-              this.navCtrl.popToRoot();
+              loading.dismiss().then(() => {
+                this.navCtrl.popToRoot().then(() => {
+                  this.handleMessage(res.success);
+                })
+              })
             },
             err => {
-              loading.dismiss();
-              this.handleMessage(err.error);
+              loading.dismiss().then(() => {
+                this.handleMessage(err.error);
+              })
             }
           );
     } else {
@@ -71,13 +74,16 @@ export class RiskFormPage implements OnInit {
       this.riskService.addRisk(this.risk)
         .subscribe(
           res => {
-            loading.dismiss();
-            this.handleMessage(res.success);
-            this.navCtrl.popToRoot();
+            loading.dismiss().then(() => {
+              this.navCtrl.popToRoot().then(() => {
+                this.handleMessage(res.success);
+              })
+            })
           },
           err => {
-            loading.dismiss();
-            this.handleMessage(err.error);
+            loading.dismiss().then(() => {
+              this.handleMessage(err.error); 
+            })
           }
         );
     }
@@ -132,7 +138,7 @@ export class RiskFormPage implements OnInit {
   private handleMessage(message: string) {
     const toast = this.toastCtrl.create({
       message: message,
-      duration: 1500,
+      duration: 2000,
       position: 'bottom'
     });
     

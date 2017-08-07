@@ -46,8 +46,9 @@ export class ProjectFormPage implements OnInit {
         .subscribe(
             res => {
               loading.dismiss().then(() => {
-                this.handleMessage(res.success);
-                this.navCtrl.pop();
+                this.navCtrl.pop().then(() => {
+                  this.handleMessage(res.success);
+                })
               });
             },
             err => {
@@ -63,8 +64,9 @@ export class ProjectFormPage implements OnInit {
         .subscribe(
           res => {
             loading.dismiss().then(() => {
-              this.handleMessage(res.success);
-              this.navCtrl.popToRoot();
+              this.navCtrl.popToRoot().then(() => {
+                this.handleMessage(res.success);
+              })
             });
           },
           err => {
@@ -94,7 +96,7 @@ export class ProjectFormPage implements OnInit {
   private handleMessage(message: string) {
     const toast = this.toastCtrl.create({
       message: message,
-      duration: 1500,
+      duration: 2000,
       position: 'bottom'
     });
     

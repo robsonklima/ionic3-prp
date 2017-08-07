@@ -23,6 +23,8 @@ export class ProjectPage implements OnInit {
   project: Project;
   activities: Activity[] = [];
   risks: Risk[] = [];
+  reviewedRisks: any[] = [];
+  expectedValues: any;
 
   constructor(
     private navCtrl: NavController,
@@ -37,6 +39,8 @@ export class ProjectPage implements OnInit {
 
   ngOnInit() {
     this.loadProject();
+    this.loadReviewedRisks();
+    this.loadExpectedValues();
   }
 
   ionViewWillEnter() {
@@ -46,6 +50,22 @@ export class ProjectPage implements OnInit {
 
   private loadProject() {
     this.project = this.navParams.get('project');
+  }
+
+  private loadExpectedValues() {
+    this.projectService.getExpectedValues(this.project.projectId)
+      .subscribe(
+        res => { this.expectedValues = res },
+        err => { console.log(err) }
+      );
+  }
+
+  private loadReviewedRisks() {
+    this.projectService.getReviewedRisks(this.project.projectId)
+      .subscribe(
+        res => { this.reviewedRisks = res },
+        err => { console.log(err) }
+      );
   }
 
   private loadActivities() {
@@ -129,7 +149,7 @@ export class ProjectPage implements OnInit {
   private handleMessage(message: string) {
     const toast = this.toastCtrl.create({
       message: message,
-      duration: 1500,
+      duration: 2000,
       position: 'bottom'
     });
     

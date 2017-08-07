@@ -19,6 +19,18 @@ export class ActivityService {
         error.json().error));
   }
 
+  getExpectedValues(activityId: number): Observable<any> {
+    return this.http.get(Settings.API_URL + 'activities/expected-values/' + activityId)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
+  getReviewedRisks(activityId: number): Observable<any[]> {
+    return this.http.get(Settings.API_URL + 'activities/reviewed-risks/' + activityId)
+      .map((res: Response) => res.json())
+      .catch((error: any) => Observable.throw(error.json()));
+  }
+
   getActivitiesByProject(projectId: number): Observable<Activity[]> {
     return this.http.get(Settings.API_URL + 'activities/project/' + projectId)
       .map((res: Response) => res.json())

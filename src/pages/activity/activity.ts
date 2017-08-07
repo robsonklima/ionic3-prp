@@ -18,6 +18,8 @@ export class ActivityPage implements OnInit {
   tab: string = "info";
   activity: Activity;
   risks: Risk[] = [];
+  reviewedRisks: any[] = [];
+  expectedValues: any;
 
   constructor(
     private navCtrl: NavController,
@@ -32,10 +34,28 @@ export class ActivityPage implements OnInit {
   ngOnInit() {
     this.loadActivity();
     this.loadRisks();
+    this.loadReviewedRisks();
+    this.loadExpectedValues();
   }
 
   loadActivity() {
     this.activity = this.navParams.get('activity');
+  }
+
+  private loadExpectedValues() {
+    this.activityService.getExpectedValues(this.activity.activityId)
+      .subscribe(
+        res => { this.expectedValues = res },
+        err => { console.log(err) }
+      );
+  }
+
+  private loadReviewedRisks() {
+    this.activityService.getReviewedRisks(this.activity.activityId)
+      .subscribe(
+        res => { this.reviewedRisks = res },
+        err => { console.log(err) }
+      );
   }
 
   onLoadRisk(risk: Risk, activity: Activity) {
@@ -83,13 +103,15 @@ export class ActivityPage implements OnInit {
             this.activityService.removeActivity(activity)
               .subscribe(
                 res => {
-                  loading.dismiss();
-                  this.handleMessage(res.success);
-                  this.navCtrl.popToRoot();
+                  loading.dismiss().then(() => {
+                    this.handleMessage(res.success);
+                    this.navCtrl.popToRoot();
+                  })
                 },
                 err => { 
-                  loading.dismiss();
-                  this.handleMessage(err.error);
+                  loading.dismiss().then(() => {
+                    this.handleMessage(err.error);
+                  })
                 }
               );
           }
@@ -102,7 +124,7 @@ export class ActivityPage implements OnInit {
   private handleMessage(message: string) {
     const toast = this.toastCtrl.create({
       message: message,
-      duration: 1500,
+      duration: 2000,
       position: 'bottom'
     });
     toast.present();

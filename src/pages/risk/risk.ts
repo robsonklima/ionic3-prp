@@ -197,15 +197,14 @@ export class RiskPage implements OnInit {
         riskIdentificationId: this.risk.riskIdentificationId,
         riskIdentificationResponse: input.value
       })
-        .subscribe(
-        res => {
-          this.handleMessage(res.success);
-          this.risk.riskIdentificationResponse = input.value;
-        },
-        err => {
-          this.handleMessage(err.error);
-        }
-        );
+      .subscribe(
+      res => {
+        this.handleMessage(res.success);
+        this.risk.riskIdentificationResponse = input.value;
+      },
+      err => {
+        this.handleMessage(err.error);
+      });
     }
   }
 
@@ -215,15 +214,14 @@ export class RiskPage implements OnInit {
         riskProblemId: this.risk.riskProblemId,
         riskProblemDeal: input.value
       })
-        .subscribe(
-        res => {
-          this.handleMessage(res.success);
-          this.risk.riskProblemDeal = input.value;
-        },
-        err => {
-          this.handleMessage(err.error);
-        }
-        );
+      .subscribe(
+      res => {
+        this.handleMessage(res.success);
+        this.risk.riskProblemDeal = input.value;
+      },
+      err => {
+        this.handleMessage(err.error);
+      });
     }
   }
 
@@ -238,7 +236,7 @@ export class RiskPage implements OnInit {
 
   private handleMessage(message: string) {
     const toast = this.toastCtrl.create({
-      message: message, duration: 1500, position: 'bottom'
+      message: message, duration: 2000, position: 'bottom'
     });
 
     toast.present();

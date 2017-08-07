@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from './../pages/login/login';
 import { AnalyticsPage } from '../pages/analytics/analytics';
-import { ProjectsPage } from '../pages/projects/projects';
+import { TabsPage } from '../pages/tabs/tabs';
 
 @Component({
   templateUrl: 'app.html'
@@ -27,8 +27,8 @@ export class MyApp {
     });
   }
 
-  onProjects() {
-    this.nav.push(ProjectsPage);
+  onHome() {
+    this.nav.push(TabsPage);
     this.menuCtrl.close();
   }
 

@@ -7,10 +7,56 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="cards-bg social-cards outer-content">
+
   <ion-list-header>
     Analytics
   </ion-list-header>
+
+  <ion-card>
+    <ion-card-header>
+      Risks Top 10
+    </ion-card-header>
+    <ion-card-content>
+      
+      <ion-grid *ngFor="let rReview of rReviews; let i = index" class="list-content">
+        <ion-row>
+          <ion-item>
+            <h2 class="title">{{ i+1 }}. {{ rReview.riskTitle }}</h2>
+            <p>On {{ rReview.projectName || rReview.activityTitle }}</p>
+          </ion-item>
+        </ion-row>
+         <ion-row>
+          <ion-item>
+            Priority
+            <ion-badge item-end [ngClass]="{
+              'ion-badge-low': rReview.riskReviewPriority == 'Low', 
+              'ion-badge-medium': rReview.riskReviewPriority == 'Medium', 
+              'ion-badge-high': rReview.riskReviewPriority == 'High' }">
+              {{ rReview.riskReviewPriority }}</ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            Consolidated Impact 
+            <p>Higher value between cost, schedule, scope and quality</p>
+            <ion-badge item-end color="light">
+              {{ rReview.riskReviewConsImpact }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            Probability
+            <ion-badge item-end color="light">
+              {{ rReview.riskReviewProbability }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <br/>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 
   <ion-card>
     <ion-card-header>

@@ -6,6 +6,7 @@ export class Project {
       public projectAddedDate: string,
       public projectAmountActivities: number,
       public projectAmountRiskIdentifications: number,
-      public projectAmountProblems: number
+      public projectAmountProblems: number,
+      public projectValue: number
     ) {}
 }

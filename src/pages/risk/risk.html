@@ -21,9 +21,6 @@
       <ion-segment-button value="info">
         Info
       </ion-segment-button>
-      <ion-segment-button value="actions">
-        Actions
-      </ion-segment-button>
       <ion-segment-button value="plannings">
         Plannings
       </ion-segment-button>
@@ -44,78 +41,87 @@
             <div class="subtitle">
               on {{ project?.projectName || activity?.activityTitle }}
             </div>
-            <ion-badge text-center [ngClass]="{ 
-                'ion-badge-threat': risk.riskTypeName == 'Threat', 
-                'ion-badge-opportunity': risk.riskTypeName == 'Opportunity' }">
-              {{ risk.riskTypeName }}
-            </ion-badge>
 
-            <ion-badge text-center color="light">
-              {{ risk.riskCategoryName }}
-            </ion-badge>
+            <ion-row>
+              <ion-item text-wrap>
+                <p text-justify>Cause: {{ risk.riskCause }}</p><br />
+                <p text-justify>Effect: {{ risk.riskEffect }}</p>
+              </ion-item>
+            </ion-row>
+
+            <ion-row>
+              <ion-item>
+                <ion-label>Type</ion-label>
+                <ion-badge text-center item-end [ngClass]="{ 
+                  'ion-badge-threat': risk.riskTypeName == 'Threat', 
+                  'ion-badge-opportunity': risk.riskTypeName == 'Opportunity' }">
+                  {{ risk.riskTypeName }}</ion-badge>
+              </ion-item>
+            </ion-row>
+
+            <ion-row>
+              <ion-item>
+                <ion-label>Category</ion-label>
+                <ion-badge item-end color="light">
+                  {{ risk.riskCategoryName }}
+                </ion-badge>
+              </ion-item>
+            </ion-row>
+
+            <ion-row>
+              <ion-item>
+                <ion-label>Level</ion-label>
+                <ion-badge item-end color="light">
+                  {{ project?.projectName ? 'Project Level' : 'Activity Level' }}
+                </ion-badge>
+              </ion-item>
+            </ion-row>
+
+            <ion-row>
+              <ion-item>
+                <ion-label>Mark as risk</ion-label>
+                <ion-toggle [(ngModel)]="tRiskIdentification" (ionChange)="onRiskIdentification()" color="energized"></ion-toggle>
+              </ion-item>
+            </ion-row>
+
+            <ion-row>
+              <ion-item [(hidden)]="!tRiskIdentification">
+                <ion-label floating>What is your response plan?</ion-label>
+                <ion-textarea [ngModel]="risk.riskIdentificationResponse" (ionBlur)="blurResponsePlanning($event)"></ion-textarea>
+              </ion-item>
+            </ion-row>
+
+            <ion-row>
+              <ion-item [(hidden)]="!tRiskIdentification">
+                <ion-label>Mark as problem</ion-label>
+                <ion-toggle [(ngModel)]="tRiskProblem" (ionChange)="onRiskProblem()" color="danger"></ion-toggle>
+              </ion-item>
+            </ion-row>
+
+            <ion-row>
+              <ion-item [(hidden)]="!tRiskProblem || !tRiskIdentification">
+                <ion-label floating>How will you deal with it?</ion-label>
+                <ion-textarea [ngModel]="risk.riskProblemDeal" (ionBlur)="blurProblemDeal($event)"></ion-textarea>
+              </ion-item>
+            </ion-row>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col text-justify>
-            <p>Cause: {{ risk.riskCause }}</p>
-            <p>Effect: {{ risk.riskEffect }}</p>
-          </ion-col>
-        </ion-row>
+
       </ion-grid>
-    </ion-list>
-
-    <ion-list *ngSwitchCase="'actions'">
-      <ion-list-header>
-        {{ risk.riskTitle }} on 
-        {{ project?.projectName || activity?.activityTitle }}
-      </ion-list-header>
-
-      <ion-item>
-        <ion-label>Mark as risk</ion-label>
-        <ion-toggle 
-          [(ngModel)]="tRiskIdentification"
-          (ionChange)="onRiskIdentification()"
-          color="energized"></ion-toggle>
-      </ion-item>
-      
-      <ion-item 
-        [(hidden)]="!tRiskIdentification">
-        <ion-label floating>What is your response plan?</ion-label>
-        <ion-textarea 
-          [ngModel]="risk.riskIdentificationResponse" 
-          (ionBlur)="blurResponsePlanning($event)"></ion-textarea>
-      </ion-item>
-
-      <ion-item
-        [(hidden)]="!tRiskIdentification">
-        <ion-label>Mark as problem</ion-label>
-        <ion-toggle 
-          [(ngModel)]="tRiskProblem" 
-          (ionChange)="onRiskProblem()"
-          color="danger"></ion-toggle>
-      </ion-item>
-
-      <ion-item [(hidden)]="!tRiskProblem || !tRiskIdentification">
-        <ion-label floating>How will you deal with it?</ion-label>
-        <ion-textarea
-        [ngModel]="risk.riskProblemDeal" 
-        (ionBlur)="blurProblemDeal($event)"></ion-textarea>
-      </ion-item>
     </ion-list>
 
     <ion-list *ngSwitchCase="'plannings'">
       <ion-list-header>
         Response plannings
-      </ion-list-header>    
-      
-      <ion-card
-        *ngFor="let rIdentification of riskIdentifications; let i = index">
-        <ion-row *ngIf="riskIdentifications.length == 0">
-          <ion-col text-center>
-            <p>No plannings found or loading.</p>
-          </ion-col>
-        </ion-row>
+      </ion-list-header>
 
+      <ion-row *ngIf="riskIdentifications.length == 0">
+        <ion-col text-center>
+          <p>No plannings found.</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-card *ngFor="let rIdentification of riskIdentifications; let i = index">
         <ion-item>
           <h2>On {{ rIdentification.projectName || rIdentification.activityTitle }}</h2>
         </ion-item>
@@ -137,7 +143,6 @@
           </ion-col>
         </ion-row>
       </ion-card>
-      
     </ion-list>
   </div>
 </ion-content>

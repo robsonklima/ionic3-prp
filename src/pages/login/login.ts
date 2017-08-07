@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController, MenuController } from 'ionic-angular';
 
 import { AuthService } from './../../services/auth';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
@@ -13,13 +13,15 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup;
 
   constructor(
+    private menuCtrl: MenuController,
     private navCtrl: NavController,
     private authService: AuthService,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController
-  ) { }
+  ) {}
 
   ngOnInit() {
+    this.menuCtrl.enable(false);
     this.initializeForm();
   }
 
@@ -39,6 +41,7 @@ export class LoginPage implements OnInit {
       user => {
         loading.dismiss().then(() => {
           this.authService.storeUserCredentials(user);
+          this.menuCtrl.enable(true);
           this.navCtrl.setRoot(TabsPage);
         });
       },

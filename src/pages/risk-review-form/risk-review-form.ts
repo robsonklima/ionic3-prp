@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { NavParams, LoadingController, ToastController, NavController } from 'ionic-angular';
+import { NavParams, LoadingController, ToastController, NavController, AlertController } from 'ionic-angular';
 import { RiskReview } from '../../models/risk-review';
 import { RiskReviewService } from '../../services/risk-review';
 import { AuthService } from '../../services/auth';
@@ -19,7 +19,8 @@ export class RiskReviewFormPage implements OnInit {
     private riskReviewService: RiskReviewService,
     private toastCtrl: ToastController,
     private navCtrl: NavController,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertCtrl: AlertController
   ) {}
 
   ngOnInit() {
@@ -69,8 +70,9 @@ export class RiskReviewFormPage implements OnInit {
         .subscribe(
             res => {
               loading.dismiss().then(() => {
-                this.handleMessage(res.success);
-                this.navCtrl.pop();
+                this.navCtrl.pop().then(() => {
+                  this.handleMessage(res.success);
+                })
               });
             },
             err => {
@@ -91,8 +93,9 @@ export class RiskReviewFormPage implements OnInit {
         .subscribe(
           res => {
             loading.dismiss().then(() => {
-              this.handleMessage(res.success);
-              this.navCtrl.popToRoot();
+              this.navCtrl.pop().then(() => {
+                this.handleMessage(res.success);
+              })
             });
           },
           err => {
@@ -104,10 +107,47 @@ export class RiskReviewFormPage implements OnInit {
     }
   }
 
+  public onRemoveRiskReview(riskReview: RiskReview) {
+    let confirm = this.alertCtrl.create({
+      title: 'Please confirm',
+      message: 'Are you sure to delete this review?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {}
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            const loading = this.loadingCtrl.create({ content: 'Please wait...' });
+            loading.present();
+
+            this.riskReviewService.removeRiskReview(riskReview)
+              .subscribe(
+                res => {
+                  loading.dismiss().then(() => {
+                    this.navCtrl.pop().then(() => {
+                      this.handleMessage(res.success);
+                    });
+                  })
+                },
+                err => { 
+                  loading.dismiss().then(() => {
+                    this.handleMessage(err.error);
+                  })
+                }
+              );
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
   private handleMessage(message: string) {
     const toast = this.toastCtrl.create({
       message: message,
-      duration: 1500,
+      duration: 2000,
       position: 'bottom'
     });
 

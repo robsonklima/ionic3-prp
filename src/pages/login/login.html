@@ -1,26 +1,26 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Project Risk Prediction
-    </ion-title>
+  <ion-navbar no-border-bottom>
+    <ion-title>Project Risk Prediction</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="login-content">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <ion-list>
-      <ion-list-header>
-        Login
-      </ion-list-header>
-      <ion-item>
-        <ion-label fixed>Email</ion-label>
-        <ion-input type="text" formControlName="userEmail"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label fixed>Password</ion-label>
-        <ion-input type="password" formControlName="userPassword"></ion-input>
-      </ion-item>
-    </ion-list>
-    <button ion-button type="submit" block [disabled]="!loginForm.valid">Login</button>
+    <div class="login">
+      <ion-list>
+        <ion-list-header>
+          Login
+        </ion-list-header>
+        <ion-item>
+          <ion-label fixed>Email</ion-label>
+          <ion-input type="text" formControlName="userEmail"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label fixed>Password</ion-label>
+          <ion-input type="password" formControlName="userPassword"></ion-input>
+        </ion-item>
+      </ion-list>
+      <button ion-button type="submit" block [disabled]="!loginForm.valid">Login</button>
+    </div>
   </form>
 </ion-content>
