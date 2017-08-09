@@ -2,6 +2,7 @@ page-risk-review-form {
   ion-list + ion-list {
     margin-top: 0;
   }
+
   .small-text {
     font-size: 10px;
   }
@@ -9,5 +10,9 @@ page-risk-review-form {
   ion-item ion-label {
     font-size: 12px !important;
     width: 20%;
+  }
+
+  .subtitle {
+    margin-bottom: 0px !important;
   }
 }

@@ -1,56 +1,55 @@
 <ion-header>
-    <ion-navbar no-border-bottom>
-        <ion-buttons end>
-        <button 
-            ion-button 
-            icon-only 
-            (click)="onRemoveRiskReview(riskReview)"
-            *ngIf="riskReview?.riskReviewId">
+  <ion-navbar no-border-bottom>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onRemoveRiskReview(riskReview)" *ngIf="riskReview?.riskReviewId">
             <ion-icon name="trash"></ion-icon>
         </button>
-        </ion-buttons>
-        <ion-title>Risk Review</ion-title>
-    </ion-navbar>
+    </ion-buttons>
+    <ion-title>Risk Review</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-    <form [formGroup]="riskReviewForm" (ngSubmit)="onSubmit()">
-        <ion-list>
-            <ion-list-header>
+  <form [formGroup]="riskReviewForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <!-- <ion-list-header>
                 {{ riskReview.riskTitle }} on 
                 {{ riskReview?.projectName || riskReview?.activityTitle }}
-            </ion-list-header>
-            <ion-item>
-                <ion-range formControlName="cost" min="10" step="10" max="90" 
-                    snaps="true" color="secondary">
-                    <ion-label range-left class="small-text">Cost</ion-label>
-                </ion-range>
-            </ion-item>
-            <ion-item>
-                <ion-range formControlName="schedule" min="10" step="10" max="90" 
-                    snaps="true" color="primary">
-                    <ion-label range-left class="small-text">Schedule</ion-label>
-                </ion-range>
-            </ion-item>
-            <ion-item>
-                <ion-range formControlName="scope" min="10" step="10" max="90" 
-                    snaps="true" color="subtle">
-                    <ion-label range-left class="small-text">Scope</ion-label>
-                </ion-range>
-            </ion-item>
-            <ion-item>
-                <ion-range formControlName="quality" min="10" step="10" max="90" 
-                    snaps="true" color="energized">
-                    <ion-label range-left class="small-text">Quality</ion-label>
-                </ion-range>
-            </ion-item>
-            <ion-item>
-                <ion-range formControlName="probability" min="10" step="10" max="90" 
-                    snaps="true" color="danger">
-                    <ion-label range-left class="small-text">Probability</ion-label>
-                </ion-range>
-            </ion-item>
-        </ion-list>
+            </ion-list-header> -->
+      <ion-col text-center>
+        <h2>{{ riskReview.riskTitle }}</h2>
+        <div class="subtitle">
+          on {{ riskReview?.projectName || riskReview?.activityTitle }}
+        </div>
+      </ion-col>
+      <ion-item>
+        <ion-range formControlName="cost" min="10" step="10" max="90" snaps="true" color="secondary">
+          <ion-label range-left class="small-text">Cost</ion-label>
+        </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-range formControlName="schedule" min="10" step="10" max="90" snaps="true" color="primary">
+          <ion-label range-left class="small-text">Schedule</ion-label>
+        </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-range formControlName="scope" min="10" step="10" max="90" snaps="true" color="subtle">
+          <ion-label range-left class="small-text">Scope</ion-label>
+        </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-range formControlName="quality" min="10" step="10" max="90" snaps="true" color="energized">
+          <ion-label range-left class="small-text">Quality</ion-label>
+        </ion-range>
+      </ion-item>
+      <ion-item>
+        <ion-range formControlName="probability" min="10" step="10" max="90" snaps="true" color="danger">
+          <ion-label range-left class="small-text">Probability</ion-label>
+        </ion-range>
+      </ion-item>
+      <ion-col text-center>
         <button ion-button type="submit" block [disabled]="!riskReviewForm.valid">Save Review</button>
-    </form>
+      </ion-col>
+    </ion-list>
+  </form>
 </ion-content>
