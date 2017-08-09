@@ -104,8 +104,9 @@ export class ActivityPage implements OnInit {
               .subscribe(
                 res => {
                   loading.dismiss().then(() => {
-                    this.utilsService.handleToast(res.success);
-                    this.navCtrl.popToRoot();
+                    this.utilsService.handleToast(res.success).then(() => {
+                      this.navCtrl.popToRoot();
+                    })
                   })
                 },
                 err => { 

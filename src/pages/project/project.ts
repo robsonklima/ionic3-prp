@@ -129,9 +129,9 @@ export class ProjectPage implements OnInit {
               .subscribe(
                 res => {
                   loading.dismiss().then(() => {
-                    this.navCtrl.popToRoot().then(() => {
-                      this.utilsService.handleToast(res.success);
-                    })
+                    this.utilsService.handleToast(res.success).then(() => {
+                      this.navCtrl.popToRoot();
+                    });
                   });
                 },
                 err => { 

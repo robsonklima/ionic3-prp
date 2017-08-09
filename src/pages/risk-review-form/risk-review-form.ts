@@ -71,8 +71,8 @@ export class RiskReviewFormPage implements OnInit {
         .subscribe(
             res => {
               loading.dismiss().then(() => {
-                this.navCtrl.pop().then(() => {
-                  this.utilsService.handleToast(res.success);
+                this.utilsService.handleToast(res.success).then(() => {
+                  this.navCtrl.pop();
                 })
               });
             },
@@ -94,9 +94,9 @@ export class RiskReviewFormPage implements OnInit {
         .subscribe(
           res => {
             loading.dismiss().then(() => {
-              this.navCtrl.pop().then(() => {
-                this.utilsService.handleToast(res.success);
-              })
+              this.utilsService.handleToast(res.success).then(() => {
+                this.navCtrl.pop();
+              });
             });
           },
           err => {
@@ -127,10 +127,10 @@ export class RiskReviewFormPage implements OnInit {
               .subscribe(
                 res => {
                   loading.dismiss().then(() => {
-                    this.navCtrl.pop().then(() => {
-                      this.utilsService.handleToast(res.success);
+                    this.utilsService.handleToast(res.success).then(() => {
+                      this.navCtrl.pop();
                     });
-                  })
+                  });
                 },
                 err => { 
                   loading.dismiss().then(() => {

@@ -8,21 +8,23 @@ export class UtilsService {
     private alertCtrl: AlertController
   ) { }
 
-  public handleToast(message: string): Promise<any> {
-    const toast = this.toastCtrl.create({
-      message: message, duration: 2000, position: 'bottom'
-    });
+  public handleToast(message: string): Promise<boolean> {    
+    return new Promise((resolve, reject) => {
+      const toast = this.toastCtrl.create({
+        message: message, duration: 2000, position: 'bottom'
+      });
 
-    return new Promise(resolve => toast.present());
+      resolve(toast.present());
+    });
   }
 
-  public handleAlert(title: string, message: string): Promise<any> {
-    const alert = this.alertCtrl.create({
-      title: title,
-      message: message,
-      buttons: ['Ok']
+  public handleAlert(title: string, message: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const alert = this.alertCtrl.create({
+        title: title, message: message, buttons: ['Ok']
+      });  
+      
+      resolve(alert.present());
     });
-
-    return new Promise(resolve => alert.present());
   }
 }

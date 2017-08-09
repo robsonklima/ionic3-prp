@@ -73,7 +73,7 @@ export class RiskPage implements OnInit {
           loading.dismiss().then(() => {
             this.utilsService.handleToast(res.success).then(() => {
               this.risk.riskIdentificationId = res.result.insertId;
-            })
+            });
           });
         },
         err => {
@@ -94,15 +94,15 @@ export class RiskPage implements OnInit {
           loading.dismiss().then(() => {
             this.utilsService.handleToast(res.success).then(() => {
               this.risk.riskIdentificationId = null;
-              this.risk.riskIdentificationResponse = null;
-            })
+            this.risk.riskIdentificationResponse = null;
+            });
           });
         },
         err => {
           loading.dismiss().then(() => {
             this.utilsService.handleToast(err.error).then(() => {
               this.tRiskIdentification = true;
-            })
+            });
           });
         }
         );
@@ -124,7 +124,7 @@ export class RiskPage implements OnInit {
           loading.dismiss().then(() => {
             this.utilsService.handleToast(res.success).then(() => {
               this.risk.riskProblemId = res.result.insertId;
-            })
+            });
           });
         },
         err => {
@@ -150,7 +150,7 @@ export class RiskPage implements OnInit {
           loading.dismiss().then(() => {
             this.utilsService.handleToast(err.error).then(() => {
               this.tRiskProblem = true;
-            })
+            });
           });
         }
         );
@@ -176,10 +176,10 @@ export class RiskPage implements OnInit {
               .subscribe(
               res => {
                 loading.dismiss().then(() => {
-                  this.navCtrl.popToRoot().then(() => {
-                    this.utilsService.handleToast(res.success);
-                  })
-                })
+                  this.utilsService.handleToast(res.success).then(() => {
+                    this.navCtrl.popToRoot();
+                  });
+                });
               },
               err => {
                 loading.dismiss().then(() => {
@@ -212,7 +212,7 @@ export class RiskPage implements OnInit {
         res => {
           this.utilsService.handleToast(res.success).then(() => {
             this.risk.riskIdentificationResponse = input.value;
-          })
+          });
         },
         err => {
           this.utilsService.handleToast(err.error);
@@ -230,7 +230,7 @@ export class RiskPage implements OnInit {
         res => {
           this.utilsService.handleToast(res.success).then(() => {
             this.risk.riskProblemDeal = input.value;
-          })
+          });
         },
         err => {
           this.utilsService.handleToast(err.error);
