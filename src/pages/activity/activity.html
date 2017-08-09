@@ -1,18 +1,18 @@
 <ion-header>
   <ion-navbar no-border-bottom>
     <ion-buttons end>
-      <button ion-button icon-only (click)="onNewProject()">
+      <button ion-button icon-only (click)="onNewActivity()">
         <ion-icon name="add"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="onEditProject(project)">
+      <button ion-button icon-only (click)="onEditActivity(activity)">
         <ion-icon name="create"></ion-icon>
       </button>
-      <button ion-button icon-only (click)="onRemoveProject(project)">
+      <button ion-button icon-only (click)="onRemoveActivity(activity)">
         <ion-icon name="trash"></ion-icon>
       </button>
     </ion-buttons>
     <ion-title>
-      {{ project.projectName }}
+      {{ activity.activityTitle }}
     </ion-title>
   </ion-navbar>
 
@@ -20,9 +20,6 @@
     <ion-segment [(ngModel)]="tab">
       <ion-segment-button value="info">
         Info
-      </ion-segment-button>
-      <ion-segment-button value="activities">
-        Activities
       </ion-segment-button>
       <ion-segment-button value="risks">
         Risks
@@ -38,24 +35,32 @@
   <div [ngSwitch]="tab">
     <ion-list *ngSwitchCase="'info'">
       <ion-list-header>
-        Project Info
+        Activity Info
       </ion-list-header>
       <ion-grid>
         <ion-row>
           <ion-col text-center>
-            <h2>{{ project.projectName }}</h2>
+            <h2>{{ activity.activityTitle }}</h2>
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-item text-wrap>
-            <p text-justify>Scope: {{ project.projectScope }}</p>
+            <p text-justify>Details: {{ activity.activityDetails }}</p>
           </ion-item>
         </ion-row>
         <ion-row>
           <ion-item>
-            Activities
+            Amount hours 
             <ion-badge item-end color="light">
-              {{ project.projectAmountActivities }}
+              {{ activity.activityAmountHours }}
+            </ion-badge>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            Owner 
+            <ion-badge item-end color="light">
+              {{ activity.userName }}
             </ion-badge>
           </ion-item>
         </ion-row>
@@ -63,7 +68,7 @@
           <ion-item>
             Risks
             <ion-badge item-end color="light">
-              {{ project.projectAmountRiskIdentifications }}
+              {{ activity.activityAmountRiskIdentifications }}
             </ion-badge>
           </ion-item>
         </ion-row>
@@ -71,38 +76,11 @@
           <ion-item>
             Problems
             <ion-badge item-end color="light">
-              {{ project.projectAmountProblems }}
+              {{ activity.activityAmountProblems }}
             </ion-badge>
           </ion-item>
-        </ion-row>  
+        </ion-row>
       </ion-grid>
-    </ion-list>
-
-    <ion-list *ngSwitchCase="'activities'">
-      <ion-list-header>
-        Activities
-      </ion-list-header>
-
-      <ion-row *ngIf="activities.length == 0">
-        <ion-col text-center>
-          <p>No activities found. </p>
-        </ion-col>
-      </ion-row>
-
-      <button ion-item *ngFor="let activity of activities; let i = index" (click)="onLoadActivity(activity)">
-        <h2>{{ activity.activityTitle }}</h2>
-        <p>{{ activity.activityDetails }}</p>
-        <ion-badge color="energized">
-          {{ activity.activityAmountRiskIdentifications }}
-          {{ activity.activityAmountRiskIdentifications == 1 ? 'risk' : 'risks' }}
-        </ion-badge>
-        <ion-badge color="danger">
-          {{ activity.activityAmountProblems }}
-          {{ activity.activityAmountProblems == 1 ? 'problem' : 'problems' }}
-        </ion-badge>
-      </button>
-
-      <button class="new-button" ion-button block clear (click)="onNewActivity()">Add a new one</button>
     </ion-list>
 
     <ion-list *ngSwitchCase="'risks'">
@@ -113,10 +91,14 @@
       <ion-row *ngIf="risks.length == 0">
         <ion-col text-center>
           <p>No risks found</p>
+          <p></p>
         </ion-col>
       </ion-row>
 
-      <button ion-item *ngFor="let risk of risks; let i = index" (click)="onLoadRisk(risk, project)">
+      <button 
+        ion-item 
+        *ngFor="let risk of risks; let i = index"
+        (click)="onLoadRisk(risk, activity)">
         <ion-icon 
           color="primary" 
           name="{{ risk.riskIdentificationId ? 'checkmark-circle' : 'radio-button-off' }}" 
@@ -126,7 +108,7 @@
           'ion-note-opportunity': risk.riskTypeName == 'Opportunity' }">
           {{ risk.riskTypeName }}
         </ion-note>
-        <p>{{ risk.riskProblemId ? 'Became a problem' : '' }}</p>
+        <p class="bacame-problem">{{ risk.riskProblemId ? 'Became a problem' : '' }}</p>
       </button>
 
       <button class="new-button" ion-button block clear (click)="onNewRisk()">Add a new one</button>
@@ -139,7 +121,7 @@
 
       <ion-row *ngIf="reviewedRisks.length == 0">
         <ion-col text-center>
-          <p>No risk reviews found.</p>
+          <p>No risk reviews found. </p>
         </ion-col>
       </ion-row>
 
@@ -169,7 +151,7 @@
           </ion-item>
         </ion-row>
         <ion-row>
-          <ion-item text-wrap>
+          <ion-item>
             Consolidated Impact 
             <p>Higher value between cost, schedule, scope and quality</p>
             <ion-badge item-end color="light">
@@ -182,14 +164,6 @@
             Cost Impact
             <ion-badge item-end color="light">
               {{ revRisk.riskReviewCost }}
-            </ion-badge>
-          </ion-item>
-        </ion-row>
-        <ion-row>
-          <ion-item>            
-            Probability
-            <ion-badge item-end color="light">
-              {{ revRisk.riskReviewProbability }}
             </ion-badge>
           </ion-item>
         </ion-row>
@@ -222,7 +196,7 @@
       <div class="divider"></div>
 
       <ion-list-header>
-        Project Analysis
+        Activity Analysis
       </ion-list-header>
 
       <ion-row *ngIf="!expectedValues?.bestCase">
