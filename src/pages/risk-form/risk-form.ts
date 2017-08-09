@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { ToastController, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 
 import { Risk } from "../../models/risk";
 import { RiskType } from '../../models/risk-type';
@@ -8,6 +8,7 @@ import { RiskCategory } from '../../models/risk-category';
 import { RiskService } from '../../services/risk';
 import { RiskTypeService } from '../../services/risk-type';
 import { RiskCategoryService } from '../../services/risk-category';
+import { UtilsService } from '../../services/utils';
 
 @Component({
   selector: 'page-risk-form',
@@ -21,10 +22,10 @@ export class RiskFormPage implements OnInit {
   riskCategories: RiskCategory[];
 
   constructor(
+    private utilsService: UtilsService,
     private riskTypeService: RiskTypeService,
     private riskCategoryService: RiskCategoryService,
     private riskService: RiskService,
-    private toastCtrl: ToastController,
     private navCtrl: NavController,
     private navParams: NavParams,
     private loadingCtrl: LoadingController
@@ -58,13 +59,13 @@ export class RiskFormPage implements OnInit {
             res => {
               loading.dismiss().then(() => {
                 this.navCtrl.popToRoot().then(() => {
-                  this.handleMessage(res.success);
+                  this.utilsService.handleToast(res.success);
                 })
               })
             },
             err => {
               loading.dismiss().then(() => {
-                this.handleMessage(err.error);
+                this.utilsService.handleToast(err.error);
               })
             }
           );
@@ -76,13 +77,13 @@ export class RiskFormPage implements OnInit {
           res => {
             loading.dismiss().then(() => {
               this.navCtrl.popToRoot().then(() => {
-                this.handleMessage(res.success);
+                this.utilsService.handleToast(res.success);
               })
             })
           },
           err => {
             loading.dismiss().then(() => {
-              this.handleMessage(err.error); 
+              this.utilsService.handleToast(err.error); 
             })
           }
         );
@@ -133,15 +134,5 @@ export class RiskFormPage implements OnInit {
       'riskTypeId': new FormControl(riskTypeId, Validators.required),
       'riskCategoryId': new FormControl(riskCategoryId, Validators.required)
     });
-  }
-
-  private handleMessage(message: string) {
-    const toast = this.toastCtrl.create({
-      message: message,
-      duration: 2000,
-      position: 'bottom'
-    });
-    
-    return new Promise(resolve => toast.present());
   }
 }

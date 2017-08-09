@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, NavController, ToastController, 
-  LoadingController } from 'ionic-angular';
+import { NavParams, NavController, LoadingController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { Activity } from '../../models/activity';
@@ -9,6 +8,7 @@ import { Project } from "../../models/project";
 import { ActivityService } from '../../services/activity';
 import { ProjectService } from '../../services/project';
 import { UserService } from '../../services/user';
+import { UtilsService } from '../../services/utils';
 
 @Component({
   selector: 'page-activity-form',
@@ -22,9 +22,9 @@ export class ActivityFormPage implements OnInit {
   activityForm: FormGroup;
 
   constructor(
+    private utilsService: UtilsService,
     private navParams: NavParams,
     private navCtrl: NavController,
-    private toastCtrl: ToastController,
     private activityService: ActivityService,
     private projectService: ProjectService,
     private userService: UserService,
@@ -60,13 +60,13 @@ export class ActivityFormPage implements OnInit {
             res => {
               loading.dismiss().then(() => {
                 this.navCtrl.pop().then(() => {
-                  this.handleMessage(res.success);
+                  this.utilsService.handleToast(res.success);
                 })
               });
             },
             err => {
               loading.dismiss().then(() => {
-                this.handleMessage(err.error);
+                this.utilsService.handleToast(err.error);
               });
             }
           );
@@ -78,13 +78,13 @@ export class ActivityFormPage implements OnInit {
           res => {
             loading.dismiss().then(() => {
               this.navCtrl.popToRoot().then(() => {
-                this.handleMessage(res.success);
+                this.utilsService.handleToast(res.success);
               })
             });
           },
           err => {
             loading.dismiss().then(() => {
-              this.handleMessage(err.error);
+              this.utilsService.handleToast(err.error);
             });
           }
         );
@@ -131,15 +131,5 @@ export class ActivityFormPage implements OnInit {
           this.users = users;
         },
         err => {});
-  }
-  
-  private handleMessage(message: string) {
-    const toast = this.toastCtrl.create({
-      message: message,
-      duration: 2000,
-      position: 'bottom'
-    });
-
-    return new Promise(resolve => toast.present());
   }
 }

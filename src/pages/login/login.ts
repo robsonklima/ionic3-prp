@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController, LoadingController, MenuController } from 'ionic-angular';
+import { NavController, LoadingController, MenuController } from 'ionic-angular';
 
 import { AuthService } from './../../services/auth';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { TabsPage } from '../tabs/tabs';
+import { UtilsService } from '../../services/utils';
 
 @Component({
   selector: 'page-login',
@@ -13,10 +14,10 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup;
 
   constructor(
+    private utilsService: UtilsService,
     private menuCtrl: MenuController,
     private navCtrl: NavController,
     private authService: AuthService,
-    private alertCtrl: AlertController,
     private loadingCtrl: LoadingController
   ) {}
 
@@ -40,26 +41,17 @@ export class LoginPage implements OnInit {
       .subscribe(
       user => {
         loading.dismiss().then(() => {
-          this.authService.storeUserCredentials(user);
-          this.menuCtrl.enable(true);
-          this.navCtrl.setRoot(TabsPage);
+          this.navCtrl.setRoot(TabsPage).then(() => {
+            this.authService.storeUserCredentials(user);
+            this.menuCtrl.enable(true);
+          })
         });
       },
       err => {
         loading.dismiss().then(() => {
-          this.handleMessage('Ops', err.error || 'Server Error');
+          this.utilsService.handleAlert('Ops', err.error || 'Server Error');
         });
       }
       );
-  }
-
-  private handleMessage(title: string, message: string) {
-    const alert = this.alertCtrl.create({
-      title: title,
-      message: message,
-      buttons: ['Ok']
-    });
-
-    return new Promise(resolve => alert.present());
   }
 }

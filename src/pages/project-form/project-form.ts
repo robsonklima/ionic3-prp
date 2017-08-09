@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, NavController, ToastController, 
-  LoadingController } from 'ionic-angular';
+import { NavParams, NavController, LoadingController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { Project } from "../../models/project";
 import { ProjectService } from '../../services/project';
+import { UtilsService } from '../../services/utils';
 
 @Component({
   selector: 'page-project-form',
@@ -16,9 +16,9 @@ export class ProjectFormPage implements OnInit {
   projectForm: FormGroup;
 
   constructor(
+    private utilsService: UtilsService,
     private navParams: NavParams,
     private navCtrl: NavController,
-    private toastCtrl: ToastController,
     private projectService: ProjectService,
     private loadingCtrl: LoadingController
   ) {}
@@ -47,13 +47,13 @@ export class ProjectFormPage implements OnInit {
             res => {
               loading.dismiss().then(() => {
                 this.navCtrl.pop().then(() => {
-                  this.handleMessage(res.success);
+                  this.utilsService.handleToast(res.success);
                 })
               });
             },
             err => {
               loading.dismiss().then(() => {
-                this.handleMessage(err.error);
+                this.utilsService.handleToast(err.error);
               });
             }
           );
@@ -65,13 +65,13 @@ export class ProjectFormPage implements OnInit {
           res => {
             loading.dismiss().then(() => {
               this.navCtrl.popToRoot().then(() => {
-                this.handleMessage(res.success);
+                this.utilsService.handleToast(res.success);
               })
             });
           },
           err => {
             loading.dismiss().then(() => {
-              this.handleMessage(err.error);
+              this.utilsService.handleToast(err.error);
             });
           }
         );
@@ -91,15 +91,5 @@ export class ProjectFormPage implements OnInit {
       'projectName': new FormControl(projectName, Validators.required),
       'projectScope': new FormControl(projectScope, Validators.required)
     });
-  }
-  
-  private handleMessage(message: string) {
-    const toast = this.toastCtrl.create({
-      message: message,
-      duration: 2000,
-      position: 'bottom'
-    });
-
-    return new Promise(resolve => toast.present());
   }
 }

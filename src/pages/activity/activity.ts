@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, 
-  ToastController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 
 import { Activity } from '../../models/activity';
 import { Risk } from '../../models/risk';
@@ -9,6 +8,7 @@ import { RiskService } from '../../services/risk';
 import { ActivityFormPage } from "../activity-form/activity-form";
 import { ActivityService } from '../../services/activity';
 import { RiskFormPage } from '../risk-form/risk-form';
+import { UtilsService } from '../../services/utils';
 
 @Component({
   selector: 'page-activity',
@@ -22,11 +22,11 @@ export class ActivityPage implements OnInit {
   expectedValues: any;
 
   constructor(
+    private utilsService: UtilsService,
     private navCtrl: NavController,
     private navParams: NavParams,
     private riskService: RiskService,
     private alertCtrl: AlertController,
-    private toastCtrl: ToastController,
     private activityService: ActivityService,
     private loadingCtrl: LoadingController
   ) {}
@@ -104,13 +104,13 @@ export class ActivityPage implements OnInit {
               .subscribe(
                 res => {
                   loading.dismiss().then(() => {
-                    this.handleMessage(res.success);
+                    this.utilsService.handleToast(res.success);
                     this.navCtrl.popToRoot();
                   })
                 },
                 err => { 
                   loading.dismiss().then(() => {
-                    this.handleMessage(err.error);
+                    this.utilsService.handleToast(err.error);
                   })
                 }
               );
@@ -119,15 +119,5 @@ export class ActivityPage implements OnInit {
       ]
     });
     confirm.present();
-  }
-
-  private handleMessage(message: string) {
-    const toast = this.toastCtrl.create({
-      message: message,
-      duration: 2000,
-      position: 'bottom'
-    });
-    
-    return new Promise(resolve => toast.present());
   }
 }

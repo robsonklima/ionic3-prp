@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, 
-  ToastController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 
 import { Project } from './../../models/project';
 import { ProjectFormPage } from '../project-form/project-form';
@@ -13,6 +12,7 @@ import { ActivityService } from '../../services/activity';
 import { ActivityPage } from '../activity/activity';
 import { RiskPage } from '../risk/risk';
 import { RiskService } from '../../services/risk';
+import { UtilsService } from '../../services/utils';
 
 @Component({
   selector: 'page-project',
@@ -27,9 +27,9 @@ export class ProjectPage implements OnInit {
   expectedValues: any;
 
   constructor(
+    private utilsService: UtilsService,
     private navCtrl: NavController,
     private alertCtrl: AlertController,
-    private toastCtrl: ToastController,
     private navParams: NavParams,
     private activityService: ActivityService,
     private projectService: ProjectService,
@@ -130,13 +130,13 @@ export class ProjectPage implements OnInit {
                 res => {
                   loading.dismiss().then(() => {
                     this.navCtrl.popToRoot().then(() => {
-                      this.handleMessage(res.success);
+                      this.utilsService.handleToast(res.success);
                     })
                   });
                 },
                 err => { 
                   loading.dismiss().then(() => {
-                    this.handleMessage(err.error) 
+                    this.utilsService.handleToast(err.error) 
                   });
                 }
               );
@@ -145,15 +145,5 @@ export class ProjectPage implements OnInit {
       ]
     });
     confirm.present();
-  }
-
-  private handleMessage(message: string) {
-    const toast = this.toastCtrl.create({
-      message: message,
-      duration: 2000,
-      position: 'bottom'
-    });
-    
-    return new Promise(resolve => toast.present());
   }
 }

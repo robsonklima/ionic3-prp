@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { NavParams, LoadingController, ToastController, NavController, AlertController } from 'ionic-angular';
+import { NavParams, LoadingController, NavController, AlertController } from 'ionic-angular';
 import { RiskReview } from '../../models/risk-review';
 import { RiskReviewService } from '../../services/risk-review';
 import { AuthService } from '../../services/auth';
+import { UtilsService } from '../../services/utils';
 
 @Component({
   selector: 'page-risk-review-form',
@@ -14,10 +15,10 @@ export class RiskReviewFormPage implements OnInit {
   riskReviewForm: FormGroup;
   
   constructor(
+    private utilsService: UtilsService,
     private navParams: NavParams,
     private loadingCtrl: LoadingController,
     private riskReviewService: RiskReviewService,
-    private toastCtrl: ToastController,
     private navCtrl: NavController,
     private authService: AuthService,
     private alertCtrl: AlertController
@@ -71,13 +72,13 @@ export class RiskReviewFormPage implements OnInit {
             res => {
               loading.dismiss().then(() => {
                 this.navCtrl.pop().then(() => {
-                  this.handleMessage(res.success);
+                  this.utilsService.handleToast(res.success);
                 })
               });
             },
             err => {
               loading.dismiss().then(() => {
-                this.handleMessage(err.error);
+                this.utilsService.handleToast(err.error);
               });
             }
           );
@@ -94,13 +95,13 @@ export class RiskReviewFormPage implements OnInit {
           res => {
             loading.dismiss().then(() => {
               this.navCtrl.pop().then(() => {
-                this.handleMessage(res.success);
+                this.utilsService.handleToast(res.success);
               })
             });
           },
           err => {
             loading.dismiss().then(() => {
-              this.handleMessage(err.error);
+              this.utilsService.handleToast(err.error);
             });
           }
         );
@@ -127,13 +128,13 @@ export class RiskReviewFormPage implements OnInit {
                 res => {
                   loading.dismiss().then(() => {
                     this.navCtrl.pop().then(() => {
-                      this.handleMessage(res.success);
+                      this.utilsService.handleToast(res.success);
                     });
                   })
                 },
                 err => { 
                   loading.dismiss().then(() => {
-                    this.handleMessage(err.error);
+                    this.utilsService.handleToast(err.error);
                   })
                 }
               );
@@ -142,15 +143,5 @@ export class RiskReviewFormPage implements OnInit {
       ]
     });
     confirm.present();
-  }
-
-  private handleMessage(message: string) {
-    const toast = this.toastCtrl.create({
-      message: message,
-      duration: 2000,
-      position: 'bottom'
-    });
-
-    return new Promise(resolve => toast.present());
   }
 }
