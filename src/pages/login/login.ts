@@ -60,6 +60,6 @@ export class LoginPage implements OnInit {
       buttons: ['Ok']
     });
 
-    alert.present();
+    return new Promise(resolve => alert.present());
   }
 }

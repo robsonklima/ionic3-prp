@@ -140,6 +140,6 @@ export class ActivityFormPage implements OnInit {
       position: 'bottom'
     });
 
-    toast.present();
+    return new Promise(resolve => toast.present());
   }
 }

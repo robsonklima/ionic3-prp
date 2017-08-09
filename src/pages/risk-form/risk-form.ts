@@ -142,6 +142,6 @@ export class RiskFormPage implements OnInit {
       position: 'bottom'
     });
     
-    toast.present();
+    return new Promise(resolve => toast.present());
   }
 }

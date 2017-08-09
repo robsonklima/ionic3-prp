@@ -127,6 +127,7 @@ export class ActivityPage implements OnInit {
       duration: 2000,
       position: 'bottom'
     });
-    toast.present();
+    
+    return new Promise(resolve => toast.present());
   }
 }

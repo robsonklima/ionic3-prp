@@ -70,8 +70,9 @@ export class RiskPage implements OnInit {
         .subscribe(
         res => {
           loading.dismiss().then(() => {
-            this.handleMessage(res.success);
-            this.risk.riskIdentificationId = res.result.insertId;
+            this.handleMessage(res.success).then(() => {
+              this.risk.riskIdentificationId = res.result.insertId;
+            })
           });
         },
         err => {
@@ -80,7 +81,8 @@ export class RiskPage implements OnInit {
           })
         }
         );
-    } else if (!this.tRiskIdentification && !this.tRiskIdentification) {
+    } else if (
+      !this.tRiskIdentification && !this.tRiskIdentification) {
       loading.present();
 
       this.riskIdentificationService.removeRiskIdentification(
@@ -89,15 +91,17 @@ export class RiskPage implements OnInit {
         .subscribe(
         res => {
           loading.dismiss().then(() => {
-            this.handleMessage(res.success);
-            this.risk.riskIdentificationId = null;
-            this.risk.riskIdentificationResponse = null;
+            this.handleMessage(res.success).then(() => {
+              this.risk.riskIdentificationId = null;
+              this.risk.riskIdentificationResponse = null;
+            })
           });
         },
         err => {
           loading.dismiss().then(() => {
-            this.handleMessage(err.error);
-            this.tRiskIdentification = true;
+            this.handleMessage(err.error).then(() => {
+              this.tRiskIdentification = true;
+            })
           });
         }
         );
@@ -117,8 +121,9 @@ export class RiskPage implements OnInit {
         .subscribe(
         res => {
           loading.dismiss().then(() => {
-            this.handleMessage(res.success);
-            this.risk.riskProblemId = res.result.insertId;
+            this.handleMessage(res.success).then(() => {
+              this.risk.riskProblemId = res.result.insertId;
+            })
           });
         },
         err => {
@@ -134,15 +139,17 @@ export class RiskPage implements OnInit {
         .subscribe(
         res => {
           loading.dismiss().then(() => {
-            this.handleMessage(res.success);
-            this.risk.riskProblemId = null;
-            this.risk.riskProblemDeal = null;
+            this.handleMessage(res.success).then(() => {
+              this.risk.riskProblemId = null;
+              this.risk.riskProblemDeal = null;
+            })
           });
         },
         err => {
           loading.dismiss().then(() => {
-            this.handleMessage(err.error);
-            this.tRiskProblem = true;
+            this.handleMessage(err.error).then(() => {
+              this.tRiskProblem = true;
+            })
           });
         }
         );
@@ -167,13 +174,16 @@ export class RiskPage implements OnInit {
             this.riskService.removeRisk(risk)
               .subscribe(
               res => {
-                loading.dismiss();
-                this.handleMessage(res.success);
-                this.navCtrl.popToRoot();
+                loading.dismiss().then(() => {
+                  this.navCtrl.popToRoot().then(() => {
+                    this.handleMessage(res.success);
+                  })
+                })
               },
               err => {
-                loading.dismiss();
-                this.handleMessage(err.error)
+                loading.dismiss().then(() => {
+                  this.handleMessage(err.error);
+                })
               }
               );
           }
@@ -197,14 +207,15 @@ export class RiskPage implements OnInit {
         riskIdentificationId: this.risk.riskIdentificationId,
         riskIdentificationResponse: input.value
       })
-      .subscribe(
-      res => {
-        this.handleMessage(res.success);
-        this.risk.riskIdentificationResponse = input.value;
-      },
-      err => {
-        this.handleMessage(err.error);
-      });
+        .subscribe(
+        res => {
+          this.handleMessage(res.success).then(() => {
+            this.risk.riskIdentificationResponse = input.value;
+          })
+        },
+        err => {
+          this.handleMessage(err.error);
+        });
     }
   }
 
@@ -214,14 +225,15 @@ export class RiskPage implements OnInit {
         riskProblemId: this.risk.riskProblemId,
         riskProblemDeal: input.value
       })
-      .subscribe(
-      res => {
-        this.handleMessage(res.success);
-        this.risk.riskProblemDeal = input.value;
-      },
-      err => {
-        this.handleMessage(err.error);
-      });
+        .subscribe(
+        res => {
+          this.handleMessage(res.success).then(() => {
+            this.risk.riskProblemDeal = input.value;
+          })
+        },
+        err => {
+          this.handleMessage(err.error);
+        });
     }
   }
 
@@ -239,6 +251,6 @@ export class RiskPage implements OnInit {
       message: message, duration: 2000, position: 'bottom'
     });
 
-    toast.present();
+    return new Promise(resolve => toast.present());
   }
 }

@@ -154,6 +154,6 @@ export class ProjectPage implements OnInit {
       position: 'bottom'
     });
     
-    toast.present();
+    return new Promise(resolve => toast.present());
   }
 }
