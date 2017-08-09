@@ -1,6 +1,6 @@
 import { RiskIdentification } from './../../models/risk-identification';
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, AlertController, ToastController, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 
 import { Project } from "../../models/project";
 import { Activity } from '../../models/activity';
@@ -10,6 +10,7 @@ import { RiskService } from '../../services/risk';
 import { RiskIdentificationService } from '../../services/risk-identification';
 import { RiskProblemService } from '../../services/risk-problem';
 import { AuthService } from '../../services/auth';
+import { UtilsService } from '../../services/utils';
 
 @Component({
   selector: 'page-risk',
@@ -25,11 +26,11 @@ export class RiskPage implements OnInit {
   risk: Risk;
 
   constructor(
+    private utilsService: UtilsService,
     private navCtrl: NavController,
     private navParams: NavParams,
     private alertCtrl: AlertController,
     private riskService: RiskService,
-    private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
     private riskIdentificationService: RiskIdentificationService,
     private riskProblemService: RiskProblemService,
@@ -70,14 +71,14 @@ export class RiskPage implements OnInit {
         .subscribe(
         res => {
           loading.dismiss().then(() => {
-            this.handleMessage(res.success).then(() => {
+            this.utilsService.handleToast(res.success).then(() => {
               this.risk.riskIdentificationId = res.result.insertId;
             })
           });
         },
         err => {
           loading.dismiss().then(() => {
-            this.handleMessage(err.error);
+            this.utilsService.handleToast(err.error);
           })
         }
         );
@@ -91,7 +92,7 @@ export class RiskPage implements OnInit {
         .subscribe(
         res => {
           loading.dismiss().then(() => {
-            this.handleMessage(res.success).then(() => {
+            this.utilsService.handleToast(res.success).then(() => {
               this.risk.riskIdentificationId = null;
               this.risk.riskIdentificationResponse = null;
             })
@@ -99,7 +100,7 @@ export class RiskPage implements OnInit {
         },
         err => {
           loading.dismiss().then(() => {
-            this.handleMessage(err.error).then(() => {
+            this.utilsService.handleToast(err.error).then(() => {
               this.tRiskIdentification = true;
             })
           });
@@ -121,14 +122,14 @@ export class RiskPage implements OnInit {
         .subscribe(
         res => {
           loading.dismiss().then(() => {
-            this.handleMessage(res.success).then(() => {
+            this.utilsService.handleToast(res.success).then(() => {
               this.risk.riskProblemId = res.result.insertId;
             })
           });
         },
         err => {
           loading.dismiss().then(() => {
-            this.handleMessage(err.error);
+            this.utilsService.handleToast(err.error);
           });
         }
         );
@@ -139,7 +140,7 @@ export class RiskPage implements OnInit {
         .subscribe(
         res => {
           loading.dismiss().then(() => {
-            this.handleMessage(res.success).then(() => {
+            this.utilsService.handleToast(res.success).then(() => {
               this.risk.riskProblemId = null;
               this.risk.riskProblemDeal = null;
             })
@@ -147,7 +148,7 @@ export class RiskPage implements OnInit {
         },
         err => {
           loading.dismiss().then(() => {
-            this.handleMessage(err.error).then(() => {
+            this.utilsService.handleToast(err.error).then(() => {
               this.tRiskProblem = true;
             })
           });
@@ -176,13 +177,13 @@ export class RiskPage implements OnInit {
               res => {
                 loading.dismiss().then(() => {
                   this.navCtrl.popToRoot().then(() => {
-                    this.handleMessage(res.success);
+                    this.utilsService.handleToast(res.success);
                   })
                 })
               },
               err => {
                 loading.dismiss().then(() => {
-                  this.handleMessage(err.error);
+                  this.utilsService.handleToast(err.error);
                 })
               }
               );
@@ -209,12 +210,12 @@ export class RiskPage implements OnInit {
       })
         .subscribe(
         res => {
-          this.handleMessage(res.success).then(() => {
+          this.utilsService.handleToast(res.success).then(() => {
             this.risk.riskIdentificationResponse = input.value;
           })
         },
         err => {
-          this.handleMessage(err.error);
+          this.utilsService.handleToast(err.error);
         });
     }
   }
@@ -227,12 +228,12 @@ export class RiskPage implements OnInit {
       })
         .subscribe(
         res => {
-          this.handleMessage(res.success).then(() => {
+          this.utilsService.handleToast(res.success).then(() => {
             this.risk.riskProblemDeal = input.value;
           })
         },
         err => {
-          this.handleMessage(err.error);
+          this.utilsService.handleToast(err.error);
         });
     }
   }
@@ -244,13 +245,5 @@ export class RiskPage implements OnInit {
         this.riskIdentifications = riskIdentifications;
       },
       err => { });
-  }
-
-  private handleMessage(message: string) {
-    const toast = this.toastCtrl.create({
-      message: message, duration: 2000, position: 'bottom'
-    });
-
-    return new Promise(resolve => toast.present());
   }
 }

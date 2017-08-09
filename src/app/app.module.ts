@@ -31,6 +31,7 @@ import { RiskIdentificationService } from '../services/risk-identification';
 import { RiskProblemService } from '../services/risk-problem';
 import { AnalyticsPage } from '../pages/analytics/analytics';
 import { AnalyticService } from '../services/analytic';
+import { UtilsService } from '../services/utils';
 
 @NgModule({
   declarations: [
@@ -75,6 +76,7 @@ import { AnalyticService } from '../services/analytic';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UtilsService,
     ProjectService,
     ActivityService,
     RiskService,
