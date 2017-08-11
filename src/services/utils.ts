@@ -8,7 +8,7 @@ export class UtilsService {
     private alertCtrl: AlertController
   ) { }
 
-  public handleToast(message: string): Promise<boolean> {    
+  public handleToast(message: string): Promise<any> {    
     return new Promise((resolve, reject) => {
       const toast = this.toastCtrl.create({
         message: message, duration: 2000, position: 'bottom'
@@ -18,7 +18,7 @@ export class UtilsService {
     });
   }
 
-  public handleAlert(title: string, message: string): Promise<boolean> {
+  public handleAlert(title: string, message: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const alert = this.alertCtrl.create({
         title: title, message: message, buttons: ['Ok']

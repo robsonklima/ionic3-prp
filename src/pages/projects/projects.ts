@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController } from 'ionic-angular';
 
 import { Project } from './../../models/project';
 import { Activity } from '../../models/activity';
@@ -20,7 +20,8 @@ export class ProjectsPage {
   constructor(
     private navCtrl: NavController,
     private projectService: ProjectService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController
   ) { }
 
   onLoadProject(project: Project) {
@@ -32,13 +33,20 @@ export class ProjectsPage {
   };
 
   private loadProjects() {
+    const loading = this.loadingCtrl.create({ 
+      content: 'Please wait...' 
+    });
+    loading.present();
+
     this.projectService.getProjects()
       .subscribe(
       projects => {
         this.projects = projects;
+        loading.dismiss();
       },
       err => {
         this.handleMessage('An error ocurred', err.error);
+        loading.dismiss();
       });
   }
 
